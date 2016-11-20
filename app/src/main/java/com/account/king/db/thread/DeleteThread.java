@@ -1,8 +1,6 @@
-package com.example.administrator.databasetest.db.thread;
+package com.account.king.db.thread;
 
 import android.database.sqlite.SQLiteDatabase;
-
-import com.example.administrator.databasetest.callback.DaoRequesrCallBack;
 
 import java.lang.ref.WeakReference;
 
@@ -13,16 +11,14 @@ import java.lang.ref.WeakReference;
 public class DeleteThread  extends Thread {
     protected WeakReference<SQLiteDatabase> dbRef;
     protected String table ;
-    protected DaoRequesrCallBack callBack;
     private String whereClause ;
     private String[] whereArgs;
 
-    public DeleteThread(SQLiteDatabase db, String table, String whereClause, String[] whereArgs, DaoRequesrCallBack callBack){
+    public DeleteThread(SQLiteDatabase db, String table, String whereClause, String[] whereArgs){
         this.dbRef = new WeakReference<SQLiteDatabase>(db);
         this.table = table;
         this.whereClause = whereClause;
         this.whereArgs =whereArgs;
-        this.callBack = callBack;
     }
 
     @Override
@@ -45,13 +41,6 @@ public class DeleteThread  extends Thread {
         }finally {
             if (db.inTransaction()){
                 db.endTransaction();
-            }
-        }
-        if (null !=callBack){
-            if (flag){
-                callBack.onSucess(id);
-            }else {
-                callBack.onFailure();
             }
         }
     }

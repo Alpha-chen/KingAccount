@@ -1,10 +1,9 @@
-package com.example.administrator.databasetest.db.thread;
+package com.account.king.db.thread;
+
 
 import android.content.ContentValues;
 import android.database.sqlite.SQLiteDatabase;
 import android.text.TextUtils;
-
-import com.example.administrator.databasetest.callback.DaoRequesrCallBack;
 
 import java.lang.ref.WeakReference;
 
@@ -18,15 +17,13 @@ public class UpdateThread  extends Thread{
     String whereClause;
     String[] whereArgs;
     ContentValues values;
-    private DaoRequesrCallBack callback;
 
-    public UpdateThread(SQLiteDatabase db, String table, ContentValues values, DaoRequesrCallBack callBack) {
+    public UpdateThread(SQLiteDatabase db, String table, ContentValues values) {
         this.dbRef = new WeakReference(db);
         this.table = table;
         this.values = values;
         this.whereClause = whereClause;
         this.whereArgs = whereArgs;
-        this.callback = callback;
     }
 
 
@@ -52,13 +49,6 @@ public class UpdateThread  extends Thread{
                 db.endTransaction();
             }
         }
-        if (null != callback) {
-            if (flag) {
-                callback.onSucess(id);
-            } else {
-                callback.onFailure();
-            }
-        }
-        //closeDatabase(db);
+
     }
 }

@@ -5,18 +5,18 @@ import android.database.DatabaseErrorHandler;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import com.account.king.FeedNode;
+import com.account.king.node.AccountNode;
 
 
 /**
- * Created by xupangen
+ * Created by King
  * on 2016/10/15.
  */
 public class DBHelper extends SQLiteOpenHelper {
 
-    private static final String TABLE_FEED="table_feed";
-    private static DBHelper dBhelper;
-    private static String DB_NAME= "feedtest_1.0.db";
+    private static final String TABLE_ACCOUNT="king_account";
+    private static DBHelper dbHelper;
+    private static String DB_NAME= "account_1.0.db";
     private static int DB_VERSION =1;
 
     /**
@@ -26,14 +26,14 @@ public class DBHelper extends SQLiteOpenHelper {
      */
     public static synchronized  DBHelper getInstances(Context context){
         context= context.getApplicationContext();
-        if (null == dBhelper){
+        if (null == dbHelper){
             synchronized (DBHelper.class){
-                if (null == dBhelper){
-                    dBhelper = new DBHelper(context.getApplicationContext(),DB_NAME,null,DB_VERSION);
+                if (null == dbHelper){
+                    dbHelper = new DBHelper(context.getApplicationContext(),DB_NAME,null,DB_VERSION);
                 }
             }
         }
-        return dBhelper;
+        return dbHelper;
     }
 
     public DBHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
@@ -48,14 +48,17 @@ public class DBHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
 
         StringBuilder CREATE_FEED_TABLE = new StringBuilder(
-                "CREATE TABLE IF NOT EXISTS").append(TABLE_FEED)
+                "CREATE TABLE IF NOT EXISTS").append(TABLE_ACCOUNT)
                 .append(" ( ")
-                .append(FeedNode.ID)
-                .append("  integer PRIMARY KEY autoincrement,")
-                .append(FeedNode.MOOD)
-                .append(FeedNode.COMMENT)
-                .append(FeedNode.FEEDSTATUS).append(" integer,")
-                .append(FeedNode.LINK);
+                .append(AccountNode.ID)
+                .append("  integer PRIMARY KEY autoincrement, ")
+                .append(AccountNode.PRICE).append(", ")
+                .append(AccountNode.COUNT).append(", ")
+                .append(AccountNode.ACCOUNT_TYPE).append(", ")
+                .append(AccountNode.TYPE).append(", ")
+                .append(AccountNode.DATE_YMD).append(", ")
+                .append(AccountNode.TIME_HMS).append(", ")
+                .append(AccountNode.ATTACHMENT).append(" )");
 
         if (null!=db){
             db.execSQL(CREATE_FEED_TABLE.toString());
@@ -65,6 +68,5 @@ public class DBHelper extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         //更新数据库的时候就是 根据不同的数据库版本，执行不同的数据库更新操作
-
     }
 }
