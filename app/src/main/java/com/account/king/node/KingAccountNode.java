@@ -7,7 +7,7 @@ import java.io.Serializable;
  * on 2016/11/20.
  */
 
-public class AccountNode implements Serializable{
+public class KingAccountNode implements Serializable{
     /**
      * id : 0
      * price : 1.8
@@ -53,7 +53,7 @@ public class AccountNode implements Serializable{
     private String time_hms;
     public static String TIME_HMS ="time_hms";
 
-    public AccountNode() {
+    public KingAccountNode() {
     }
 
     public int getId() {
