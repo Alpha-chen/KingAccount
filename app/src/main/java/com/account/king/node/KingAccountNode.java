@@ -1,5 +1,8 @@
 package com.account.king.node;
 
+import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.table.DatabaseTable;
+
 import java.io.Serializable;
 
 /**
@@ -7,6 +10,7 @@ import java.io.Serializable;
  * on 2016/11/20.
  */
 
+@DatabaseTable(tableName = "king_account")
 public class KingAccountNode implements Serializable{
     /**
      * id : 0
@@ -18,16 +22,19 @@ public class KingAccountNode implements Serializable{
      * date_ymd : 20161120
      * time_hms : 20:10:45
      */
-
+    @DatabaseField(generatedId = true)
     private int id;
     public static String ID="id";
+    @DatabaseField(columnName = "price")
     private double price;
     public static String PRICE ="price";
+    @DatabaseField(columnName = "count")
     private double count;
     public static String COUNT ="count";
     /**
      * 收入/支出
      */
+    @DatabaseField(columnName = "account_type")
     private int account_type;
     public static String ACCOUNT_TYPE ="account_type";
     public static int INCOME =0; // 收入
@@ -35,21 +42,25 @@ public class KingAccountNode implements Serializable{
     /**
      * 类型 薪水/交通
      */
+    @DatabaseField(columnName = "type")
     private int type;
     public static String TYPE ="type";
     /**
      * 附件信息
      */
+    @DatabaseField(columnName = "attachment")
     private Attachment attachment;
     public static String ATTACHMENT ="attachment";
     /**
      * 记录时间
      */
+    @DatabaseField(columnName = "date_ymd")
     private int date_ymd;
     public static String DATE_YMD ="date_ymd";
     /**
      * 记录的详细时间
      */
+    @DatabaseField(columnName = "time_hms")
     private String time_hms;
     public static String TIME_HMS ="time_hms";
 
