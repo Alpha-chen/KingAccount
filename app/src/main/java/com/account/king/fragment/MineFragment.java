@@ -10,19 +10,17 @@ import android.view.ViewGroup;
 import com.account.king.R;
 
 /**
+ * 我的界面
  */
 public class MineFragment extends BaseFragment implements View.OnClickListener {
-
-
     private View root;
     private Context context;
-
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         if (null == root) {
-            root = inflater.inflate(R.layout.fragment_home, container, false);
+            root = inflater.inflate(R.layout.fragment_mine, container, false);
             initView();
             initPresenter();
             updateViewData();

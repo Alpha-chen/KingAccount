@@ -8,45 +8,50 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/main_bottom" />
-
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:text="主界面"/>
     <RelativeLayout
         android:id="@+id/main_bottom"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:background="@color/colorPrimary_70"
-
         android:paddingBottom="15dp">
 
-        <ImageView
+        <Button
             android:id="@+id/main_detail"
-            android:layout_width="45dp"
+            android:layout_width="60dp"
             android:layout_height="45dp"
             android:layout_marginLeft="43dp"
-            android:src="@drawable/above_shadow" />
+            android:text="@string/main_home"
+            android:textColor="@color/white"
+            android:background="@drawable/round_bg_selector" />
 
-        <ImageView
-            android:id="@+id/main_record"
+        <Button
+            android:id="@+id/main_add"
             android:layout_width="120dp"
             android:layout_height="45dp"
             android:layout_centerHorizontal="true"
-            android:src="@drawable/above_shadow" />
+            android:text="@string/app_name"
+            android:textColor="@color/white"
+            android:background="@drawable/round_bg_selector" />
         <RelativeLayout
             android:layout_width="45dp"
             android:layout_height="45dp"
             android:layout_marginRight="43dp"
             android:layout_alignParentRight="true">
-            <ImageView
+
+            <Button
                 android:id="@+id/main_mine"
-                android:layout_width="45dp"
+                android:layout_width="60dp"
                 android:layout_height="45dp"
-                android:src="@drawable/above_shadow" />
-            <ImageView
-                android:id="@+id/main_new"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
-                android:src="@drawable/above_shadow"/>
+                android:textColor="@color/white"
+                android:text="@string/main_mine"
+                android:background="@drawable/round_bg_selector"/>
+
         </RelativeLayout>
 
 

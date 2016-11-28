@@ -1,28 +1,53 @@
 package com.account.king;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.view.View;
+import android.widget.Button;
+import android.widget.RelativeLayout;
 
-import com.account.king.fragment.HomeFragment;
+import com.account.king.fragment.AccountFragment;
 import com.account.king.fragment.MineFragment;
 import com.account.king.presenter.contract.MainContract;
+import com.account.king.util.LogUtil;
 
-public class MainActivity extends BaseActivity implements MainContract.IMainView{
+/**
+ * 主界面
+ */
+public class MainActivity extends BaseActivity implements MainContract.IMainView,View.OnClickListener{
     private FragmentManager fragmentManager;
     private Fragment fragmentArray[] = new Fragment[3];
 
+    private Button mMain_detail;
+    private Button mMain_add;
+    private Button mMain_mine;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        initView();
         setTabSelection(0);
-
     }
 
     @Override
     protected int getLayoutResId() {
         return R.layout.activity_main;
+    }
+
+    @Override
+    public void initView() {
+        super.initView();
+        fragmentManager = getSupportFragmentManager();
+        mMain_detail = (Button) findViewById(R.id.main_detail);
+        mMain_add = (Button) findViewById(R.id.main_add);
+        mMain_mine = (Button) findViewById(R.id.main_mine);
+
+        mMain_detail.setOnClickListener(this);
+        mMain_add.setOnClickListener(this);
+        mMain_mine.setOnClickListener(this);
+
     }
 
     /**
@@ -70,11 +95,33 @@ public class MainActivity extends BaseActivity implements MainContract.IMainView
     private Fragment getFragment(int index) {
         switch (index) {
             case 0:
-                return new HomeFragment();
-            case 2:
+                return new AccountFragment();
+            case 1:
                 return new MineFragment();
             default:
-                return new HomeFragment();
+                return new AccountFragment();
         }
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.main_detail:
+                LogUtil.d("MainActivity","0");
+                setTabSelection(0);
+                break;
+            case R.id.main_add:
+                setTabSelection(0);
+                LogUtil.d("MainActivity","AddAccountActivity");
+                startActivity(new Intent(this, AddAccountActivity.class));
+                break;
+            case R.id.main_mine:
+                LogUtil.d("MainActivity","1");
+                setTabSelection(1);
+                break;
+            default:
+                break;
+        }
+
     }
 }

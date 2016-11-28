@@ -9,10 +9,10 @@ import android.view.ViewGroup;
 
 import com.account.king.R;
 
-/**
- * Created by lcp on 2016/6/12.
+/***
+ * @author  King
  */
-public class HomeFragment extends BaseFragment implements View.OnClickListener {
+public class AccountFragment extends BaseFragment implements View.OnClickListener {
 
     private View root;
 

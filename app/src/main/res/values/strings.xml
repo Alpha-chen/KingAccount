@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">King记账</string>
+    <string name="main_add_account">记一记</string>
+    <string name="main_home">账单</string>
+    <string name="main_mine">我的</string>
+
 </resources>
