@@ -7,4 +7,6 @@
     <!--添加记账-->
     <string name="type_cost">支出</string>
     <string name="type_income">收入</string>
+
+    <string name="no_action">未找到action</string>
 </resources>

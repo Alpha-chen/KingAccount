@@ -17,6 +17,19 @@
         <item name="android:windowAnimationStyle">@style/Animation</item>
     </style>
 
+    <style name="SwitchCompat" parent="ImageTranslucentTheme">
+        <!-- colorPrimary is used for the default action bar background -->
+        <item name="colorPrimary">@color/color_bg</item>
+        <!-- colorPrimaryDark is used for the status bar -->
+        <item name="colorPrimaryDark">@color/color_bg</item>
+        <!-- colorAccent is used as the default value for colorControlActivated,
+             which is used to tint widgets -->
+        <item name="colorAccent">@color/switch_compat</item>
+        <!-- You can also set colorControlNormal, colorControlActivated
+             colorControlHighlight, and colorSwitchThumbNormal. -->
+    </style>
+
+
     <style name="Animation" parent="@android:style/Animation.Activity">
         <item name="android:activityOpenEnterAnimation">@anim/activity_push_bottom_in</item>
         <item name="android:activityOpenExitAnimation">@android:anim/fade_out</item>
@@ -24,4 +37,10 @@
         <item name="android:activityCloseExitAnimation">@anim/activity_push_bottom_out</item>
     </style>
 
+    <style name="type_btn">
+        <item name="android:layout_width">97dp</item>
+        <item name="android:layout_height">36dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">17sp</item>
+    </style>
 </resources>

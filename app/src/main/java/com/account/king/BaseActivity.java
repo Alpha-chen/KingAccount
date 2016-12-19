@@ -11,6 +11,7 @@ import com.account.king.rxevent.RxBus;
 import com.account.king.rxevent.RxBusEvent;
 import com.account.king.util.ActivityManager;
 import com.account.king.util.KeyBoardUtils;
+import com.account.king.util.statusbar.StatusBarUtil;
 
 import rx.Subscription;
 import rx.functions.Action1;
@@ -24,12 +25,20 @@ public abstract class BaseActivity extends AppCompatActivity implements Action1<
 
     public String TAG = "BaseActivity";
     public Subscription mSubscription;
+    //背景式状态栏
+    private static final String imageTranStatusBar = "LogoActivity,InputLockActivity";
+    //由子类自定义
+    private static final String customTranStatusBar = "CalendarActivity";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(getLayoutResId());
+        ActivityManager.getInstance().pushOneActivity(this);
         mSubscription = RxBus.getDefault().toObserverable(RxBusEvent.class).subscribe(this);
+        StatusBarUtil.setTransparent(this);
+        StatusBarUtil.setColor(this,getResources().getColor(R.color.color_bg),0);
+
     }
 
     /**
@@ -38,6 +47,7 @@ public abstract class BaseActivity extends AppCompatActivity implements Action1<
      * @return
      */
     abstract protected int getLayoutResId();
+
     @Override
     public void call(RxBusEvent event) {
 
@@ -69,7 +79,7 @@ public abstract class BaseActivity extends AppCompatActivity implements Action1<
     protected void onDestroy() {
         super.onDestroy();
         ActivityManager.getInstance().popOneActivity(this);
-        if (mSubscription != null && !mSubscription.isUnsubscribed()){
+        if (mSubscription != null && !mSubscription.isUnsubscribed()) {
             mSubscription.unsubscribe();
         }
     }

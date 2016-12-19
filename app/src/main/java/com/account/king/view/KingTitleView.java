@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.account.king.R;
 import com.account.king.util.ActivityManager;
+import com.account.king.util.LogUtil;
 import com.account.king.util.ToastUtil;
 
 /**
@@ -22,6 +23,7 @@ import com.account.king.util.ToastUtil;
  */
 
 public class KingTitleView extends LinearLayout implements View.OnClickListener {
+    private String TAG = "KingTitleView";
     private Context mContext;
     private ImageView leftView;
     private boolean hideLeft = false;
@@ -41,23 +43,23 @@ public class KingTitleView extends LinearLayout implements View.OnClickListener 
 
     public KingTitleView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        TypedArray array = context.obtainStyledAttributes(attrs, R.styleable.TitleView, defStyleAttr, 0);
+        TypedArray array = context.obtainStyledAttributes(attrs, R.styleable.KingTitleView, defStyleAttr, 0);
         if (null != array) {
-            titleLeftRes = array.getResourceId(R.styleable.TitleView_titleLeftImg, R.drawable.title_back);
-            titleStr = array.getString(R.styleable.TitleView_kingTitle);
-            rightViewRes = array.getResourceId(R.styleable.TitleView_rightImg, R.drawable.title_search);
-            rightTextStr = array.getString(R.styleable.TitleView_rightText);
-            hideLeft = array.getBoolean(R.styleable.TitleView_hideLeft, false);
+            titleLeftRes = array.getResourceId(R.styleable.KingTitleView_titleLeftImg, 0);
+            titleStr = array.getString(R.styleable.KingTitleView_kingTitle);
+            rightViewRes = array.getResourceId(R.styleable.KingTitleView_rightImg, 0);
+            rightTextStr = array.getString(R.styleable.KingTitleView_rightText);
+            hideLeft = array.getBoolean(R.styleable.KingTitleView_leftBackImg, false);
             array.recycle();
         }
     }
 
     public KingTitleView(Context context, AttributeSet attrs) {
-        super(context, attrs);
+        this(context, attrs, 0);
     }
 
     public KingTitleView(Context context) {
-        super(context);
+        this(context, null);
     }
 
     @Override
@@ -80,6 +82,7 @@ public class KingTitleView extends LinearLayout implements View.OnClickListener 
     }
 
     public void rendView() {
+        LogUtil.d(TAG, "hideLeft=" + hideLeft);
         if (hideLeft) {
             leftView.setVisibility(GONE);
         } else {

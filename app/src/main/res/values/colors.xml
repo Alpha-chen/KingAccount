@@ -6,5 +6,59 @@
     <color name="colorAccent">#FF4081</color>
     <color name="my_color">#63b8ff</color>
     <color name="dark_my_color">#9263B8FF</color>
+
+    <color name="transp">#00000000</color>
+    <color name="black">#000000</color>
+    <color name="black_50">#88000000</color>
+
+    <color name="rectangle_gray">#EFEFEF</color>
+
+    <!--keyboard-->
+    <color name="keyboard_normal">#6F6161</color>
+    <color name="keyboard_press">#5F5151</color>
+    <color name="keyboard_line">#5F5151</color>
+
+    <color name="color1">#714C5B</color><!--说明文字 color1-->
+    <color name="color2">#B3714C5B</color><!--说明文字值 color2-->
+    <color name="color3">#66714C5B</color><!--提示 color3-->
+    <color name="color4">#FF9DB7</color><!--粉色文字 color4-->
+    <color name="color5">#FF8AA9</color><!--粉色文字 List item cost -->
+    <color name="color6">#97D7EF</color><!-- List item income -->
+    <color name="color_bg">#63b8ff</color> <!--背景色-->
+    <color name="color_bg_20">#33FFADC4</color> <!--背景色-->
+    <color name="color_bg_press">#FF91B1</color>
+    <color name="item_child_line">#F7F1F5</color>
+
+
+    <color name="money_balance">#8FB7F8</color>
+
+    <color name="home_dash_line">#F2E9EE</color>
+    <color name="pink_bg">#FFFAFC</color>
     <color name="white">#FFFFFF</color>
+
+    <color name="progress_bg">#F4EEEE</color>
+
+    <color name="add_select_type">#D7BA82</color>
+
+    <!--login register-->
+    <color name="login_edit_bg">#F5EDF0</color>
+
+    <color name="transparent_black_60">#99000000</color><!--弹框灰色背景-->
+
+    <!--switch compat-->
+    <color name="switch_compat">#44DB5E</color>
+    <color name="picker_line">#979797</color>
+    <color name="detail_line">#FFBCCB</color>
+
+    <!--calendar-->
+    <color name="calendar_has_income">#B1F1FF</color>
+    <color name="calendar_has_cost">#FF7998</color>
+    <color name="calendar_week_bg">#FFF3F5</color>
+
+
+    <color name="light_gray">#999999</color>
+    <color name="logo_360">#6e8393</color>
+    <color name="tip_color">#FF93B7</color>
+
+
 </resources>
