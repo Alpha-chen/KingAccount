@@ -4,4 +4,7 @@
     <string name="main_home">账单</string>
     <string name="main_mine">我的</string>
 
+    <!--添加记账-->
+    <string name="type_cost">支出</string>
+    <string name="type_income">收入</string>
 </resources>
