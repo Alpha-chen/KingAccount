@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="RectangleView">
+        <attr name="modle"  format="enum" >
+            <enum name="top" value="0" />
+            <enum name="center" value="1" />
+            <enum name="bottom" value="2" />
+            <enum name="single" value="3" />
+        </attr>
+        <attr name="left_icon" format="reference"/>
+        <attr name="left_icon_visibility" format="boolean"/>
+        <attr name="left_title" format="reference"/>
+        <attr name="left_title_left_margin" format="dimension"/>
+        <attr name="new_visibility" format="boolean"/>
+        <attr name="arrow_visibility" format="boolean"/>
+        <attr name="right_title" format="reference"/>
+        <attr name="right_title_color" format="reference"/>
+        <attr name="root_bg" format="reference"/>
+
+    </declare-styleable>
+
+    <declare-styleable name="RoundCornerImageView">
+        <attr name="corner_radius" format="dimension" />
+    </declare-styleable>
+
+    <declare-styleable name="CalendarPicker">
+        <attr name="show_modle"  format="enum" >
+            <enum name="select" value="0" />
+            <enum name="calendar" value="1" />
+        </attr>
+        <attr name="week_color" format="reference"/>
+        <attr name="week_bg" format="reference"/>
+        <attr name="week_height" format="dimension"/>
+        <attr name="week_tv_textsize" format="integer"/>
+    </declare-styleable>
+    
+    <declare-styleable name="LimitNumberEditText">
+        <attr name="max_num" format="integer"/>
+    </declare-styleable>
+
+    <declare-styleable name="CustomClearEditText">
+        <attr name="right_icon" format="reference"/>
+    </declare-styleable>
+
+    <declare-styleable name="AutofitTextView">
+        <!-- Minimum size of the text. -->
+        <attr name="minTextSize" format="dimension" />
+        <!-- Amount of precision used to calculate the correct text size to fit within its
+        bounds. Lower precision is more precise and takes more time. -->
+        <attr name="precision" format="float" />
+        <!-- Defines whether to automatically resize text to fit to the view's bounds. -->
+        <attr name="sizeToFit" format="boolean" />
+    </declare-styleable>
+
+    <declare-styleable name="MultiViewPager">
+        <!-- Child view inside a page to match the page size against. -->
+        <attr name="matchChildWidth" format="reference" />
+        <!-- Maximum size. -->
+        <attr name="android:maxWidth" />
+        <!-- Maximum size. -->
+        <attr name="android:maxHeight" />
+    </declare-styleable>
+
+    <declare-styleable name="Lock9View">
+        <attr name="lock9_nodeSrc" format="color|reference" />
+        <attr name="lock9_nodeOnSrc" format="color|reference" />
+        <attr name="lock9_nodeSize" format="dimension" />
+        <attr name="lock9_nodeAreaExpand" format="dimension" />
+        <attr name="lock9_nodeOnAnim" format="reference" />
+        <attr name="lock9_lineColor" format="color" />
+        <attr name="lock9_lineWidth" format="dimension" />
+        <attr name="lock9_padding" format="dimension" />
+        <attr name="lock9_spacing" format="dimension" />
+        <attr name="lock9_autoLink" format="boolean" />
+        <attr name="lock9_enableVibrate" format="boolean" />
+        <attr name="lock9_vibrateTime" format="integer" />
+    </declare-styleable>
+    
+    <declare-styleable name="SpringProgressView">
+        <!-- Child view inside a page to match the page size against. -->
+        <attr name="progress_color" format="reference" />
+    </declare-styleable>
+
+</resources>

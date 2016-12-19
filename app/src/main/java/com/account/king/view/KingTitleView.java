@@ -1,0 +1,164 @@
+package com.account.king.view;
+
+import android.content.Context;
+import android.content.Intent;
+import android.content.res.TypedArray;
+import android.text.TextUtils;
+import android.util.AttributeSet;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+
+import com.account.king.R;
+import com.account.king.util.ActivityManager;
+import com.account.king.util.ToastUtil;
+
+/**
+ * 顶部的title
+ * Created by King
+ * on 2016/12/19.
+ */
+
+public class KingTitleView extends LinearLayout implements View.OnClickListener {
+    private Context mContext;
+    private ImageView leftView;
+    private boolean hideLeft = false;
+
+    private LinearLayout titleLay;
+    private ImageView titleLeftIv;
+    private int titleLeftRes;
+    private TextView title;
+    private String titleStr;
+
+    private ImageView rightView;
+    private int rightViewRes;
+    private String rightViewAction;
+
+    private TextView rightText;
+    private String rightTextStr;
+
+    public KingTitleView(Context context, AttributeSet attrs, int defStyleAttr) {
+        super(context, attrs, defStyleAttr);
+        TypedArray array = context.obtainStyledAttributes(attrs, R.styleable.TitleView, defStyleAttr, 0);
+        if (null != array) {
+            titleLeftRes = array.getResourceId(R.styleable.TitleView_titleLeftImg, R.drawable.title_back);
+            titleStr = array.getString(R.styleable.TitleView_kingTitle);
+            rightViewRes = array.getResourceId(R.styleable.TitleView_rightImg, R.drawable.title_search);
+            rightTextStr = array.getString(R.styleable.TitleView_rightText);
+            hideLeft = array.getBoolean(R.styleable.TitleView_hideLeft, false);
+            array.recycle();
+        }
+    }
+
+    public KingTitleView(Context context, AttributeSet attrs) {
+        super(context, attrs);
+    }
+
+    public KingTitleView(Context context) {
+        super(context);
+    }
+
+    @Override
+    protected void onFinishInflate() {
+        super.onFinishInflate();
+        LayoutInflater layoutInflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View view = layoutInflater.inflate(R.layout.title_view, this);
+        leftView = (ImageView) view.findViewById(R.id.title_left_back_img);
+        leftView.setOnClickListener(this);
+        titleLeftIv = (ImageView) view.findViewById(R.id.title_left_img);
+        title = (TextView) view.findViewById(R.id.title);
+
+        rightView = (ImageView) view.findViewById(R.id.title_right_img);
+        rightView.setOnClickListener(this);
+
+        rightText = (TextView) view.findViewById(R.id.title_right_text);
+        rightText.setOnClickListener(this);
+        rendView();
+
+    }
+
+    public void rendView() {
+        if (hideLeft) {
+            leftView.setVisibility(GONE);
+        } else {
+            leftView.setVisibility(VISIBLE);
+        }
+        if (!TextUtils.isEmpty(titleStr)) {
+            title.setText(titleStr);
+        }
+        if (0 != titleLeftRes) {
+            titleLeftIv.setVisibility(VISIBLE);
+            titleLeftIv.setImageResource(titleLeftRes);
+        } else {
+            titleLeftIv.setVisibility(GONE);
+        }
+
+        if (0 != rightViewRes) {
+            rightView.setVisibility(VISIBLE);
+            rightView.setImageResource(rightViewRes);
+        } else {
+            rightView.setVisibility(GONE);
+        }
+        if (TextUtils.isEmpty(rightTextStr)) {
+            rightText.setVisibility(GONE);
+        } else {
+            rightText.setVisibility(VISIBLE);
+            rightText.setText(rightTextStr);
+        }
+    }
+
+
+    public void setTitleLeftRes(int titleLeftRes) {
+        this.titleLeftRes = titleLeftRes;
+        rendView();
+    }
+
+    public void setTitleStr(String titleStr) {
+        this.titleStr = titleStr;
+        rendView();
+    }
+
+    public void setRightViewRes(int rightViewRes) {
+        this.rightViewRes = rightViewRes;
+        rendView();
+    }
+
+    public void setRightViewAction(String rightViewAction) {
+        this.rightViewAction = rightViewAction;
+        rendView();
+    }
+
+    public void setRightText(TextView rightText) {
+        this.rightText = rightText;
+        rendView();
+    }
+
+    public void setRightTextStr(String rightTextStr) {
+        this.rightTextStr = rightTextStr;
+        rendView();
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.title_left_back_img: // 退出
+                ActivityManager.getInstance().getLastActivity().finish();
+                break;
+            case R.id.title_right_text: // 右边文字的点击事件
+                break;
+            case R.id.title_right_img: // 右边按钮的点击事件
+                if (TextUtils.isEmpty(rightViewAction)) {
+                    ToastUtil.makeToast(mContext, mContext.getResources().getString(R.string.no_action));
+                    break;
+                }
+                Intent intent = new Intent(rightViewAction);
+                mContext.startActivity(intent);
+                break;
+            default:
+                break;
+        }
+    }
+
+}
