@@ -37,8 +37,8 @@ public class KingAccountNode implements Serializable{
     @DatabaseField(columnName = "account_type")
     private int account_type;
     public static String ACCOUNT_TYPE ="account_type";
-    public static int INCOME =0; // 收入
-    public static int OUTCOME =1; // 支出
+    public static int MONEY_IN =0; // 收入
+    public static int MONEY_OUT =1; // 支出
     /**
      * 类型 薪水/交通
      */

@@ -14,7 +14,7 @@ import android.graphics.Shader;
 import android.util.AttributeSet;
 import android.widget.ImageView;
 
-import net.ffrj.pinkwallet.R;
+import com.account.king.R;
 
 
 /**

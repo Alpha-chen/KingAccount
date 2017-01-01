@@ -9,4 +9,8 @@
     <string name="type_income">收入</string>
 
     <string name="no_action">未找到action</string>
+
+    <string name="account_price">单价:</string>
+    <string name="account_count">数量:</string>
+    <string name="account_type">类型:</string>
 </resources>

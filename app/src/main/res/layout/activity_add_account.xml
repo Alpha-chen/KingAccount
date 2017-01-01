@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:autofit="http://schemas.android.com/apk/res-auto"
     android:id="@+id/activity_add_account"
     android:layout_width="match_parent"
+
     android:layout_height="match_parent">
+
     <RelativeLayout
         android:id="@+id/top_bar"
         android:layout_width="match_parent"
@@ -23,14 +26,14 @@
                 android:layout_marginLeft="10dp"
                 android:background="@null"
                 android:text="@string/type_income"
-                android:textColor="@color/white" />
+                android:textColor="@color/white"/>
 
             <TextView
                 android:id="@+id/add_type_cost_btn"
                 style="@style/type_btn"
                 android:background="@drawable/add_count_type_select"
                 android:text="@string/type_cost"
-                android:textColor="@color/my_color" />
+                android:textColor="@color/my_color"/>
 
         </LinearLayout>
 
@@ -38,22 +41,242 @@
             android:id="@+id/title_left"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:gravity="center_vertical"
-            android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true">
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:gravity="center_vertical">
 
             <ImageView
                 android:id="@+id/title_left_image"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:src="@drawable/close"
                 android:layout_marginLeft="@dimen/margin_left_right"
-                android:visibility="visible" />
+                android:src="@drawable/title_close_selector"
+                android:visibility="visible"/>
 
         </RelativeLayout>
 
+        <ImageView
+            android:id="@+id/add_account_done"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/margin_left_right"
+            android:gravity="right"
+            android:src="@drawable/ic_done_selector"
+            />
     </RelativeLayout>
 
+    <LinearLayout
+        android:id="@+id/add_account_lay"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/top_bar"
+        android:layout_marginTop="30dip"
+        android:orientation="vertical">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.3dp"
+            android:background="@color/black_50"/>
+
+        <RelativeLayout
+            android:id="@+id/account_price_lay"
+            android:layout_width="wrap_content"
+            android:layout_height="70dip"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dip">
+
+            <ImageView
+                android:id="@+id/account_price_iv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:src="@drawable/ic_moeny"/>
+
+            <TextView
+                android:id="@+id/account_price_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dip"
+                android:layout_toEndOf="@+id/account_price_iv"
+                android:layout_toRightOf="@+id/account_price_iv"
+                android:text="@string/account_price"
+                android:textSize="20sp"/>
+
+            <com.account.king.view.autofit.AutofitTextView
+                android:id="@+id/account_price_input"
+                android:layout_width="match_parent"
+                android:layout_height="55dip"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@id/account_price_tv"
+                android:gravity="right|center"
+                android:singleLine="true"
+                android:text="0.00"
+                android:textColor="@color/my_color"
+                android:textSize="30sp"
+                autofit:minTextSize="8sp"/>
+
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.3dp"
+            android:background="@color/black_50"/>
+
+        <RelativeLayout
+            android:id="@+id/account_count_lay"
+            android:layout_width="wrap_content"
+            android:layout_height="70dip"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dip">
+
+            <ImageView
+                android:id="@+id/account_count_iv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:src="@drawable/ic_count"/>
+
+            <TextView
+                android:id="@+id/account_count_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dip"
+                android:layout_toRightOf="@id/account_count_iv"
+                android:text="@string/account_count"
+                android:textSize="20sp"/>
+
+            <com.account.king.view.autofit.AutofitTextView
+                android:id="@+id/account_count_input"
+                android:layout_width="match_parent"
+                android:layout_height="55dip"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@id/account_count_tv"
+                android:gravity="right|center"
+                android:singleLine="true"
+                android:text="0.00"
+                android:textColor="@color/my_color"
+                android:textSize="30sp"
+                autofit:minTextSize="8sp"/>
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.3dp"
+            android:background="@color/black_50"/>
+
+        <RelativeLayout
+            android:id="@+id/account_type_lay"
+            android:layout_width="wrap_content"
+            android:layout_height="70dip"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dip">
+
+            <ImageView
+                android:id="@+id/account_type_iv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:src="@drawable/ic_type"/>
+
+            <TextView
+                android:id="@+id/account_type_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dip"
+                android:layout_toRightOf="@id/account_type_iv"
+                android:text="@string/account_type"
+                android:textSize="20sp"/>
+
+            <TextView
+                android:id="@+id/account_type_select_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:text="@string/app_name"
+                android:textSize="@dimen/common_textSize"/>
+
+            <ImageView
+                android:id="@+id/account_type_select"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="10dp"
+                android:layout_toLeftOf="@+id/account_type_select_tv"
+                android:src="@drawable/ic_count"/>
+
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.3dp"
+            android:background="@color/black_50"/>
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/add_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true">
+
+        <RelativeLayout
+            android:id="@+id/add_account_click_input"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:background="@color/white"
+            android:clickable="true">
+
+            <Button
+                android:id="@+id/add_account_time"
+                android:layout_width="85dp"
+                android:layout_height="35dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="15dp"
+                android:background="@drawable/add_date_select"
+                android:text="5月16号"
+                android:textColor="@color/white"
+                android:textSize="15sp"/>
+
+            <com.account.king.view.RoundCornerImageView
+                android:id="@+id/add_account_select"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="15dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_add_photo"
+                autofit:corner_radius="3dp"/>
+
+            <ImageView
+                android:id="@+id/add_account_writer_note"
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="15dp"
+                android:layout_toLeftOf="@+id/add_account_select"
+                android:paddingLeft="50dp"
+                android:src="@drawable/ic_pencil"/>
+
+        </RelativeLayout>
+
+        <com.account.king.view.KeyBoardView
+            android:id="@+id/keyboard_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/add_account_click_input"/>
+    </RelativeLayout>
 </RelativeLayout>

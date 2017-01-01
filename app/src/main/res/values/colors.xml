@@ -5,6 +5,7 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
     <color name="my_color">#63b8ff</color>
+    <color name="my_color_50">#6f63b8ff</color>
     <color name="dark_my_color">#9263B8FF</color>
 
     <color name="transp">#00000000</color>
@@ -12,6 +13,7 @@
     <color name="black_50">#88000000</color>
 
     <color name="rectangle_gray">#EFEFEF</color>
+    <color name="rectangle_gray_press">#58efefef</color>
 
     <!--keyboard-->
     <color name="keyboard_normal">#6F6161</color>
@@ -31,6 +33,7 @@
 
 
     <color name="money_balance">#8FB7F8</color>
+    <color name="money_balance_press">#908fb7f8</color>
 
     <color name="home_dash_line">#F2E9EE</color>
     <color name="pink_bg">#FFFAFC</color>

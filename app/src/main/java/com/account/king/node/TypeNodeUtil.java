@@ -6,4 +6,7 @@ package com.account.king.node;
  */
 
 public class TypeNodeUtil {
+
+
+
 }

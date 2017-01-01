@@ -17,8 +17,8 @@ import android.util.TypedValue;
 import android.view.View;
 import android.widget.TextView;
 
-import net.ffrj.pinkwallet.R;
-import net.ffrj.pinkwallet.util.LogUtil;
+import com.account.king.R;
+import com.account.king.util.LogUtil;
 
 import java.util.ArrayList;
 

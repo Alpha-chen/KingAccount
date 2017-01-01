@@ -43,4 +43,25 @@
         <item name="android:gravity">center</item>
         <item name="android:textSize">17sp</item>
     </style>
+
+    <style name="keyboard_rectangle_style">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:background">@drawable/rectangle_keyboard_selector</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">22sp</item>
+    </style>
+
+    <style name="keyboard_line_horizontal">
+        <item name="android:layout_width">1px</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:background">@color/black_50</item>
+    </style>
+
+    <style name="keyboard_line_vertical">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1px</item>
+        <item name="android:background">@color/black_50</item>
+    </style>
 </resources>
