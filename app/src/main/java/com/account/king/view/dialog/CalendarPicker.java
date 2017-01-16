@@ -24,16 +24,15 @@ public class CalendarPicker extends LinearLayout {
 
     private CalendarMonthView monthView;// 月视图
     String weekDayNames[] = {"日", "一", "二", "三", "四", "五", "六"};
-
-    public CalendarPicker(Context context) {
-        this(context, null);
-    }
-
     private int model = 0;// 0=选择时间模式   1=日历模式
+
     private int week_color;
     private int week_bg;
     private float week_height;
     private int week_tv_testsize;
+    public CalendarPicker(Context context) {
+        this(context, null);
+    }
 
     public CalendarPicker(Context context, AttributeSet attrs) {
         super(context, attrs);

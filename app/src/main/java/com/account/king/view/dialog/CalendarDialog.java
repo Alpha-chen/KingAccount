@@ -25,7 +25,6 @@ import java.util.Calendar;
 public class CalendarDialog extends Dialog implements View.OnClickListener , CalendarPicker.OnDatePickedListener
                                             , CalendarPicker.PageChangeListener{
 
-
     private Context context ;
 
     private Animation pushInAnim;
