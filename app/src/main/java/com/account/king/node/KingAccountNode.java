@@ -11,7 +11,7 @@ import java.io.Serializable;
  */
 
 @DatabaseTable(tableName = "king_account")
-public class KingAccountNode implements Serializable{
+public class KingAccountNode implements Serializable {
     /**
      * id : 0
      * price : 1.8
@@ -19,50 +19,44 @@ public class KingAccountNode implements Serializable{
      * account_type : 0
      * type : 1
      * attachment : {"content":"今天发工资哎","attachment_path":"https://ss0.bdstatic.com/5aV1bjqh_Q23odCf/static/superman/img/logo/logo_white_fe6da1ec.png"}
-     * date_ymd : 20161120
+     * ymd_hms : 20161120
      * time_hms : 20:10:45
      */
     @DatabaseField(generatedId = true)
     private int id;
-    public static String ID="id";
+    public static String ID = "id";
     @DatabaseField(columnName = "price")
     private double price;
-    public static String PRICE ="price";
+    public static String PRICE = "price";
     @DatabaseField(columnName = "count")
     private double count;
-    public static String COUNT ="count";
+    public static String COUNT = "count";
     /**
      * 收入/支出
      */
     @DatabaseField(columnName = "account_type")
     private int account_type;
-    public static String ACCOUNT_TYPE ="account_type";
-    public static int MONEY_IN =0; // 收入
-    public static int MONEY_OUT =1; // 支出
+    public static String ACCOUNT_TYPE = "account_type";
+    public static int MONEY_IN = 0; // 收入
+    public static int MONEY_OUT = 1; // 支出
     /**
      * 类型 薪水/交通
      */
     @DatabaseField(columnName = "type")
     private int type;
-    public static String TYPE ="type";
+    public static String TYPE = "type";
     /**
      * 附件信息
      */
     @DatabaseField(columnName = "attachment")
     private Attachment attachment;
-    public static String ATTACHMENT ="attachment";
+    public static String ATTACHMENT = "attachment";
     /**
      * 记录时间
      */
-    @DatabaseField(columnName = "date_ymd")
-    private int date_ymd;
-    public static String DATE_YMD ="date_ymd";
-    /**
-     * 记录的详细时间
-     */
-    @DatabaseField(columnName = "time_hms")
-    private String time_hms;
-    public static String TIME_HMS ="time_hms";
+    @DatabaseField(columnName = "ymd_hms")
+    private long ymd_hms;
+    public static String YMD_HMS = "ymd_hms";
 
     public KingAccountNode() {
     }
@@ -115,19 +109,23 @@ public class KingAccountNode implements Serializable{
         this.attachment = attachment;
     }
 
-    public int getDate_ymd() {
-        return date_ymd;
+    public long getYmd_hms() {
+        return ymd_hms;
     }
 
-    public void setDate_ymd(int date_ymd) {
-        this.date_ymd = date_ymd;
+    public void setYmd_hms(long ymd_hms) {
+        this.ymd_hms = ymd_hms;
     }
 
-    public String getTime_hms() {
-        return time_hms;
-    }
-
-    public void setTime_hms(String time_hms) {
-        this.time_hms = time_hms;
+    public Object copy() {
+        KingAccountNode accountBookNode = new KingAccountNode();
+        accountBookNode.setId(this.id);
+        accountBookNode.setAttachment(this.attachment);
+        accountBookNode.setAccount_type(this.account_type);
+        accountBookNode.setPrice(this.price);
+        accountBookNode.setCount(this.count);
+        accountBookNode.setYmd_hms(this.ymd_hms);
+        accountBookNode.setType(this.type);
+        return accountBookNode;
     }
 }

@@ -15,11 +15,12 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".AddAccountActivity"
-                  android:configChanges="orientation|keyboardHidden"
-                  android:screenOrientation="portrait"
-                  android:theme="@style/WindowPush"
-                  android:windowSoftInputMode="stateHidden|adjustPan">
+        <activity
+            android:name=".AddAccountActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:theme="@style/WindowPush"
+            android:windowSoftInputMode="stateAlwaysVisible|adjustResize">
         </activity>
     </application>
 

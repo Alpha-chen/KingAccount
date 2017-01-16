@@ -64,4 +64,48 @@
         <item name="android:layout_height">1px</item>
         <item name="android:background">@color/black_50</item>
     </style>
+
+    <declare-styleable name="CalendarPicker">
+        <attr name="show_modle" format="enum">
+            <enum name="select" value="0"/>
+            <enum name="calendar" value="1"/>
+        </attr>
+        <attr name="week_color" format="reference"/>
+        <attr name="week_bg" format="reference"/>
+        <attr name="week_height" format="dimension"/>
+        <attr name="week_tv_textsize" format="integer"/>
+    </declare-styleable>
+
+
+    <style name="dialog_transparent">
+        <item name="android:windowBackground">@android:color/transparent</item>　
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsTranslucent">true</item>　
+        <item name="android:backgroundDimEnabled">false</item>
+        <item name="android:windowActionModeOverlay">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowSoftInputMode">stateHidden|adjustResize</item>
+    </style>
+
+    <style name="submit_btn_style">
+        <item name="android:layout_width">270dp</item>
+        <item name="android:layout_height">44dp</item>
+        <item name="android:text">@string/submit</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:background">@drawable/round_bg_selector</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:padding">0dp</item>
+        <item name="android:layout_centerHorizontal">true</item>
+    </style>
+
+    <style name="rectangle_photo_style">
+        <item name="android:layout_width">310dp</item>
+        <item name="android:layout_height">50dip</item>
+        <item name="android:background">@drawable/round_bg_selector</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+        <item name="android:textColor">@color/color_bg</item>
+        <item name="android:textSize">16sp</item>
+    </style>
 </resources>

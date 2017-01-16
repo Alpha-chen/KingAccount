@@ -65,8 +65,7 @@ public class DBHelper extends OrmLiteSqliteOpenHelper {
                     .append(KingAccountNode.COUNT).append(", ")
                     .append(KingAccountNode.ACCOUNT_TYPE).append(", ")
                     .append(KingAccountNode.TYPE).append(", ")
-                    .append(KingAccountNode.DATE_YMD).append(", ")
-                    .append(KingAccountNode.TIME_HMS).append(", ")
+                    .append(KingAccountNode.YMD_HMS).append(", ")
                     .append(KingAccountNode.ATTACHMENT).append(" )");
 
             if (null!=database){

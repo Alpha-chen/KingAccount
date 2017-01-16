@@ -8,7 +8,6 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 
 import com.account.king.R;
-import com.account.king.util.ArithUtil;
 import com.account.king.util.ScreenUtils;
 
 import java.util.ArrayList;
@@ -23,8 +22,6 @@ public class KeyBoardView extends LinearLayout implements View.OnClickListener {
     public NumClickListener numClickListener;
     private LinearLayout keyHeightView;
 
-    private List<Object> mList = new ArrayList<>();
-    private String operator;//运算符
     private List<Object> mList2 = new ArrayList<>();
 
     private static final int decimal = 2;
@@ -109,54 +106,11 @@ public class KeyBoardView extends LinearLayout implements View.OnClickListener {
                 case R.id.keyboard_num_dian:
                     input(".");
                     break;
-//                case R.id.keyboard_num_add:
-//                    input("+");
-//                    break;
-//                case R.id.keyboard_num_sub:
-//                    input("-");
-//                    break;
                 case R.id.keyboard_num_x:   //回退
                     if (mList2.size() != 0) {
                         removeEnd(mList2);
-                    } else {
-                        //删除操作符
-                        if (!TextUtils.isEmpty(operator)) {
-                            operator = "";
-                            okBtn.setText("ok");
-                        } else {
-                            removeEnd(mList);
-                        }
                     }
                     showInput();
-                    break;
-                case R.id.keyboard_num_ok:
-                    if (okBtn.getText().toString().equals("=")) {
-                        String num1 = calculateNum(mList);
-                        String num2 = calculateNum(mList2);
-                        mList.clear();
-                        mList2.clear();
-                        String result;
-                        if (operator.equals("+")) {
-                            result = ArithUtil.addSpit(num1, num2);
-                        } else {
-                            result = ArithUtil.sub(num1, num2, 2) + "";
-                        }
-                        if (Float.parseFloat(result) == 0) {
-                            mList.add(0);
-                        } else {
-                            String results = result + "";
-                            results = addEnd0(results);
-                            for (char c : results.toCharArray()) {
-                                mList.add(c);
-                            }
-
-                        }
-                        operator = "";
-                        okBtn.setText("ok");
-                        showInput();
-                    } else {
-                        numClickListener.okClick();
-                    }
                     break;
             }
         }
@@ -172,50 +126,8 @@ public class KeyBoardView extends LinearLayout implements View.OnClickListener {
      * @param obj
      */
     private void input(Object obj) {
-        if (obj.toString().equals("+") || obj.toString().equals("-")) {   //输入操作符
-            // 只有一个负号时不允许输入 操作符
-            if (mList.size() == 1 && mList.get(0).toString().equals("-")) {
-                return;
-            }
-            okBtn.setText("=");
-            if (TextUtils.isEmpty(operator)) {    //添加运算符
-                operator = obj.toString();
-                if (mList.size() == 0) {
-                    mList.add(0);
-                }
-            } else {
-                if (mList2.size() == 0) {
-                    operator = obj.toString();
-                } else {      //先做运算再添加运算符
-                    String num1 = calculateNum(mList);
-                    String num2 = calculateNum(mList2);
-                    mList.clear();
-                    mList2.clear();
-                    String result;
-                    if (operator.equals("+")) {
-                        result = ArithUtil.addSpit(num1, num2);
-                    } else {
-                        result = (float) ArithUtil.sub(num1, num2, 2) + "";
-                    }
-                    if (Float.parseFloat(result) == 0) {
-                        mList.add(0);
-                    } else {
-                        String results = result + "";
-                        results = addEnd0(results);
-                        for (char c : results.toCharArray()) {
-                            mList.add(c);
-                        }
-                    }
-                    operator = obj.toString();
-                }
-            }
-        } else { //输入 数字或.
-            if (TextUtils.isEmpty(operator)) {
-                handInput(obj, mList);
-            } else {
-                handInput(obj, mList2);
-            }
-        }
+        //输入 数字或.
+        handInput(obj, mList2);
         showInput();
     }
 
@@ -224,20 +136,12 @@ public class KeyBoardView extends LinearLayout implements View.OnClickListener {
      */
     private void showInput() {
         StringBuffer sb = new StringBuffer("");
-        if (mList.size() != 0) {
-            for (Object obj : mList) {
+        if (mList2.size() != 0) {
+            for (Object obj : mList2) {
                 sb.append(obj.toString());
             }
         }
-        if (!TextUtils.isEmpty(operator)) {
-            sb.append(operator);
-            if (mList2.size() != 0) {
-                for (Object obj : mList2) {
-                    sb.append(obj.toString());
-                }
-            }
-        }
-        if (TextUtils.isEmpty(sb.toString()) || (TextUtils.isEmpty(operator) && mList.size() == 1 && mList.get(0).toString().equals("0"))) {
+        if (TextUtils.isEmpty(sb.toString()) && mList2.size() == 1 && mList2.get(0).toString().equals("0")) {
             numClickListener.numClick("0.00");
         } else {
             numClickListener.numClick(sb.toString());
@@ -272,10 +176,6 @@ public class KeyBoardView extends LinearLayout implements View.OnClickListener {
         }
         //4.整数位添加6位
         if (!isHasdecimal && mList.size() >= integer && !obj.toString().equals(".")) {
-            return;
-        }
-        // 只有一个负号时不允许输入 小数点
-        if (mList.size() == 1 && mList.get(0).toString().equals("-") && obj.toString().equals(".")) {
             return;
         }
         mList.add(obj);

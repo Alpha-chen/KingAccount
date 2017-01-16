@@ -12,8 +12,8 @@
     <color name="black">#000000</color>
     <color name="black_50">#88000000</color>
 
-    <color name="rectangle_gray">#EFEFEF</color>
-    <color name="rectangle_gray_press">#58efefef</color>
+    <color name="white">#FFFFFF</color>
+    <color name="white_press">#58efefef</color>
 
     <!--keyboard-->
     <color name="keyboard_normal">#6F6161</color>
@@ -37,7 +37,6 @@
 
     <color name="home_dash_line">#F2E9EE</color>
     <color name="pink_bg">#FFFAFC</color>
-    <color name="white">#FFFFFF</color>
 
     <color name="progress_bg">#F4EEEE</color>
 

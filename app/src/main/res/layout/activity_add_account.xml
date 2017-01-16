@@ -107,19 +107,21 @@
                 android:text="@string/account_price"
                 android:textSize="20sp"/>
 
-            <com.account.king.view.autofit.AutofitTextView
+            <EditText
                 android:id="@+id/account_price_input"
                 android:layout_width="match_parent"
                 android:layout_height="55dip"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:layout_toRightOf="@id/account_price_tv"
+                android:background="@null"
                 android:gravity="right|center"
+                android:inputType="numberDecimal"
                 android:singleLine="true"
                 android:text="0.00"
                 android:textColor="@color/my_color"
                 android:textSize="30sp"
-                autofit:minTextSize="8sp"/>
+                />
 
 
         </RelativeLayout>
@@ -153,19 +155,20 @@
                 android:text="@string/account_count"
                 android:textSize="20sp"/>
 
-            <com.account.king.view.autofit.AutofitTextView
+            <EditText
                 android:id="@+id/account_count_input"
                 android:layout_width="match_parent"
                 android:layout_height="55dip"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:layout_toRightOf="@id/account_count_tv"
+                android:background="@null"
                 android:gravity="right|center"
+                android:inputType="numberDecimal"
                 android:singleLine="true"
                 android:text="0.00"
                 android:textColor="@color/my_color"
-                android:textSize="30sp"
-                autofit:minTextSize="8sp"/>
+                android:textSize="30sp"/>
 
         </RelativeLayout>
 
@@ -273,10 +276,6 @@
 
         </RelativeLayout>
 
-        <com.account.king.view.KeyBoardView
-            android:id="@+id/keyboard_view"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/add_account_click_input"/>
+
     </RelativeLayout>
 </RelativeLayout>
