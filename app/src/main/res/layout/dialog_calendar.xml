@@ -61,7 +61,7 @@
             android:id="@+id/calendar_cp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/calendar_date"
+            android:layout_below="@+id/calendar_date"
             app:show_modle="select"/>
 
     </RelativeLayout>

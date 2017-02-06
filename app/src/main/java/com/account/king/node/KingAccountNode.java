@@ -1,5 +1,6 @@
 package com.account.king.node;
 
+import com.account.king.util.KingJson;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
@@ -49,8 +50,10 @@ public class KingAccountNode implements Serializable {
      * 附件信息
      */
     @DatabaseField(columnName = "attachment")
-    private Attachment attachment;
+    private String attachment;
     public static String ATTACHMENT = "attachment";
+    private Attachment mAttachment;
+
     /**
      * 记录时间
      */
@@ -102,10 +105,14 @@ public class KingAccountNode implements Serializable {
     }
 
     public Attachment getAttachment() {
-        return attachment;
+        return mAttachment;
     }
 
     public void setAttachment(Attachment attachment) {
+        this.mAttachment = attachment;
+    }
+
+    public void setAttachment(String attachment) {
         this.attachment = attachment;
     }
 
@@ -120,7 +127,7 @@ public class KingAccountNode implements Serializable {
     public Object copy() {
         KingAccountNode accountBookNode = new KingAccountNode();
         accountBookNode.setId(this.id);
-        accountBookNode.setAttachment(this.attachment);
+        accountBookNode.setAttachment(KingJson.parseObject(this.attachment, Attachment.class));
         accountBookNode.setAccount_type(this.account_type);
         accountBookNode.setPrice(this.price);
         accountBookNode.setCount(this.count);

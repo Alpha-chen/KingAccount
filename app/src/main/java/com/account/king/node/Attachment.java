@@ -1,10 +1,12 @@
 package com.account.king.node;
 
+import java.io.Serializable;
+
 /**
  * Created by king
  * on 2016/11/20.
  */
-public class Attachment {
+public class Attachment implements Serializable {
     /**
      * content : 今天发工资哎
      * attachment_path : https://ss0.bdstatic.com/5aV1bjqh_Q23odCf/static/superman/img/logo/logo_white_fe6da1ec.png

@@ -1,8 +1,15 @@
 package com.account.king;
 
+import android.Manifest;
 import android.animation.PropertyValuesHolder;
+import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -10,19 +17,31 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.account.king.constant.WhatConstants;
+import com.account.king.node.Attachment;
 import com.account.king.node.KingAccountNode;
 import com.account.king.presenter.contract.AddAccountContract.IAddAcountView;
 import com.account.king.presenter.contract.presenter.AddAccountPresenter;
 import com.account.king.util.ActivityLib;
 import com.account.king.util.CalendarUtil;
 import com.account.king.util.LogUtil;
+import com.account.king.util.ToastUtil;
 import com.account.king.view.KeyBoardView;
 import com.account.king.view.RoundCornerImageView;
+
+import pink.net.multiimageselector.MultiImageSelectorActivity;
+import pink.net.multiimageselector.bean.SelectedImages;
+import pink.net.multiimageselector.utils.ImageLoadUtil;
+import pink.net.multiimageselector.utils.ImageSelector;
+import pink.net.multiimageselector.utils.MultiSelectorUtils;
 
 
 public class AddAccountActivity extends BaseActivity implements View.OnClickListener
         , KeyBoardView.NumClickListener, IAddAcountView {
+    private int REQUEST_CODE_ASK_IMAGE_PHONE = 123;
+
     //关闭动画部分机型在style中设置无效
     protected int activityCloseEnterAnimation;
     protected int activityCloseExitAnimation;
@@ -54,6 +73,7 @@ public class AddAccountActivity extends BaseActivity implements View.OnClickList
     private ImageView mAccount_type_select;
     private RelativeLayout mAdd_account_click_input;
     private Button mAdd_account_time;
+    private TextView mAdd_account_note;
     private RoundCornerImageView mAdd_account_select;
     private ImageView mAdd_account_writer_note;
 
@@ -90,7 +110,7 @@ public class AddAccountActivity extends BaseActivity implements View.OnClickList
     @Override
     public void initPresenter() {
         super.initPresenter();
-        presenter = new AddAccountPresenter(this);
+        presenter = new AddAccountPresenter(this, this);
 
     }
 
@@ -136,8 +156,12 @@ public class AddAccountActivity extends BaseActivity implements View.OnClickList
         mAdd_account_click_input = (RelativeLayout) findViewById(R.id.add_account_click_input);
         mAdd_account_time = (Button) findViewById(R.id.add_account_time);
         mAdd_account_time.setOnClickListener(this);
+        mAdd_account_note = (TextView) findViewById(R.id.add_account_note);
+        mAdd_account_note.setOnClickListener(this);
         mAdd_account_select = (RoundCornerImageView) findViewById(R.id.add_account_select);
+        mAdd_account_select.setOnClickListener(this);
         mAdd_account_writer_note = (ImageView) findViewById(R.id.add_account_writer_note);
+        mAdd_account_writer_note.setOnClickListener(this);
 //        keyBoardView = (KeyBoardView) findViewById(R.id.keyboard_view);
 //        keyBoardView.setNumClickListener(this);
     }
@@ -169,11 +193,92 @@ public class AddAccountActivity extends BaseActivity implements View.OnClickList
             case R.id.add_account_time:
                 presenter.selectDate(this, accountNode);
                 break;
+            case R.id.add_account_writer_note:
+                presenter.clickWriterNote(this, accountNode);
+                break;
+            case R.id.add_account_note:
+                presenter.clickWriterNote(this, accountNode);
+                break;
+            case R.id.add_account_select:
+//                presenter.selectPhoto(this, accountNode);
+                if (null != accountNode.getAttachment() && !TextUtils.isEmpty(accountNode.getAttachment().getAttachment_path())) {
+                    Intent data = new Intent(AddAccountActivity.this, PhotoActivity.class);
+                    data.putExtra(ActivityLib.INTENT_PARAM, accountNode.getAttachment().getAttachment_path());
+                    startActivityForResult(data, WhatConstants.Refresh.PHOTO_DELETE);
+                } else {
+                    if (Build.VERSION.SDK_INT >= 23) {
+                        int checkCallPhonePermission = ContextCompat.checkSelfPermission(AddAccountActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+                        if (checkCallPhonePermission != PackageManager.PERMISSION_GRANTED) {
+                            ActivityCompat.requestPermissions(AddAccountActivity.this,
+                                    new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_CODE_ASK_IMAGE_PHONE);
+                            return;
+                        }
+                    }
+                    MultiSelectorUtils.selectImage(AddAccountActivity.this,
+                            new ImageSelector.Builder().editMode(2).build());
+                }
+                break;
             default:
                 break;
         }
     }
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        switch (requestCode) {
+            case 123:
+                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    // Permission Granted
+                    MultiSelectorUtils.selectImage(AddAccountActivity.this,
+                            new ImageSelector.Builder().editMode(2).build());
+                } else {
+                    // Permission Denied
+                    Toast.makeText(AddAccountActivity.this, "没有媒体访问权限", Toast.LENGTH_SHORT)
+                            .show();
+                }
+                break;
+            default:
+                super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
+    }
+
+
+    //图片选择删除
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == Activity.RESULT_OK) {
+            ToastUtil.makeToast(AddAccountActivity.this, "resultCode=" + resultCode);
+            ToastUtil.makeToast(AddAccountActivity.this, "requestCode=" + requestCode);
+            ToastUtil.makeToast(AddAccountActivity.this, "data=" + data);
+            Attachment attachment;
+            switch (requestCode) {
+                case MultiSelectorUtils.SELECTOR_REQUES_CODE:
+                    attachment = new Attachment();
+                    if (data != null) {
+                        SelectedImages selectedImages = (SelectedImages) data.getSerializableExtra(MultiImageSelectorActivity.EXTRA_RESULT);
+                        String path = selectedImages.getEditPath(0);
+                        attachment.setAttachment_path(path);
+                        accountNode.setAttachment(attachment);
+                        ImageLoadUtil.loadRound(this, accountNode.getAttachment().getAttachment_path(), mAdd_account_select);
+                    }
+                    break;
+                case WhatConstants.Refresh.PHOTO_DELETE:
+                    mAdd_account_select.setImageResource(R.drawable.ic_add_photo);
+                    attachment = new Attachment();
+                    attachment.setAttachment_path("");
+                    accountNode.setAttachment(attachment);
+                    break;
+                case WhatConstants.Refresh.ACCOUNT_INPUT_NOTE:
+                    String note = data.getStringExtra(ActivityLib.INTENT_PARAM);
+                    attachment = new Attachment();
+                    attachment.setContent(note);
+                    accountNode.setAttachment(attachment);
+                    presenter.loadNote(this, note);
+                    break;
+            }
+        }
+    }
 
     public void selectCostType(boolean isSelectType) {
         if (type != KingAccountNode.MONEY_OUT || !isSelectType) {
@@ -219,13 +324,21 @@ public class AddAccountActivity extends BaseActivity implements View.OnClickList
     }
 
     @Override
-    public void setNoteRes(int Res) {
-
+    public void setNoteRes(int Res, String note) {
+        if (0 == Res) {
+            mAdd_account_note.setVisibility(View.VISIBLE);
+            mAdd_account_writer_note.setVisibility(View.GONE);
+            mAdd_account_note.setText(note);
+        } else {
+            mAdd_account_note.setVisibility(View.GONE);
+            mAdd_account_writer_note.setVisibility(View.VISIBLE);
+            mAdd_account_writer_note.setImageResource(Res);
+        }
     }
 
     @Override
     public void setDateText(String date) {
-
+        mAdd_account_time.setText(date);
     }
 
     @Override

@@ -52,7 +52,6 @@ public class CalendarDialog extends Dialog implements View.OnClickListener , Cal
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dialog_calendar);
-
         initView();
     }
 

@@ -274,6 +274,17 @@
                 android:paddingLeft="50dp"
                 android:src="@drawable/ic_pencil"/>
 
+            <TextView
+                android:id="@+id/add_account_note"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="10dp"
+                android:layout_toLeftOf="@id/add_account_writer_note"
+                android:textColor="@color/my_color"
+                android:visibility="gone"
+                android:textSize="@dimen/common_textSize"
+                />
         </RelativeLayout>
 
 

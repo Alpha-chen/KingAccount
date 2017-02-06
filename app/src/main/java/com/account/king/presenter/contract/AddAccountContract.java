@@ -23,7 +23,7 @@ public class AddAccountContract {
 
         public void selectIncomeType(boolean isSelectType);
 
-        public void setNoteRes(int Res);
+        public void setNoteRes(int Res, String note);
 
         //        public void selectTypeNode(AccountTypeNode node);
         public void setDateText(String date);
@@ -37,7 +37,7 @@ public class AddAccountContract {
 
         public List<KingAccountNode> getTypeNodes(Context context);
 
-        public boolean validation(Context context, KingAccountNode bookNode, String price,String count);
+        public boolean validation(Context context, KingAccountNode bookNode, String price, String count);
 
         public boolean insertBookNode(Context context, KingAccountNode bookNode);
 

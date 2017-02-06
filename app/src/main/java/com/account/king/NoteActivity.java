@@ -51,6 +51,8 @@ public class NoteActivity extends BaseActivity implements TextWatcher, View.OnCl
         editText = (EditText) findViewById(R.id.book_edit);
         lengthText = (TextView) findViewById(R.id.tv_length);
         editText.addTextChangedListener(this);
+        findViewById(R.id.title_left_image).setOnClickListener(this);
+        findViewById(R.id.add_account_done).setOnClickListener(this);
     }
 
     @Override
@@ -101,7 +103,10 @@ public class NoteActivity extends BaseActivity implements TextWatcher, View.OnCl
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.title_right:
+            case R.id.title_left_image:
+                finish();
+                break;
+            case R.id.add_account_done:
                 String note = editText.getText().toString();
                 if (!TextUtils.isEmpty(note) && note.length() > 100) {
                     toastMoreLength();

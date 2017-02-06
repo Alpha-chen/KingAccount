@@ -30,6 +30,7 @@ public class CalendarPicker extends LinearLayout {
     private int week_bg;
     private float week_height;
     private int week_tv_testsize;
+
     public CalendarPicker(Context context) {
         this(context, null);
     }
