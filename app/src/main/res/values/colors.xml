@@ -62,5 +62,6 @@
     <color name="logo_360">#6e8393</color>
     <color name="tip_color">#FF93B7</color>
 
-
+    <color name="out_come">#fa1e30</color>
+    <color name="int_come">#FF19B71C</color>
 </resources>

@@ -38,7 +38,7 @@ public class RxBusEvent {
 
     public static final int VERIFY_PSW_SUCCESS = MODIFY_PSW_SUCCESS + 1;//验证老密码成功
 
-
+    public static final int REFRESH_ACCOUNT_LIST = 1; // 刷新列表
     private int id;
     private Object object;
 

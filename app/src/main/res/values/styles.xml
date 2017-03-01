@@ -108,4 +108,63 @@
         <item name="android:textColor">@color/color_bg</item>
         <item name="android:textSize">16sp</item>
     </style>
+
+    <style name="centerHorizontal">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_centerHorizontal">true</item>
+    </style>
+
+    <style name="centerVertical">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_centerVertical">true</item>
+    </style>
+
+
+    <style name="type_icon">
+        <item name="android:layout_width">30dp</item>
+        <item name="android:layout_height">30dp</item>
+        <item name="android:layout_marginLeft">15dp</item>
+        <item name="android:layout_centerVertical">true</item>
+    </style>
+
+    <style name="type_name" parent="centerVertical">
+        <item name="android:textSize">15sp</item>
+        <item name="android:textColor">@color/color1</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:gravity">center</item>
+        <item name="android:maxEms">6</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:layout_marginLeft">10dp</item>
+    </style>
+
+    <style name="type_money" parent="centerVertical">
+        <item name="android:textSize">15sp</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:gravity">right|center_vertical</item>
+        <item name="android:maxEms">9</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:layout_alignParentRight">true</item>
+        <item name="android:layout_marginRight">13dp</item>
+    </style>
+
+    <style name="type_note_root">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:layout_marginLeft">10dp</item>
+    </style>
+
+    <style name="type_note">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">11sp</item>
+        <item name="android:textColor">@color/color3</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:gravity">center</item>
+        <item name="android:maxEms">9</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:layout_gravity">center_vertical</item>
+    </style>
 </resources>

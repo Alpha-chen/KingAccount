@@ -137,6 +137,7 @@ public class AddAccountActivity extends BaseActivity implements View.OnClickList
         mTitle_left = (RelativeLayout) findViewById(R.id.title_left);
         mTitle_left_image = (ImageView) findViewById(R.id.title_left_image);
         mAdd_account_done = (ImageView) findViewById(R.id.add_account_done);
+        mAdd_account_done.setOnClickListener(this);
         mAdd_account_lay = (LinearLayout) findViewById(R.id.add_account_lay);
         mAccount_price_lay = (RelativeLayout) findViewById(R.id.account_price_lay);
         mAccount_price_iv = (ImageView) findViewById(R.id.account_price_iv);
@@ -145,6 +146,7 @@ public class AddAccountActivity extends BaseActivity implements View.OnClickList
         mAccount_price_input.setOnClickListener(this);
         mAccount_count_lay = (RelativeLayout) findViewById(R.id.account_count_lay);
         mAccount_count_iv = (ImageView) findViewById(R.id.account_count_iv);
+        mAccount_count_iv.setOnClickListener(this);
         mAccount_count_tv = (TextView) findViewById(R.id.account_count_tv);
         mAccount_count_input = (EditText) findViewById(R.id.account_count_input);
         mAccount_count_input.setOnClickListener(this);
@@ -175,6 +177,15 @@ public class AddAccountActivity extends BaseActivity implements View.OnClickList
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+            case R.id.add_account_done:
+                getNode();
+                LogUtil.d(TAG, "accountNode=" + accountNode.toString());
+                if (presenter.insertBookNode(AddAccountActivity.this, accountNode)) {
+                    ToastUtil.makeToast(AddAccountActivity.this, "插入成功");
+                } else {
+                    ToastUtil.makeToast(AddAccountActivity.this, "插入失败");
+                }
+                break;
             case R.id.title_left_image:
                 finish();
                 break;
@@ -221,6 +232,15 @@ public class AddAccountActivity extends BaseActivity implements View.OnClickList
             default:
                 break;
         }
+    }
+
+    public void getNode() {
+
+        String price = mAccount_price_input.getText().toString().trim();
+        String count = mAccount_count_input.getText().toString().trim();
+        int type = 3;
+        accountNode.setCount(Double.parseDouble(count));
+        accountNode.setPrice(Double.parseDouble(price));
     }
 
     @Override
@@ -322,6 +342,7 @@ public class AddAccountActivity extends BaseActivity implements View.OnClickList
 //            }
         }
     }
+
 
     @Override
     public void setNoteRes(int Res, String note) {

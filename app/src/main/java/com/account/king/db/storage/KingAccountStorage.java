@@ -8,11 +8,11 @@ import com.account.king.util.LogUtil;
 import com.j256.ormlite.misc.TransactionManager;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Callable;
 
 /**
- *
  * Created by King
  * on 2016/11/21.
  */
@@ -20,16 +20,17 @@ import java.util.concurrent.Callable;
 public class KingAccountStorage {
 
     private KingAccountDao bookDao;
-    private Context context;
+    private Context mContext;
 
     public KingAccountStorage(Context context) {
         try {
-            this.context = context;
-            bookDao = new KingAccountDao(context);
+            this.mContext = context;
+            bookDao = new KingAccountDao(mContext);
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
+
     /**
      * 创建流水账
      *
@@ -41,26 +42,21 @@ public class KingAccountStorage {
         if (second_id == -1) {
             return false;
         }
-        int result =-1;
-        if (result == -1) {
-            return false;
-        } else {
-            return true;
-        }
+
+        return true;
     }
 
 
-
-    public void deleteList(final List<KingAccountNode> bookNodes){
-        if(bookNodes == null){
+    public void deleteList(final List<KingAccountNode> bookNodes) {
+        if (bookNodes == null) {
             return;
         }
         try {
             TransactionManager.callInTransaction(bookDao.getHelper().getConnectionSource(), new Callable<Void>() {
                 @Override
                 public Void call() throws Exception {
-                    for(KingAccountNode bookNode : bookNodes){
-                        LogUtil.d("nnn","bookNode="+bookNode.toString());
+                    for (KingAccountNode bookNode : bookNodes) {
+                        LogUtil.d("nnn", "bookNode=" + bookNode.toString());
                         delete(bookNode);
                     }
                     return null;
@@ -81,7 +77,7 @@ public class KingAccountStorage {
 
         int result = bookDao.delete(bookNode);
         if (result == 1) {
-                return true;
+            return true;
         }
         return false;
     }
@@ -95,7 +91,7 @@ public class KingAccountStorage {
     public boolean update(KingAccountNode bookNode) {
         int result = bookDao.update(bookNode);
         if (result == 1) {
-                return true;
+            return true;
         }
         return false;
     }
@@ -110,4 +106,7 @@ public class KingAccountStorage {
         return bookDao.queryForId(Integer.valueOf(accountId));
     }
 
+    public ArrayList<KingAccountNode> queryAll() {
+        return bookDao.queryForAll();
+    }
 }

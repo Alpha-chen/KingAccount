@@ -1,6 +1,7 @@
 package com.account.king.adapter;
 
 import android.content.Context;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.SparseBooleanArray;
@@ -11,39 +12,35 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import net.ffrj.pinkwallet.R;
-import net.ffrj.pinkwallet.node.AccountBookNode;
-import net.ffrj.pinkwallet.node.AccountTypeNode;
-import net.ffrj.pinkwallet.util.CalendarUtil;
-import net.ffrj.pinkwallet.util.DensityUtils;
-import net.ffrj.pinkwallet.util.type.ImgColorResArray;
-import net.ffrj.pinkwallet.util.type.NodeUtil;
+import com.account.king.R;
+import com.account.king.node.KingAccountNode;
+import com.account.king.util.ArithUtil;
+import com.account.king.util.CalendarUtil;
+import com.account.king.util.DensityUtils;
 
-import java.util.List;
+import java.util.ArrayList;
 
 /**
- * Created by lcp on 2016/8/8.
+ *
  */
-public class HomeRecyclerAdapter extends RecyclerView.Adapter<HomeRecyclerAdapter.MyViewHolder>{
+public class HomeRecyclerAdapter extends RecyclerView.Adapter<HomeRecyclerAdapter.MyViewHolder> {
 
 
     private Context context;
-    private List<AccountBookNode> bookNodes;
-    private List<AccountTypeNode> typeNodes;
+    private ArrayList<KingAccountNode> bookNodes;
     private SparseBooleanArray booleanArray = new SparseBooleanArray();
 
     private RelativeLayout.LayoutParams layoutParams;
     private int leftMargin = 60;
 
-    public HomeRecyclerAdapter(Context context){
+    public HomeRecyclerAdapter(Context context) {
         this.context = context;
-        layoutParams =  new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, DensityUtils.dp2px(context,2));
+        layoutParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, DensityUtils.dp2px(context, 2));
         layoutParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
-        leftMargin = DensityUtils.dp2px(context,leftMargin);
+        leftMargin = DensityUtils.dp2px(context, leftMargin);
     }
 
-    public void setParams(List<AccountTypeNode> typeNodes,List<AccountBookNode> bookNodes,SparseBooleanArray booleanArray){
-        this.typeNodes = typeNodes;
+    public void setParams(ArrayList<KingAccountNode> bookNodes, SparseBooleanArray booleanArray) {
         this.bookNodes = bookNodes;
         this.booleanArray = booleanArray;
         notifyDataSetChanged();
@@ -51,59 +48,59 @@ public class HomeRecyclerAdapter extends RecyclerView.Adapter<HomeRecyclerAdapte
 
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = View.inflate(context,R.layout.item_home_recycler,null);
+        View view = View.inflate(context, R.layout.item_home_recycler, null);
         MyViewHolder holder = new MyViewHolder(view);
         return holder;
     }
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
-        final AccountBookNode bookNode = bookNodes.get(position);
-        int moneyType = bookNode.getMoney_type();
-        if(moneyType == NodeUtil.MONEY_OUT){
-            holder.money.setText("-"+String.format("%.2f",bookNode.getMoney()));
-            holder.money.setTextColor(context.getResources().getColor(R.color.color5));
-        }else{
-            holder.money.setText("+"+String.format("%.2f",bookNode.getMoney()));
-            holder.money.setTextColor(context.getResources().getColor(R.color.color6));
+        final KingAccountNode bookNode = bookNodes.get(position);
+        int moneyType = bookNode.getAccount_type();
+        if (moneyType == KingAccountNode.MONEY_OUT) {
+            holder.money.setText("-" + ArithUtil.mul(bookNode.getPrice(), bookNode.getCount(), 2));
+            holder.money.setTextColor(ContextCompat.getColor(context, R.color.out_come));
+        } else {
+            holder.money.setText("+" + ArithUtil.mul(bookNode.getPrice(), bookNode.getCount(), 2));
+            holder.money.setTextColor(ContextCompat.getColor(context, R.color.int_come));
         }
         //类别
-        if(typeNodes != null){
-            if(bookNode.getTypeNode() == null){
+       /* if (typeNodes != null) {
+            if (bookNode.getTypeNode() == null) {
                 String md5 = bookNode.getIdentifier();
-                for(AccountTypeNode typeNode : typeNodes){
-                    if(typeNode.getMoneyType() == moneyType && typeNode.getIdentifier().equals(md5)){
+                for (AccountTypeNode typeNode : typeNodes) {
+                    if (typeNode.getMoneyType() == moneyType && typeNode.getIdentifier().equals(md5)) {
                         bookNode.setTypeNode(typeNode);
                         break;
                     }
                 }
             }
-            if(bookNode.getTypeNode() != null){
+            if (bookNode.getTypeNode() != null) {
                 int typeIcon = bookNode.getTypeNode().getTypeIcon();
-                holder.typeIcon.setImageResource(ImgColorResArray.getResIcon(moneyType,typeIcon));
+                holder.typeIcon.setImageResource(ImgColorResArray.getResIcon(moneyType, typeIcon));
                 holder.typeName.setText(bookNode.getTypeNode().getTypeName());
             }
-        }
-        holder.typeNote.setText(bookNode.getNote());
+        }*/
+        holder.typeNote.setText(bookNode.getAccount_type());
         holder.otherLin.setVisibility(View.VISIBLE);
-        if(TextUtils.isEmpty(bookNode.getPhotoPath())){
+        if (TextUtils.isEmpty(bookNode.getAttachment().getAttachment_path())) {
             holder.hasPhoto.setVisibility(View.GONE);
-            if(TextUtils.isEmpty(bookNode.getNote())){
+            if (TextUtils.isEmpty(bookNode.getAttachment().getContent())) {
                 holder.otherLin.setVisibility(View.GONE);
             }
-        }else{
+        } else {
             holder.hasPhoto.setVisibility(View.VISIBLE);
         }
-        long timeMilis = bookNode.getRecordNode().getYmd_hms();
+        long timeMilis = bookNode.getYmd_hms();
         int date = CalendarUtil.timeMilis2Date(timeMilis);
-        if(booleanArray.get(position,false)){
+        if (booleanArray.get(position, false)) {
             holder.day.setVisibility(View.VISIBLE);
             holder.month.setVisibility(View.VISIBLE);
             holder.day.setText(CalendarUtil.PadZero(CalendarUtil.getDay(date)));
-            holder.month.setText(CalendarUtil.getMonth(date)+"月");
+            holder.month.setText(CalendarUtil.getMonth(date) + "月");
             layoutParams.leftMargin = 0;
             holder.dashLine.setLayoutParams(layoutParams);
-        }else{
+        } else {
             holder.day.setVisibility(View.GONE);
             holder.month.setVisibility(View.GONE);
             layoutParams.leftMargin = leftMargin;
@@ -116,12 +113,11 @@ public class HomeRecyclerAdapter extends RecyclerView.Adapter<HomeRecyclerAdapte
         return bookNodes != null ? bookNodes.size() : 0;
     }
 
-    static class MyViewHolder extends RecyclerView.ViewHolder
-    {
+    static class MyViewHolder extends RecyclerView.ViewHolder {
 
         TextView typeName;
         ImageView typeIcon;
-        TextView money ;
+        TextView money;
         TextView day;
         TextView month;
         View dashLine;
@@ -129,8 +125,7 @@ public class HomeRecyclerAdapter extends RecyclerView.Adapter<HomeRecyclerAdapte
         TextView typeNote;
         LinearLayout otherLin;
 
-        public MyViewHolder(View view)
-        {
+        public MyViewHolder(View view) {
             super(view);
             typeName = (TextView) view.findViewById(R.id.item_type_name);
             typeIcon = (ImageView) view.findViewById(R.id.item_type_icon);

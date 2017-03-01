@@ -30,26 +30,27 @@ public class DBHelper extends OrmLiteSqliteOpenHelper {
 
     private Map<String, Dao> daos = new HashMap<String, Dao>();
 
+    public DBHelper(Context context) {
+        super(context, DB_NAME, null, DB_VERSION);
+        LogUtil.d(TAG, "DBOpenHelper");
+    }
+
     /**
      * 单例获取数据库对象
      * @param context
      * @return
      */
     public static synchronized  DBHelper getInstances(Context context){
-        context= context.getApplicationContext();
         if (null == dbHelper){
             synchronized (DBHelper.class){
                 if (null == dbHelper){
-                    dbHelper = new DBHelper(context.getApplicationContext(),DB_NAME,null,DB_VERSION);
+                    dbHelper = new DBHelper(context.getApplicationContext());
                 }
             }
         }
         return dbHelper;
     }
 
-    public DBHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
-        super(context, name, factory, version);
-    }
 
     @Override
     public void onCreate(SQLiteDatabase database, ConnectionSource connectionSource) {
@@ -57,7 +58,7 @@ public class DBHelper extends OrmLiteSqliteOpenHelper {
         try {
             TableUtils.createTableIfNotExists(connectionSource, KingAccountNode.class);
             StringBuilder CREATE_FEED_TABLE = new StringBuilder(
-                    "CREATE TABLE IF NOT EXISTS").append(TABLE_ACCOUNT)
+                    " CREATE TABLE IF NOT EXISTS ").append(TABLE_ACCOUNT)
                     .append(" ( ")
                     .append(KingAccountNode.ID)
                     .append("  integer PRIMARY KEY autoincrement, ")

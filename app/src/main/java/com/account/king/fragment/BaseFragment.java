@@ -47,6 +47,8 @@ public class BaseFragment extends Fragment implements Action1<RxBusEvent>{
 
     public void initPresenter(){
 
+
+
     }
 
     public void initIntent() {

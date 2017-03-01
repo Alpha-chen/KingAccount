@@ -7,6 +7,7 @@ import com.account.king.node.KingAccountNode;
 import com.j256.ormlite.dao.Dao;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 /**
  * 账单操作的类
@@ -99,4 +100,17 @@ public class KingAccountDao {
         return null;
     }
 
+
+    public ArrayList<KingAccountNode>  queryForAll(){
+        try {
+            ArrayList<KingAccountNode> bookNode = (ArrayList<KingAccountNode>) clazzDao.queryForAll();
+            if (bookNode == null) {
+                return null;
+            }
+            return bookNode;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 }

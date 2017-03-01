@@ -135,4 +135,18 @@ public class KingAccountNode implements Serializable {
         accountBookNode.setType(this.type);
         return accountBookNode;
     }
+
+    @Override
+    public String toString() {
+        return "KingAccountNode{" +
+                "id=" + id +
+                ", price=" + price +
+                ", count=" + count +
+                ", account_type=" + account_type +
+                ", type=" + type +
+                ", attachment='" + attachment + '\'' +
+                ", mAttachment=" + mAttachment +
+                ", ymd_hms=" + ymd_hms +
+                '}';
+    }
 }
