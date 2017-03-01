@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="55dp"
+    android:background="@drawable/rectangle_center_selector"
+    android:clickable="true"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:paddingLeft="14dp"
+    android:paddingRight="10dp">
+
+    <RelativeLayout
+        android:id="@+id/home_item_date"
+        style="@style/centerVertical"
+        android:layout_height="55dp">
+
+        <TextView
+            android:id="@+id/item_day"
+            style="@style/centerHorizontal"
+            android:textColor="@color/color2"
+            android:textSize="21sp" />
+
+        <TextView
+            android:id="@+id/item_month"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/item_day"
+            android:layout_centerHorizontal="true"
+            android:textColor="@color/color3"
+            android:textSize="11sp" />
+
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/item_type_icon"
+        style="@style/type_icon"
+        android:layout_marginLeft="48dp" />
+
+    <LinearLayout
+        android:id="@+id/account_data"
+        style="@style/centerVertical"
+        android:layout_toRightOf="@+id/item_type_icon"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/item_type_name"
+            style="@style/type_name" />
+
+        <LinearLayout
+            android:id="@+id/item_type_other"
+            style="@style/type_note_root">
+
+            <ImageView
+                android:id="@+id/item_has_photo"
+                style="@style/type_has_photo" />
+
+            <TextView
+                android:id="@+id/item_type_note"
+                style="@style/type_note"
+                android:layout_gravity="center_vertical" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/item_money"
+        style="@style/type_money"
+        android:layout_toRightOf="@+id/account_data"
+        android:textStyle="bold" />
+
+    <View
+        android:id="@+id/item_dash_line"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/dash_line_hor"
+        android:layerType="software" />
+
+</RelativeLayout>
