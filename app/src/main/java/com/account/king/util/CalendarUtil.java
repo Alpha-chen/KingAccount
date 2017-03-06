@@ -7,6 +7,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 @SuppressLint("SimpleDateFormat")
 public class CalendarUtil {
@@ -68,8 +69,6 @@ public class CalendarUtil {
         }
         return month;
     }
-
-
 
 
     /**
@@ -328,6 +327,16 @@ public class CalendarUtil {
         return month;
     }
 
+
+    public static String TimeStamp2Date(long timestampString) {
+        String formats = "MM月dd日";
+//        Long timestamp = timestampString * 1000;
+        LogUtil.d(TAG, "TimeStamp2Date=" + timestampString);
+        String date = new SimpleDateFormat(formats, Locale.CHINA).format(new Date(timestampString));
+        LogUtil.d(TAG, "date->=" + date);
+        return date;
+    }
+
     /**
      * 格式为20120401
      *
@@ -378,6 +387,14 @@ public class CalendarUtil {
         int month = getMonth(date);
         return year + "年" + (month < 10 ? "0" + month : month) + "月";
     }
+
+    public static String getUnix2Date(long date) {
+
+        int month = getMonth(date);
+        int day = getDay(date);
+        return month + "月" + day + "日";
+    }
+
 
     /**
      * yyyyMMdd

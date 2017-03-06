@@ -62,6 +62,7 @@ public class AccountFragment extends BaseFragment implements View.OnClickListene
         LinearLayoutManager layoutManager = new LinearLayoutManager(mContext);
         mRecyclerView.setLayoutManager(layoutManager);
         mAdapter = new HomeRecyclerAdapter(mContext);
+        mRecyclerView.setAdapter(mAdapter);
     }
 
     @Override
@@ -124,8 +125,10 @@ public class AccountFragment extends BaseFragment implements View.OnClickListene
                 newDay = day;
             }
         }
+
+
 //        homeView.updateAdapter(typeNodes, mList, booleanArray);
-        clearMonthTotal(context);
+//        clearMonthTotal(context);
     }
 
 

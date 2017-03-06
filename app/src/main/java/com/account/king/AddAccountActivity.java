@@ -24,6 +24,8 @@ import com.account.king.node.Attachment;
 import com.account.king.node.KingAccountNode;
 import com.account.king.presenter.contract.AddAccountContract.IAddAcountView;
 import com.account.king.presenter.contract.presenter.AddAccountPresenter;
+import com.account.king.rxevent.RxBus;
+import com.account.king.rxevent.RxBusEvent;
 import com.account.king.util.ActivityLib;
 import com.account.king.util.CalendarUtil;
 import com.account.king.util.LogUtil;
@@ -40,6 +42,7 @@ import pink.net.multiimageselector.utils.MultiSelectorUtils;
 
 public class AddAccountActivity extends BaseActivity implements View.OnClickListener
         , KeyBoardView.NumClickListener, IAddAcountView {
+
     private int REQUEST_CODE_ASK_IMAGE_PHONE = 123;
 
     //关闭动画部分机型在style中设置无效
@@ -86,8 +89,8 @@ public class AddAccountActivity extends BaseActivity implements View.OnClickList
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        initIntent();
         initView();
+        initIntent();
         initPresenter();
     }
 
@@ -101,6 +104,7 @@ public class AddAccountActivity extends BaseActivity implements View.OnClickList
             oldAccountNode = new KingAccountNode();
 //            oldAccountNode.setMoney_type(NodeUtil.MONEY_OUT);
             oldAccountNode.setYmd_hms(CalendarUtil.getNowTimeMillis());
+            mAdd_account_time.setText(CalendarUtil.TimeStamp2Date(System.currentTimeMillis()));
         }
 
         accountNode = (KingAccountNode) oldAccountNode.copy();
@@ -132,8 +136,6 @@ public class AddAccountActivity extends BaseActivity implements View.OnClickList
         incomeBtn.setOnClickListener(this);
         mActivity_add_account = (RelativeLayout) findViewById(R.id.activity_add_account);
         mTop_bar = (RelativeLayout) findViewById(R.id.top_bar);
-        mAdd_type_income_btn = (TextView) findViewById(R.id.add_type_income_btn);
-        mAdd_type_cost_btn = (TextView) findViewById(R.id.add_type_cost_btn);
         mTitle_left = (RelativeLayout) findViewById(R.id.title_left);
         mTitle_left_image = (ImageView) findViewById(R.id.title_left_image);
         mAdd_account_done = (ImageView) findViewById(R.id.add_account_done);
@@ -150,6 +152,7 @@ public class AddAccountActivity extends BaseActivity implements View.OnClickList
         mAccount_count_tv = (TextView) findViewById(R.id.account_count_tv);
         mAccount_count_input = (EditText) findViewById(R.id.account_count_input);
         mAccount_count_input.setOnClickListener(this);
+        mAccount_count_input.setSelection(1);
         mAccount_type_lay = (RelativeLayout) findViewById(R.id.account_type_lay);
         mAccount_type_iv = (ImageView) findViewById(R.id.account_type_iv);
         mAccount_type_tv = (TextView) findViewById(R.id.account_type_tv);
@@ -178,12 +181,15 @@ public class AddAccountActivity extends BaseActivity implements View.OnClickList
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.add_account_done:
-                getNode();
-                LogUtil.d(TAG, "accountNode=" + accountNode.toString());
-                if (presenter.insertBookNode(AddAccountActivity.this, accountNode)) {
-                    ToastUtil.makeToast(AddAccountActivity.this, "插入成功");
-                } else {
-                    ToastUtil.makeToast(AddAccountActivity.this, "插入失败");
+                if (getNode()) {
+                    LogUtil.d(TAG, "accountNode=" + accountNode.toString());
+                    if (presenter.insertBookNode(AddAccountActivity.this, accountNode)) {
+                        ToastUtil.makeToast(AddAccountActivity.this, "插入成功");
+                    } else {
+                        ToastUtil.makeToast(AddAccountActivity.this, "插入失败");
+                    }
+                    RxBus.getDefault().send(new RxBusEvent(RxBusEvent.REFRESH_ACCOUNT_LIST));
+                    finish();
                 }
                 break;
             case R.id.title_left_image:
@@ -234,13 +240,16 @@ public class AddAccountActivity extends BaseActivity implements View.OnClickList
         }
     }
 
-    public void getNode() {
-
+    public boolean getNode() {
         String price = mAccount_price_input.getText().toString().trim();
         String count = mAccount_count_input.getText().toString().trim();
-        int type = 3;
+        if (TextUtils.isEmpty(price) || TextUtils.isEmpty(count)) {
+            ToastUtil.makeToast(AddAccountActivity.this, "单价与数量任何一个都不能是空哦~~~");
+            return false;
+        }
         accountNode.setCount(Double.parseDouble(count));
         accountNode.setPrice(Double.parseDouble(price));
+        return true;
     }
 
     @Override

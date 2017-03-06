@@ -3,7 +3,6 @@ package com.account.king.adapter;
 import android.content.Context;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
 import android.util.SparseBooleanArray;
 import android.view.View;
 import android.view.ViewGroup;
@@ -81,19 +80,19 @@ public class HomeRecyclerAdapter extends RecyclerView.Adapter<HomeRecyclerAdapte
                 holder.typeName.setText(bookNode.getTypeNode().getTypeName());
             }
         }*/
-        holder.typeNote.setText(bookNode.getAccount_type());
+        holder.typeNote.setText(bookNode.getAccount_type()+" dasd");
         holder.otherLin.setVisibility(View.VISIBLE);
-        if (TextUtils.isEmpty(bookNode.getAttachment().getAttachment_path())) {
+ /*       if (TextUtils.isEmpty(bookNode.getAttachment().getAttachment_path())) {
             holder.hasPhoto.setVisibility(View.GONE);
             if (TextUtils.isEmpty(bookNode.getAttachment().getContent())) {
                 holder.otherLin.setVisibility(View.GONE);
             }
         } else {
             holder.hasPhoto.setVisibility(View.VISIBLE);
-        }
+        }*/
         long timeMilis = bookNode.getYmd_hms();
         int date = CalendarUtil.timeMilis2Date(timeMilis);
-        if (booleanArray.get(position, false)) {
+ /*       if (booleanArray.get(position, false)) {
             holder.day.setVisibility(View.VISIBLE);
             holder.month.setVisibility(View.VISIBLE);
             holder.day.setText(CalendarUtil.PadZero(CalendarUtil.getDay(date)));
@@ -105,7 +104,13 @@ public class HomeRecyclerAdapter extends RecyclerView.Adapter<HomeRecyclerAdapte
             holder.month.setVisibility(View.GONE);
             layoutParams.leftMargin = leftMargin;
             holder.dashLine.setLayoutParams(layoutParams);
-        }
+        }*/
+        holder.day.setVisibility(View.VISIBLE);
+        holder.month.setVisibility(View.VISIBLE);
+        holder.day.setText(CalendarUtil.PadZero(CalendarUtil.getDay(date)));
+        holder.month.setText(CalendarUtil.getMonth(date) + "月");
+        layoutParams.leftMargin = 0;
+        holder.dashLine.setLayoutParams(layoutParams);
     }
 
     @Override
