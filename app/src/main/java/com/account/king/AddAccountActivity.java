@@ -106,7 +106,6 @@ public class AddAccountActivity extends BaseActivity implements View.OnClickList
             oldAccountNode.setYmd_hms(CalendarUtil.getNowTimeMillis());
             mAdd_account_time.setText(CalendarUtil.TimeStamp2Date(System.currentTimeMillis()));
         }
-
         accountNode = (KingAccountNode) oldAccountNode.copy();
         type = accountNode.getAccount_type();
     }
@@ -310,6 +309,7 @@ public class AddAccountActivity extends BaseActivity implements View.OnClickList
     }
 
     public void selectCostType(boolean isSelectType) {
+        LogUtil.d(TAG, "type=" + type);
         if (type != KingAccountNode.MONEY_OUT || !isSelectType) {
             type = KingAccountNode.MONEY_OUT;
             costBtn.setBackgroundResource(R.drawable.add_count_type_select);
@@ -318,7 +318,7 @@ public class AddAccountActivity extends BaseActivity implements View.OnClickList
             incomeBtn.setTextColor(getResources().getColor(R.color.white));
 //            dragTypeAdapter.setParams(isTypeEdit,costTypeNodes);
 //            moneyText.setTextColor(getResources().getColor(R.color.color5));
-//            if (isSelectType) {
+//            if (isSelectTyp e) {
 //                selectFirst();
 //            }
         }
@@ -338,6 +338,7 @@ public class AddAccountActivity extends BaseActivity implements View.OnClickList
     }*/
 
     public void selectIncomeType(boolean isSelectType) {
+        LogUtil.d(TAG, "type=" + type);
         if (type != KingAccountNode.MONEY_IN || !isSelectType) {
             type = KingAccountNode.MONEY_IN;
             costBtn.setBackgroundDrawable(null);

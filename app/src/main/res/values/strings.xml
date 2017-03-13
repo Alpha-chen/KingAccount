@@ -19,4 +19,6 @@
     <string name="dialog_ok">确定</string>
     <string name="dialog_save">保存</string>
     <string name="add_note">添加备注</string>
+    <string name="show_money">%1$s元</string>
+
 </resources>

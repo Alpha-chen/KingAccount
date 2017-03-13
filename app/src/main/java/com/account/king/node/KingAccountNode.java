@@ -36,7 +36,7 @@ public class KingAccountNode implements Serializable {
      * 收入/支出
      */
     @DatabaseField(columnName = "account_type")
-    private int account_type;
+    private int account_type = 0;
     public static String ACCOUNT_TYPE = "account_type";
     public static int MONEY_IN = 0; // 收入
     public static int MONEY_OUT = 1; // 支出

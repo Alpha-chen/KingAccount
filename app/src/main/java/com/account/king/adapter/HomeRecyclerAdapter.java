@@ -16,6 +16,7 @@ import com.account.king.node.KingAccountNode;
 import com.account.king.util.ArithUtil;
 import com.account.king.util.CalendarUtil;
 import com.account.king.util.DensityUtils;
+import com.account.king.util.glide.RecyclerItemClickListener;
 
 import java.util.ArrayList;
 
@@ -31,6 +32,7 @@ public class HomeRecyclerAdapter extends RecyclerView.Adapter<HomeRecyclerAdapte
 
     private RelativeLayout.LayoutParams layoutParams;
     private int leftMargin = 60;
+    private RecyclerItemClickListener.OnItemClickListener mClickListener;
 
     public HomeRecyclerAdapter(Context context) {
         this.context = context;
@@ -45,6 +47,11 @@ public class HomeRecyclerAdapter extends RecyclerView.Adapter<HomeRecyclerAdapte
         notifyDataSetChanged();
     }
 
+
+    public void setClickListener(RecyclerItemClickListener.OnItemClickListener clickListener) {
+        mClickListener = clickListener;
+    }
+
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = View.inflate(context, R.layout.item_home_recycler, null);
@@ -53,7 +60,7 @@ public class HomeRecyclerAdapter extends RecyclerView.Adapter<HomeRecyclerAdapte
     }
 
     @Override
-    public void onBindViewHolder(MyViewHolder holder, int position) {
+    public void onBindViewHolder(final MyViewHolder holder, final int position) {
         final KingAccountNode bookNode = bookNodes.get(position);
         int moneyType = bookNode.getAccount_type();
         if (moneyType == KingAccountNode.MONEY_OUT) {
@@ -80,7 +87,7 @@ public class HomeRecyclerAdapter extends RecyclerView.Adapter<HomeRecyclerAdapte
                 holder.typeName.setText(bookNode.getTypeNode().getTypeName());
             }
         }*/
-        holder.typeNote.setText(bookNode.getAccount_type()+" dasd");
+        holder.typeNote.setText(bookNode.getAccount_type() + " dasd");
         holder.otherLin.setVisibility(View.VISIBLE);
  /*       if (TextUtils.isEmpty(bookNode.getAttachment().getAttachment_path())) {
             holder.hasPhoto.setVisibility(View.GONE);
@@ -111,6 +118,13 @@ public class HomeRecyclerAdapter extends RecyclerView.Adapter<HomeRecyclerAdapte
         holder.month.setText(CalendarUtil.getMonth(date) + "月");
         layoutParams.leftMargin = 0;
         holder.dashLine.setLayoutParams(layoutParams);
+        holder.home_item.setTag(position);
+        holder.home_item.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mClickListener.onItemClick(holder.itemView, position);
+            }
+        });
     }
 
     @Override
@@ -129,6 +143,7 @@ public class HomeRecyclerAdapter extends RecyclerView.Adapter<HomeRecyclerAdapte
         ImageView hasPhoto;
         TextView typeNote;
         LinearLayout otherLin;
+        private RelativeLayout home_item;
 
         public MyViewHolder(View view) {
             super(view);
@@ -141,6 +156,7 @@ public class HomeRecyclerAdapter extends RecyclerView.Adapter<HomeRecyclerAdapte
             hasPhoto = (ImageView) view.findViewById(R.id.item_has_photo);
             typeNote = (TextView) view.findViewById(R.id.item_type_note);
             otherLin = (LinearLayout) view.findViewById(R.id.item_type_other);
+            home_item = (RelativeLayout) view.findViewById(R.id.home_item);
         }
     }
 }

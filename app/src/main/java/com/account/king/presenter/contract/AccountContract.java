@@ -12,12 +12,17 @@ import java.util.ArrayList;
 
 public class AccountContract {
 
-    public interface IView{
+    public interface IView {
         void selectAccountSuccess(ArrayList<KingAccountNode> accountNodes);
+
         void seletcAccountFailure();
+
+        void showIncomeOutcome(float inCome, float outCome);
     }
-    public interface IPresenter{
+
+    public interface IPresenter {
         void selectAllAccount();
+
         void selectByDate(int date);
     }
 }

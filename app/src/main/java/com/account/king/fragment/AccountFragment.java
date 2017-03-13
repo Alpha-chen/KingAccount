@@ -9,6 +9,7 @@ import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.account.king.R;
 import com.account.king.adapter.HomeRecyclerAdapter;
@@ -18,13 +19,14 @@ import com.account.king.presenter.contract.presenter.AccountPresenter;
 import com.account.king.rxevent.RxBusEvent;
 import com.account.king.util.CalendarUtil;
 import com.account.king.util.ToastUtil;
+import com.account.king.util.glide.RecyclerItemClickListener;
 
 import java.util.ArrayList;
 
 /***
  * @author King
  */
-public class AccountFragment extends BaseFragment implements View.OnClickListener, AccountContract.IView {
+public class AccountFragment extends BaseFragment implements View.OnClickListener, AccountContract.IView, RecyclerItemClickListener.OnItemClickListener {
 
     private View root;
     private AccountPresenter accountPresenter;
@@ -35,6 +37,9 @@ public class AccountFragment extends BaseFragment implements View.OnClickListene
     private HomeRecyclerAdapter mAdapter;
 
     private SparseBooleanArray mBooleanArray = new SparseBooleanArray();
+
+    private TextView home_month_income;
+    private TextView home_money_cost;
 
     //月份消费详情
 //    private Map<Integer, MonthTotalNode> hashMap = new HashMap<>();
@@ -62,7 +67,11 @@ public class AccountFragment extends BaseFragment implements View.OnClickListene
         LinearLayoutManager layoutManager = new LinearLayoutManager(mContext);
         mRecyclerView.setLayoutManager(layoutManager);
         mAdapter = new HomeRecyclerAdapter(mContext);
+        mAdapter.setClickListener(this);
         mRecyclerView.setAdapter(mAdapter);
+        home_month_income = (TextView) root.findViewById(R.id.home_month_income);
+        home_money_cost = (TextView) root.findViewById(R.id.home_money_cost);
+
     }
 
     @Override
@@ -150,6 +159,12 @@ public class AccountFragment extends BaseFragment implements View.OnClickListene
     }
 
     @Override
+    public void showIncomeOutcome(float inCome, float outCome) {
+        home_month_income.setText(activity.getResources().getString(R.string.show_money, inCome + ""));
+        home_money_cost.setText(activity.getResources().getString(R.string.show_money, outCome + ""));
+    }
+
+    @Override
     public void call(RxBusEvent rxBusEvent) {
         super.call(rxBusEvent);
         switch (rxBusEvent.getId()) {
@@ -159,6 +174,17 @@ public class AccountFragment extends BaseFragment implements View.OnClickListene
             default:
                 break;
         }
+
+    }
+
+    @Override
+    public void onItemClick(View view, int position) {
+        // // TODO: 2017/3/14 进行界面跳转到详情界面
+        ToastUtil.makeToast(activity, "你点击了" + position);
+    }
+
+    @Override
+    public void onLongClick(View view, int position) {
 
     }
 }
