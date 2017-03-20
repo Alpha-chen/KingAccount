@@ -1,6 +1,7 @@
 package com.account.king.fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -11,12 +12,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.account.king.DetailAccountActivity;
 import com.account.king.R;
 import com.account.king.adapter.HomeRecyclerAdapter;
 import com.account.king.node.KingAccountNode;
 import com.account.king.presenter.contract.AccountContract;
 import com.account.king.presenter.contract.presenter.AccountPresenter;
 import com.account.king.rxevent.RxBusEvent;
+import com.account.king.util.ActivityLib;
 import com.account.king.util.CalendarUtil;
 import com.account.king.util.ToastUtil;
 import com.account.king.util.glide.RecyclerItemClickListener;
@@ -40,6 +43,7 @@ public class AccountFragment extends BaseFragment implements View.OnClickListene
 
     private TextView home_month_income;
     private TextView home_money_cost;
+    ArrayList<KingAccountNode> mAccountNodes = new ArrayList<>();
 
     //月份消费详情
 //    private Map<Integer, MonthTotalNode> hashMap = new HashMap<>();
@@ -104,6 +108,7 @@ public class AccountFragment extends BaseFragment implements View.OnClickListene
         ToastUtil.makeToast(mContext, "account.Size()=" + accountNodes.size());
 //        bookNodes.addAll(nodes);
         mBooleanArray.clear();
+        this.mAccountNodes = accountNodes;
         handBookNodes(mContext, accountNodes);
         mAdapter.setParams(accountNodes, mBooleanArray);
     }
@@ -181,6 +186,9 @@ public class AccountFragment extends BaseFragment implements View.OnClickListene
     public void onItemClick(View view, int position) {
         // // TODO: 2017/3/14 进行界面跳转到详情界面
         ToastUtil.makeToast(activity, "你点击了" + position);
+        Intent intent = new Intent(activity, DetailAccountActivity.class);
+        intent.putExtra(ActivityLib.INTENT_PARAM, mAccountNodes.get(position));
+        activity.startActivity(intent);
     }
 
     @Override

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="account_income_type">
+        <item>兼职</item>
+        <item>长辈</item>
+        <item>工资</item>
+        <item>礼金</item>
+        <item>意外之财</item>
+        <item>其他</item>
+    </string-array>
+    <string-array name="account_outcome_type">
+        <item>一般</item>
+        <item>餐饮</item>
+        <item>交通</item>
+        <item>购物</item>
+        <item>娱乐</item>
+        <item>学习</item>
+        <item>约会</item>
+        <item>理财</item>
+        <item>运动</item>
+        <item>通讯</item>
+        <item>医疗</item>
+        <item>旅行</item>
+        <item>礼金</item>
+        <item>理财</item>
+        <item>其他</item>
+    </string-array>
+</resources>

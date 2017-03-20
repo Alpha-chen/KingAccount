@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_detail_account"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/title"
+        style="@style/title_bg_style">
+
+        <ImageView
+            android:id="@+id/detail_account_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/title_back_selector"/>
+
+        <TextView
+            style="@style/title_text_style"
+            android:layout_centerInParent="true"
+            android:text="@string/account_detail"/>
+
+        <TextView
+            android:id="@+id/detail_account_edit"
+            style="@style/title_text_style"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="20dp"
+            android:text="@string/edit"
+            />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/account_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/title"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="20dp"
+        android:text="09月18日"
+        android:textColor="@color/keyboard_normal"
+        android:textSize="12sp"/>
+
+    <TextView
+        android:id="@+id/account_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/title"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="20dp"
+        android:layout_toRightOf="@id/account_date"
+        android:text="09月18日"
+        android:textColor="@color/keyboard_normal"
+        android:textSize="12sp"/>
+
+    <RelativeLayout
+        android:id="@+id/detail_money"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/account_date"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="10dp">
+
+        <TextView
+            android:id="@+id/money_type_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="@string/account_type"/>
+
+        <TextView
+            android:id="@+id/money_type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@id/money_type_tv"
+            android:text="@string/account_type"/>
+
+        <TextView
+            android:id="@+id/moeny"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_toRightOf="@id/money_type"
+            android:gravity="end"
+            android:text="1999999999"
+            android:textSize="@dimen/common_textSize"/>
+
+
+    </RelativeLayout>
+
+    <View
+        android:id="@+id/item_dash_line"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_below="@id/detail_money"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/dash_line_hor"
+        android:layerType="software"/>
+
+    <TextView
+        android:id="@+id/price_tv"
+        style="@style/detail_accunt_text_style"
+        android:layout_below="@id/item_dash_line"
+        android:text="@string/account_price"/>
+
+    <TextView
+        android:id="@+id/price"
+        style="@style/detail_accunt_text_detail_style"
+        android:layout_below="@id/item_dash_line"
+        android:layout_toRightOf="@id/price_tv"
+        android:text="199999999"/>
+
+    <TextView
+        android:id="@+id/number_tv"
+        style="@style/detail_accunt_text_style"
+        android:layout_below="@id/price_tv"
+        android:text="@string/account_price"/>
+
+    <TextView
+        android:id="@+id/number"
+        style="@style/detail_accunt_text_detail_style"
+        android:layout_below="@id/price_tv"
+        android:layout_toRightOf="@id/price_tv"
+        android:text="199999999"/>
+
+    <TextView
+        android:id="@+id/tip_tv"
+        style="@style/detail_accunt_text_style"
+        android:layout_below="@id/number_tv"
+        android:text="@string/account_price"/>
+
+    <TextView
+        android:id="@+id/tip"
+        style="@style/detail_accunt_text_detail_style"
+        android:layout_below="@id/number_tv"
+        android:layout_toRightOf="@id/price_tv"
+        android:text="199999999"/>
+
+    <ImageView
+        android:id="@+id/detail_account_pic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tip"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="20dp"
+        android:src="@drawable/photo_example"/>
+
+    <View
+        android:id="@+id/item_dash_line1"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_below="@id/detail_account_pic"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/dash_line_hor"
+        android:layerType="software"/>
+
+
+    <Button
+        android:id="@+id/detail_delete"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@id/item_dash_line1"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/round_bg_selector"
+        android:text="@string/delete"
+        android:textColor="@color/white"
+        android:textSize="@dimen/common_textSize"/>
+</RelativeLayout>

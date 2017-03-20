@@ -98,6 +98,18 @@ public class CalendarUtil {
     }
 
     /**
+     * 时间戳转time
+     *
+     * @param timeMilis 秒单位
+     * @return HH:MM
+     */
+    public static String timeMilis2Time(long timeMilis) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(timeMilis * 1000);
+        return getTime(calendar);
+    }
+
+    /**
      * @param date 20160601000000
      * @return 时间戳/s
      */
@@ -437,11 +449,28 @@ public class CalendarUtil {
         return getDate(calendar.getTime());
     }
 
+    /**
+     * yyyyMMdd
+     *
+     * @param calendar
+     * @return
+     */
+    public static String getTime(Calendar calendar) {
+        if (null == calendar) {
+            return "";
+        }
+        return getTime(calendar.getTime());
+    }
+
     public static int getDate(Date date) {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
         return Integer.parseInt(sdf.format(date));
     }
 
+    public static String getTime(Date date) {
+        SimpleDateFormat sdf = new SimpleDateFormat("HH:MM");
+        return sdf.format(date);
+    }
 
     /**
      * 得到年份和月份

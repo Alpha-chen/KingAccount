@@ -10,13 +10,10 @@
     <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
     <!-- 缓存资源优先存入SDcard -->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <!-- 允许应用程序联网，以便向我们的服务器端发送数据 -->
     <uses-permission android:name="android.permission.INTERNET"/>
-
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
-
     <uses-permission android:name="android.permission.VIBRATE"/>
 
     <application
@@ -40,7 +37,7 @@
             android:windowSoftInputMode="stateAlwaysVisible|adjustResize">
         </activity>
         <activity
-            android:name="PhotoActivity"
+            android:name=".PhotoActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan|stateHidden"/>
@@ -62,10 +59,12 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan|stateHidden"/>
         <activity
-            android:name="NoteActivity"
+            android:name=".NoteActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan|stateVisible"/>
+        <activity android:name=".DetailAccountActivity">
+        </activity>
     </application>
 
 </manifest>
