@@ -1,5 +1,7 @@
 package com.account.king.node;
 
+import android.text.TextUtils;
+
 import com.account.king.util.KingJson;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
@@ -105,11 +107,19 @@ public class KingAccountNode implements Serializable {
     }
 
     public Attachment getAttachment() {
-        return mAttachment;
+        if (!TextUtils.isEmpty(attachment)) {
+            mAttachment = KingJson.parseObject(attachment, Attachment.class);
+            return mAttachment;
+        } else {
+            return null;
+        }
     }
 
     public void setAttachment(Attachment attachment) {
-        this.mAttachment = attachment;
+        if (null != attachment) {
+            this.mAttachment = attachment;
+            setAttachment(KingJson.toJSON(attachment).toString());
+        }
     }
 
     public void setAttachment(String attachment) {

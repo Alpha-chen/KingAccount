@@ -307,7 +307,6 @@ public class CalendarUtil {
      * @return
      */
     public static int getYear(long date) {
-        LogUtil.d(TAG, "getYear");
         int year = -1;
         String dataStr = date + "";
         try {
@@ -326,7 +325,6 @@ public class CalendarUtil {
      * @return -1解析失败
      */
     public static int getMonth(long date) {
-        LogUtil.d(TAG, "getMonth");
         int month = -1;
         String dataStr = date + "";
 

@@ -57,7 +57,7 @@ public class DBHelper extends OrmLiteSqliteOpenHelper {
         LogUtil.d(TAG, "onCreate");
         try {
             TableUtils.createTableIfNotExists(connectionSource, KingAccountNode.class);
-            StringBuilder CREATE_FEED_TABLE = new StringBuilder(
+          /*  StringBuilder CREATE_FEED_TABLE = new StringBuilder(
                     " CREATE TABLE IF NOT EXISTS ").append(TABLE_ACCOUNT)
                     .append(" ( ")
                     .append(KingAccountNode.ID)
@@ -71,7 +71,7 @@ public class DBHelper extends OrmLiteSqliteOpenHelper {
 
             if (null!=database){
                 database.execSQL(CREATE_FEED_TABLE.toString());
-            }
+            }*/
 
         } catch (SQLException e) {
             e.printStackTrace();

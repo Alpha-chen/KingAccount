@@ -40,4 +40,12 @@ public class Attachment implements Serializable {
         attachment.setAttachment_path(this.attachment_path);
         return attachment;
     }
+
+    @Override
+    public String toString() {
+        return "Attachment{" +
+                "content='" + content + '\'' +
+                ", attachment_path='" + attachment_path + '\'' +
+                '}';
+    }
 }

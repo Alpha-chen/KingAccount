@@ -85,6 +85,7 @@ public class AddAccountActivity extends BaseActivity implements View.OnClickList
     private KingAccountNode accountNode;
     private AddAccountPresenter presenter;
     private boolean isEdit = false;
+    private Attachment attachment = new Attachment();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -156,7 +157,7 @@ public class AddAccountActivity extends BaseActivity implements View.OnClickList
         mAccount_type_iv = (ImageView) findViewById(R.id.account_type_iv);
         mAccount_type_tv = (TextView) findViewById(R.id.account_type_tv);
         mAccount_type_select_tv = (TextView) findViewById(R.id.account_type_select_tv);
-        mAccount_type_select = (ImageView) findViewById(R.id.account_type_select);
+        mAccount_type_select_tv.setOnClickListener(this);
         mAdd_account_click_input = (RelativeLayout) findViewById(R.id.add_account_click_input);
         mAdd_account_time = (Button) findViewById(R.id.add_account_time);
         mAdd_account_time.setOnClickListener(this);
@@ -215,6 +216,11 @@ public class AddAccountActivity extends BaseActivity implements View.OnClickList
             case R.id.add_account_note:
                 presenter.clickWriterNote(this, accountNode);
                 break;
+            case R.id.account_type_select_tv:
+                Intent intent = new Intent(AddAccountActivity.this, TypeActivity.class);
+                intent.putExtra(ActivityLib.INTENT_PARAM, accountNode);
+                startActivity(intent);
+                break;
             case R.id.add_account_select:
 //                presenter.selectPhoto(this, accountNode);
                 if (null != accountNode.getAttachment() && !TextUtils.isEmpty(accountNode.getAttachment().getAttachment_path())) {
@@ -248,6 +254,7 @@ public class AddAccountActivity extends BaseActivity implements View.OnClickList
         }
         accountNode.setCount(Double.parseDouble(count));
         accountNode.setPrice(Double.parseDouble(price));
+        accountNode.setAttachment(attachment);
         return true;
     }
 
@@ -276,32 +283,22 @@ public class AddAccountActivity extends BaseActivity implements View.OnClickList
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == Activity.RESULT_OK) {
-            ToastUtil.makeToast(AddAccountActivity.this, "resultCode=" + resultCode);
-            ToastUtil.makeToast(AddAccountActivity.this, "requestCode=" + requestCode);
-            ToastUtil.makeToast(AddAccountActivity.this, "data=" + data);
-            Attachment attachment;
             switch (requestCode) {
                 case MultiSelectorUtils.SELECTOR_REQUES_CODE:
-                    attachment = new Attachment();
                     if (data != null) {
                         SelectedImages selectedImages = (SelectedImages) data.getSerializableExtra(MultiImageSelectorActivity.EXTRA_RESULT);
                         String path = selectedImages.getEditPath(0);
                         attachment.setAttachment_path(path);
-                        accountNode.setAttachment(attachment);
-                        ImageLoadUtil.loadRound(this, accountNode.getAttachment().getAttachment_path(), mAdd_account_select);
+                        ImageLoadUtil.loadRound(this, path, mAdd_account_select);
                     }
                     break;
                 case WhatConstants.Refresh.PHOTO_DELETE:
                     mAdd_account_select.setImageResource(R.drawable.ic_add_photo);
-                    attachment = new Attachment();
                     attachment.setAttachment_path("");
-                    accountNode.setAttachment(attachment);
                     break;
                 case WhatConstants.Refresh.ACCOUNT_INPUT_NOTE:
                     String note = data.getStringExtra(ActivityLib.INTENT_PARAM);
-                    attachment = new Attachment();
                     attachment.setContent(note);
-                    accountNode.setAttachment(attachment);
                     presenter.loadNote(this, note);
                     break;
             }

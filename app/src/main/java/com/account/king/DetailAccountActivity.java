@@ -3,19 +3,26 @@ package com.account.king;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.account.king.constant.WhatConstants;
 import com.account.king.node.Attachment;
 import com.account.king.node.KingAccountNode;
+import com.account.king.presenter.contract.DetailAccountContract;
+import com.account.king.presenter.contract.presenter.DetailAccountPresenter;
+import com.account.king.rxevent.RxBus;
+import com.account.king.rxevent.RxBusEvent;
 import com.account.king.util.ActivityLib;
 import com.account.king.util.ArithUtil;
 import com.account.king.util.CalendarUtil;
+import com.account.king.util.LogUtil;
+import com.account.king.util.ToastUtil;
 import com.account.king.util.glide.GlideUtil;
 
-public class DetailAccountActivity extends BaseActivity implements View.OnClickListener {
+import static com.account.king.rxevent.RxBusEvent.REFRESH_ACCOUNT_LIST;
+
+public class DetailAccountActivity extends BaseActivity implements View.OnClickListener, DetailAccountContract.IView {
     private ImageView mDetail_account_back;
     private TextView mDetail_account_edit;
     private TextView mAccount_date;
@@ -26,12 +33,16 @@ public class DetailAccountActivity extends BaseActivity implements View.OnClickL
     private TextView mNumber;
     private TextView mTip;
     private ImageView mDetail_account_pic;
-    private Button mDetail_delete;
+    private TextView mDetail_delete;
     private KingAccountNode mAccountNode;
+    private DetailAccountPresenter mPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        initView();
+        initIntent();
+        initPresenter();
     }
 
     @Override
@@ -50,7 +61,7 @@ public class DetailAccountActivity extends BaseActivity implements View.OnClickL
         mTip = (TextView) findViewById(R.id.tip);
         mDetail_account_pic = (ImageView) findViewById(R.id.detail_account_pic);
         mDetail_account_pic.setOnClickListener(this);
-        mDetail_delete = (Button) findViewById(R.id.detail_delete);
+        mDetail_delete = (TextView) findViewById(R.id.detail_delete);
         mDetail_delete.setOnClickListener(this);
     }
 
@@ -60,19 +71,21 @@ public class DetailAccountActivity extends BaseActivity implements View.OnClickL
         mAccountNode = (KingAccountNode) getIntent().getSerializableExtra(ActivityLib.INTENT_PARAM);
         if (null != mAccountNode) {
             initViewData();
+            LogUtil.d(TAG, "mAccountNode->=" + mAccountNode.toString());
         }
     }
 
     @Override
     public void initPresenter() {
         super.initPresenter();
+        mPresenter = new DetailAccountPresenter(this, DetailAccountActivity.this);
     }
 
     @Override
     public void initViewData() {
         super.initViewData();
-        mAccount_date.setText(CalendarUtil.timeMilis2Date(mAccountNode.getYmd_hms()));
-        mAccount_time.setText(CalendarUtil.timeMilis2Time(mAccountNode.getYmd_hms()));
+        mAccount_date.setText(CalendarUtil.timeMilis2Date(mAccountNode.getYmd_hms()) + "");
+        mAccount_time.setText(CalendarUtil.timeMilis2Time(mAccountNode.getYmd_hms()) + "");
         String[] typeArrays = null;
         if (mAccountNode.getAccount_type() == KingAccountNode.MONEY_OUT) {
             typeArrays = getResources().getStringArray(R.array.account_outcome_type);
@@ -85,10 +98,14 @@ public class DetailAccountActivity extends BaseActivity implements View.OnClickL
         mNumber.setText(mAccountNode.getCount() + "");
         Attachment attachment = new Attachment();
         if (null != mAccountNode.getAttachment()) {
+            mDetail_account_pic.setVisibility(View.VISIBLE);
             attachment = mAccountNode.getAttachment();
             mTip.setText(attachment.getContent());
-            GlideUtil.load(this, attachment.getAttachment_path(), mDetail_account_pic);
+            GlideUtil.loadCenterCrop(this, attachment.getAttachment_path(), mDetail_account_pic);
+        } else {
+            mDetail_account_pic.setVisibility(View.GONE);
         }
+
 
     }
 
@@ -114,6 +131,19 @@ public class DetailAccountActivity extends BaseActivity implements View.OnClickL
                 data.putExtra(ActivityLib.INTENT_PARAM2, false);
                 startActivityForResult(data, WhatConstants.Refresh.PHOTO_DELETE);
                 break;
+            case R.id.detail_delete:
+                if (null != mAccountNode) {
+                    mPresenter.delete(mAccountNode);
+                } else {
+                    ToastUtil.makeToast(DetailAccountActivity.this, getResources().getString(R.string.delete_tip));
+                }
+                break;
         }
+    }
+
+    @Override
+    public void deleteSuccess() {
+        RxBus.getDefault().send(new RxBusEvent(REFRESH_ACCOUNT_LIST));
+        finish();
     }
 }

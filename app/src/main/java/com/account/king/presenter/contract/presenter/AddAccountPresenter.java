@@ -29,6 +29,7 @@ import com.account.king.util.CalendarUtil;
 import com.account.king.util.PermissionUtil;
 import com.account.king.util.glide.GlideUtil;
 import com.account.king.view.dialog.CalendarDialog;
+import com.j256.ormlite.stmt.query.In;
 
 import java.util.List;
 
@@ -174,6 +175,10 @@ public class AddAccountPresenter implements AddAccountContract.IAddAcountPresent
             MultiSelectorUtils.selectImage(context,
                     new ImageSelector.Builder().editMode(2).build());
         }
+    }
+
+    @Override
+    public void selectType(Activity context, KingAccountNode bookNode) {
     }
 
     @Override

@@ -29,7 +29,6 @@ public class AddAccountContract {
         public void setDateText(String date);
 
         public void jitterMoney(PropertyValuesHolder pvhRotate);
-
         public void showKeyBoard();
     }
 
@@ -52,6 +51,8 @@ public class AddAccountContract {
         public void selectDate(Context context, final KingAccountNode bookNode);
 
         public void selectPhoto(Activity context, KingAccountNode bookNode);
+
+        public void selectType(Activity context, KingAccountNode bookNode);
 
         public void clickWriterNote(Activity context, final KingAccountNode bookNode);
 

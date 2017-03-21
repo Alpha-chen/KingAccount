@@ -12,16 +12,17 @@
 
     <string name="account_price">单价:</string>
     <string name="account_count">数量:</string>
-    <string name="account_type">类型:</string>
+    <string name="account_type">类别:</string>
     <string name="permission_alert">正在请求弹框权限</string>
     <string name="submit">提交</string>
     <string name="dialog_cancel">取消</string>
     <string name="dialog_ok">确定</string>
     <string name="dialog_save">保存</string>
     <string name="add_note">添加备注</string>
+    <string name="note">备注</string>
     <string name="show_money">%1$s元</string>
     <string name="account_detail">记账详情</string>
     <string name="edit">编辑</string>
     <string name="delete">删除</string>
-
+    <string name="delete_tip">没有什么可以删除了</string>
 </resources>

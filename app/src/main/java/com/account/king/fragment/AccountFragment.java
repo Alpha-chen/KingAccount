@@ -140,22 +140,9 @@ public class AccountFragment extends BaseFragment implements View.OnClickListene
             }
         }
 
-
-//        homeView.updateAdapter(typeNodes, mList, booleanArray);
-//        clearMonthTotal(context);
     }
 
-
     public void clearMonthTotal(Context context) {
-//        hashMap.clear();
-//        hYear = 0;
-//        hMonth = 0;
-//        initBudgetDay(context);
-//        if (bookNodes == null || bookNodes.size() == 0) {
-//            homeView.setMonthMoney(CalendarUtil.getYear(), CalendarUtil.getBudgetMonth(context), "0.00", "0.00");
-//            return;
-//        }
-//        setFirstVisible(context, firstItemPosition);
     }
 
     @Override

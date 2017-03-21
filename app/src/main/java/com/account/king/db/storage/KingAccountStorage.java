@@ -74,7 +74,6 @@ public class KingAccountStorage {
      * @return
      */
     public boolean delete(KingAccountNode bookNode) {
-
         int result = bookDao.delete(bookNode);
         if (result == 1) {
             return true;
