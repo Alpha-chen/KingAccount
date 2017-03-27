@@ -55,6 +55,9 @@ public class KingAccountNode implements Serializable {
     private String attachment;
     public static String ATTACHMENT = "attachment";
     private Attachment mAttachment;
+    @DatabaseField(columnName = "extend")
+    private String extend;
+    public static String EXTEND = "extend";
 
     /**
      * 记录时间
@@ -76,6 +79,14 @@ public class KingAccountNode implements Serializable {
 
     public double getPrice() {
         return price;
+    }
+
+    public String getExtend() {
+        return extend;
+    }
+
+    public void setExtend(String extend) {
+        this.extend = extend;
     }
 
     public void setPrice(double price) {
