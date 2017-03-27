@@ -29,10 +29,15 @@ public class AddAccountContract {
         public void setDateText(String date);
 
         public void jitterMoney(PropertyValuesHolder pvhRotate);
+
         public void showKeyBoard();
+
+        void showType(String type);
     }
 
     public interface IAddAcountPresenter {
+
+        void loadType(int accountType, int type);
 
         public List<KingAccountNode> getTypeNodes(Context context);
 

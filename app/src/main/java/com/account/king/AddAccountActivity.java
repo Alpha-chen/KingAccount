@@ -39,11 +39,14 @@ import pink.net.multiimageselector.utils.ImageLoadUtil;
 import pink.net.multiimageselector.utils.ImageSelector;
 import pink.net.multiimageselector.utils.MultiSelectorUtils;
 
+import static com.account.king.R.id.add_account_note;
+
 
 public class AddAccountActivity extends BaseActivity implements View.OnClickListener
         , KeyBoardView.NumClickListener, IAddAcountView {
 
     private int REQUEST_CODE_ASK_IMAGE_PHONE = 123;
+    private int REQUEST_CODE_ASK_TYPE = 124;
 
     //关闭动画部分机型在style中设置无效
     protected int activityCloseEnterAnimation;
@@ -93,6 +96,7 @@ public class AddAccountActivity extends BaseActivity implements View.OnClickList
         initView();
         initIntent();
         initPresenter();
+        initViewData();
     }
 
     @Override
@@ -106,16 +110,42 @@ public class AddAccountActivity extends BaseActivity implements View.OnClickList
 //            oldAccountNode.setMoney_type(NodeUtil.MONEY_OUT);
             oldAccountNode.setYmd_hms(CalendarUtil.getNowTimeMillis());
             mAdd_account_time.setText(CalendarUtil.TimeStamp2Date(System.currentTimeMillis()));
+        } else {
+            isEdit = true;
         }
         accountNode = (KingAccountNode) oldAccountNode.copy();
         type = accountNode.getAccount_type();
     }
 
     @Override
+    public void initViewData() {
+        super.initViewData();
+        if (0 != accountNode.getPrice()) {
+            mAccount_price_input.setText(accountNode.getPrice() + "");
+        }
+        if (0 != accountNode.getCount()) {
+            mAccount_count_input.setText(accountNode.getCount() + "");
+        }
+        String[] arrays = null;
+        if (KingAccountNode.MONEY_OUT == accountNode.getAccount_type()) {
+            arrays = getResources().getStringArray(R.array.account_outcome_type);
+        } else if (KingAccountNode.MONEY_IN == accountNode.getAccount_type()) {
+            arrays = getResources().getStringArray(R.array.account_income_type);
+        }
+        mAccount_type_select_tv.setText(arrays[accountNode.getType()]);
+        mAdd_account_time.setText(CalendarUtil.getStringMD(CalendarUtil.timeMilis2Date(accountNode.getYmd_hms())));
+        if (null != accountNode.getAttachment()) {
+            presenter.loadNote(AddAccountActivity.this, accountNode.getAttachment().getContent());
+        }
+        if (null != accountNode.getAttachment()) {
+            presenter.loadImg(AddAccountActivity.this, accountNode.getAttachment().getAttachment_path(), mAdd_account_select);
+        }
+    }
+
+    @Override
     public void initPresenter() {
         super.initPresenter();
         presenter = new AddAccountPresenter(this, this);
-
     }
 
     @Override
@@ -161,7 +191,7 @@ public class AddAccountActivity extends BaseActivity implements View.OnClickList
         mAdd_account_click_input = (RelativeLayout) findViewById(R.id.add_account_click_input);
         mAdd_account_time = (Button) findViewById(R.id.add_account_time);
         mAdd_account_time.setOnClickListener(this);
-        mAdd_account_note = (TextView) findViewById(R.id.add_account_note);
+        mAdd_account_note = (TextView) findViewById(add_account_note);
         mAdd_account_note.setOnClickListener(this);
         mAdd_account_select = (RoundCornerImageView) findViewById(R.id.add_account_select);
         mAdd_account_select.setOnClickListener(this);
@@ -183,10 +213,18 @@ public class AddAccountActivity extends BaseActivity implements View.OnClickList
             case R.id.add_account_done:
                 if (getNode()) {
                     LogUtil.d(TAG, "accountNode=" + accountNode.toString());
-                    if (presenter.insertBookNode(AddAccountActivity.this, accountNode)) {
-                        ToastUtil.makeToast(AddAccountActivity.this, "插入成功");
+                    if (isEdit) {
+                        if (presenter.updateBookNode(AddAccountActivity.this, accountNode)) {
+                            ToastUtil.makeToast(AddAccountActivity.this, "更新成功");
+                        } else {
+                            ToastUtil.makeToast(AddAccountActivity.this, "更新失败");
+                        }
                     } else {
-                        ToastUtil.makeToast(AddAccountActivity.this, "插入失败");
+                        if (presenter.insertBookNode(AddAccountActivity.this, accountNode)) {
+                            ToastUtil.makeToast(AddAccountActivity.this, "插入成功");
+                        } else {
+                            ToastUtil.makeToast(AddAccountActivity.this, "插入失败");
+                        }
                     }
                     RxBus.getDefault().send(new RxBusEvent(RxBusEvent.REFRESH_ACCOUNT_LIST));
                     finish();
@@ -213,13 +251,13 @@ public class AddAccountActivity extends BaseActivity implements View.OnClickList
             case R.id.add_account_writer_note:
                 presenter.clickWriterNote(this, accountNode);
                 break;
-            case R.id.add_account_note:
+            case add_account_note:
                 presenter.clickWriterNote(this, accountNode);
                 break;
             case R.id.account_type_select_tv:
                 Intent intent = new Intent(AddAccountActivity.this, TypeActivity.class);
                 intent.putExtra(ActivityLib.INTENT_PARAM, accountNode);
-                startActivity(intent);
+                startActivityForResult(intent, WhatConstants.ACCOUNT_TYPE.SELECT_TYPE);
                 break;
             case R.id.add_account_select:
 //                presenter.selectPhoto(this, accountNode);
@@ -301,6 +339,15 @@ public class AddAccountActivity extends BaseActivity implements View.OnClickList
                     attachment.setContent(note);
                     presenter.loadNote(this, note);
                     break;
+                case WhatConstants.ACCOUNT_TYPE.SELECT_TYPE:
+                    if (data != null) {
+                        int typeCount = data.getIntExtra(ActivityLib.INTENT_PARAM, 0);
+                        accountNode.setType(typeCount);
+                        presenter.loadType(type, typeCount);
+                    }
+                    break;
+                default:
+                    break;
             }
         }
     }
@@ -377,6 +424,11 @@ public class AddAccountActivity extends BaseActivity implements View.OnClickList
     @Override
     public void showKeyBoard() {
 
+    }
+
+    @Override
+    public void showType(String type) {
+        mAccount_type_select_tv.setText(type);
     }
 
     @Override

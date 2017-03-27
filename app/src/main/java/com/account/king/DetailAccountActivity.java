@@ -2,6 +2,7 @@ package com.account.king;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -98,10 +99,14 @@ public class DetailAccountActivity extends BaseActivity implements View.OnClickL
         mNumber.setText(mAccountNode.getCount() + "");
         Attachment attachment = new Attachment();
         if (null != mAccountNode.getAttachment()) {
-            mDetail_account_pic.setVisibility(View.VISIBLE);
             attachment = mAccountNode.getAttachment();
             mTip.setText(attachment.getContent());
-            GlideUtil.loadCenterCrop(this, attachment.getAttachment_path(), mDetail_account_pic);
+            if (!TextUtils.isEmpty(attachment.getAttachment_path())) {
+                mDetail_account_pic.setVisibility(View.GONE);
+                GlideUtil.loadCenterCrop(this, attachment.getAttachment_path(), mDetail_account_pic);
+            } else {
+                mDetail_account_pic.setVisibility(View.GONE);
+            }
         } else {
             mDetail_account_pic.setVisibility(View.GONE);
         }
@@ -123,7 +128,9 @@ public class DetailAccountActivity extends BaseActivity implements View.OnClickL
             case R.id.detail_account_edit:
                 Intent intent = new Intent(DetailAccountActivity.this, AddAccountActivity.class);
                 intent.putExtra(ActivityLib.INTENT_PARAM, mAccountNode);
+                LogUtil.d(TAG, "mAccountNode->=" + mAccountNode.toString());
                 startActivity(intent);
+                finish();
                 break;
             case R.id.detail_account_pic:
                 Intent data = new Intent(this, PhotoActivity.class);

@@ -29,7 +29,6 @@ import com.account.king.util.CalendarUtil;
 import com.account.king.util.PermissionUtil;
 import com.account.king.util.glide.GlideUtil;
 import com.account.king.view.dialog.CalendarDialog;
-import com.j256.ormlite.stmt.query.In;
 
 import java.util.List;
 
@@ -51,6 +50,17 @@ public class AddAccountPresenter implements AddAccountContract.IAddAcountPresent
         this.mContext = context;
     }
 
+
+    @Override
+    public void loadType(int accountType, int type) {
+        String[] arrays = null;
+        if (KingAccountNode.MONEY_IN == accountType) {
+            arrays = mContext.getResources().getStringArray(R.array.account_income_type);
+        } else if (KingAccountNode.MONEY_OUT == accountType) {
+            arrays = mContext.getResources().getStringArray(R.array.account_outcome_type);
+        }
+        addAcountView.showType(arrays[type]);
+    }
 
     @Override
     public List<KingAccountNode> getTypeNodes(Context context) {

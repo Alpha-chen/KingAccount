@@ -19,6 +19,15 @@
             style="@style/title_text_style"
             android:layout_centerInParent="true"
             android:text="@string/account_type"/>
+
+        <ImageView
+            android:id="@+id/type_save"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/ic_done_selector"
+            />
     </RelativeLayout>
 
     <android.support.v7.widget.RecyclerView
