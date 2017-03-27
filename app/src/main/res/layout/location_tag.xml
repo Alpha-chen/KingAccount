@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/location_layout"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    >
+
+    <RelativeLayout
+        android:id="@+id/rlayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true">
+
+        <ImageView
+            android:id="@+id/sns_location_tag_img"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/sns_location_before"
+            android:visibility="gone"/>
+
+        <ProgressBar
+            android:id="@+id/sns_location_progress"
+            style="@style/my_sns_location_progress"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:layout_centerVertical="true"
+
+            />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/sns_location_tag_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@id/rlayout"
+        android:ellipsize="end"
+        android:maxEms="12"
+        android:singleLine="true"
+        android:text="@string/sns_location_loading"
+        android:textColor="@color/transparent_black_20"
+        android:textSize="12sp"
+        />
+
+</RelativeLayout>

@@ -219,4 +219,12 @@
         <item name="android:layout_marginLeft">15dp</item>
 
     </style>
+    <!--定位中progress的样式-->
+    <style name="my_sns_location_progress">
+        <item name="android:indeterminateDrawable">@anim/progress_sns_locations</item>
+        <item name="android:minWidth">16dp</item>
+        <item name="android:maxWidth">16dp</item>
+        <item name="android:minHeight">16dp</item>
+        <item name="android:maxHeight">16dp</item>
+    </style>
 </resources>

@@ -25,4 +25,9 @@
     <string name="edit">编辑</string>
     <string name="delete">删除</string>
     <string name="delete_tip">没有什么可以删除了</string>
+    <!--定位相关错误信息-->
+    <string name="sns_txt_location">点击添加位置</string>
+    <string name="sns_location_failed">无法定位</string>
+    <string name="sns_location_loading">获取位置中</string>
+
 </resources>

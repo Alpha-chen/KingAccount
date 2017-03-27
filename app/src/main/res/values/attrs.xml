@@ -39,4 +39,7 @@
     <declare-styleable name="RoundCornerImageView">
         <attr name="corner_radius" format="dimension"/>
     </declare-styleable>
+    <declare-styleable name="LocationView">
+        <attr name="defaultOpen" format="boolean"/>
+    </declare-styleable>
 </resources>
