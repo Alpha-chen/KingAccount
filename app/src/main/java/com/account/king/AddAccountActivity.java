@@ -82,6 +82,8 @@ public class AddAccountActivity extends BaseActivity implements View.OnClickList
     private TextView mAdd_account_note;
     private RoundCornerImageView mAdd_account_select;
     private ImageView mAdd_account_writer_note;
+    private ImageView add_account_location;
+    private TextView add_account_location_detail;
 
     private int inputType = 0; // 0  单价 1  数量
     private KingAccountNode oldAccountNode;
@@ -136,9 +138,21 @@ public class AddAccountActivity extends BaseActivity implements View.OnClickList
         mAdd_account_time.setText(CalendarUtil.getStringMD(CalendarUtil.timeMilis2Date(accountNode.getYmd_hms())));
         if (null != accountNode.getAttachment()) {
             presenter.loadNote(AddAccountActivity.this, accountNode.getAttachment().getContent());
-        }
-        if (null != accountNode.getAttachment()) {
             presenter.loadImg(AddAccountActivity.this, accountNode.getAttachment().getAttachment_path(), mAdd_account_select);
+            presenter.loadLocation(add_account_location_detail, accountNode.getAttachment().getLocation());
+        } else {
+            if (Build.VERSION.SDK_INT >= 23) {
+                int checkCallPhonePermission = ContextCompat.checkSelfPermission(AddAccountActivity.this, Manifest.permission.ACCESS_FINE_LOCATION);
+                if (checkCallPhonePermission != PackageManager.PERMISSION_GRANTED) {
+                    ActivityCompat.requestPermissions(AddAccountActivity.this,
+                            new String[]{Manifest.permission.ACCESS_LOCATION_EXTRA_COMMANDS
+                                    ,Manifest.permission.ACCESS_COARSE_LOCATION
+                                    ,Manifest.permission.ACCESS_FINE_LOCATION
+                            ,Manifest.permission.ACCESS_WIFI_STATE}, REQUEST_CODE_ASK_TYPE);
+                    return;
+                }
+            }
+            presenter.getAccountLocation(add_account_location_detail, add_account_location);
         }
     }
 
@@ -197,6 +211,8 @@ public class AddAccountActivity extends BaseActivity implements View.OnClickList
         mAdd_account_select.setOnClickListener(this);
         mAdd_account_writer_note = (ImageView) findViewById(R.id.add_account_writer_note);
         mAdd_account_writer_note.setOnClickListener(this);
+        add_account_location = (ImageView) findViewById(R.id.add_account_location);
+        add_account_location_detail = (TextView) findViewById(R.id.add_account_location_detail);
 //        keyBoardView = (KeyBoardView) findViewById(R.id.keyboard_view);
 //        keyBoardView.setNumClickListener(this);
     }
@@ -424,6 +440,15 @@ public class AddAccountActivity extends BaseActivity implements View.OnClickList
     @Override
     public void showKeyBoard() {
 
+    }
+
+    @Override
+    public void loadLocationSuccess(String location) {
+        if (TextUtils.isEmpty(location)) {
+            attachment.setLocation("");
+        } else {
+            attachment.setLocation(location);
+        }
     }
 
     @Override

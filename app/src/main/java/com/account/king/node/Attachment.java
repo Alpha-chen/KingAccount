@@ -14,8 +14,16 @@ public class Attachment implements Serializable {
 
     private String content;
     private String attachment_path;
-
+    private String location ;
     public Attachment() {
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
     }
 
     public String getContent() {
@@ -46,6 +54,7 @@ public class Attachment implements Serializable {
         return "Attachment{" +
                 "content='" + content + '\'' +
                 ", attachment_path='" + attachment_path + '\'' +
+                ", location='" + location + '\'' +
                 '}';
     }
 }

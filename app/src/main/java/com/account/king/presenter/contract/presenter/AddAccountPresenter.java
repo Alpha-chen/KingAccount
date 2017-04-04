@@ -14,12 +14,15 @@ import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.account.king.NoteActivity;
 import com.account.king.PhotoActivity;
 import com.account.king.R;
+import com.account.king.callback.AMapLocationCallBack;
 import com.account.king.constant.WhatConstants;
 import com.account.king.db.storage.KingAccountStorage;
+import com.account.king.manager.AMapLocationManager;
 import com.account.king.node.KingAccountNode;
 import com.account.king.presenter.contract.AddAccountContract;
 import com.account.king.rxevent.RxBus;
@@ -29,7 +32,9 @@ import com.account.king.util.CalendarUtil;
 import com.account.king.util.PermissionUtil;
 import com.account.king.util.glide.GlideUtil;
 import com.account.king.view.dialog.CalendarDialog;
+import com.amap.api.location.AMapLocation;
 
+import java.util.HashMap;
 import java.util.List;
 
 import pink.net.multiimageselector.utils.ImageSelector;
@@ -39,17 +44,31 @@ import pink.net.multiimageselector.utils.MultiSelectorUtils;
 /**
  * @author king
  */
-public class AddAccountPresenter implements AddAccountContract.IAddAcountPresenter {
+public class AddAccountPresenter implements AddAccountContract.IAddAcountPresenter, AMapLocationCallBack {
+
 
     private int REQUEST_CODE_ASK_IMAGE_PHONE = 123;
     private AddAccountContract.IAddAcountView addAcountView;
     private Context mContext;
+    private AMapLocationManager aMapLocationManager;
+    // 四个直辖市
+    private HashMap<String, String> municipalitys = new HashMap<>();
+    private TextView locationView;
+    private ImageView locationIcon;
 
     public AddAccountPresenter(AddAccountContract.IAddAcountView addAcountView, Context context) {
         this.addAcountView = addAcountView;
         this.mContext = context;
+        initLocation();
     }
 
+    private void initLocation() {
+        municipalitys.put("010", "北京");
+        municipalitys.put("021", "上海");
+        municipalitys.put("022", "天津");
+        municipalitys.put("023", "重庆");
+        aMapLocationManager = new AMapLocationManager(mContext);
+    }
 
     @Override
     public void loadType(int accountType, int type) {
@@ -202,6 +221,47 @@ public class AddAccountPresenter implements AddAccountContract.IAddAcountPresent
         context.startActivityForResult(data, WhatConstants.Refresh.ACCOUNT_INPUT_NOTE);
     }
 
+    @Override
+    public void onLocationSuccess(AMapLocation aMapLocation) {
+        locationView.setVisibility(View.VISIBLE);
+        // 如果是四个直辖市，就选择直辖市,区;相反就是显示省,市;保持与服务器返回数据保持一致
+        if (!TextUtils.isEmpty(municipalitys.get(aMapLocation.getCityCode()))) {
+            locationView.setText(aMapLocation.getCity() + aMapLocation.getDistrict());
+            addAcountView.loadLocationSuccess(aMapLocation.getCity() + aMapLocation.getDistrict());
+        } else {
+            locationView.setText(aMapLocation.getCity() + aMapLocation.getDistrict());
+            addAcountView.loadLocationSuccess(aMapLocation.getCity() + aMapLocation.getDistrict());
+        }
+        locationIcon.setImageResource(R.drawable.ic_place_blue);
+    }
+
+    @Override
+    public void onLocationFailed(int errorCode, String errorMessage) {
+        locationView.setVisibility(View.GONE);
+        addAcountView.loadLocationSuccess("");
+        locationView.setText(mContext.getResources().getString(R.string.sns_location_failed));
+        locationView.setTextColor(mContext.getResources().getColor(R.color.light_gray));
+        locationIcon.setImageResource(R.drawable.ic_place_gray);
+    }
+
+    @Override
+    public void loadLocation(TextView locationView, String location) {
+        if (TextUtils.isEmpty(location)) {
+            locationView.setVisibility(View.GONE);
+        } else {
+            locationView.setVisibility(View.VISIBLE);
+            locationView.setText(location);
+        }
+    }
+
+    @Override
+    public void getAccountLocation(final TextView locationView, final ImageView locationIcon) {
+        this.locationIcon = locationIcon;
+        this.locationView = locationView;
+        aMapLocationManager.setAMapLocationCallBack(this);
+        aMapLocationManager.startOnceLocation();
+    }
+
 
     @Override
     public void onItemClick(Context context, RecyclerView.ViewHolder vh, int type, List<KingAccountNode> typeNodes, ImageView moveTypeIcon, ImageView icon) {
@@ -209,70 +269,4 @@ public class AddAccountPresenter implements AddAccountContract.IAddAcountPresent
     }
 
 
-  /*
-    private void showSelectAnim(Context context, RecyclerView.ViewHolder vh, final ImageView moveTypeIcon, ImageView icon
-            , final AccountTypeNode node) {
-        ImageView typeIconImg = ((BaseViewHolder) vh).getView(R.id.type_icon);
-        //获取坐标
-        int[] location = new int[2];
-        typeIconImg.getLocationOnScreen(location);
-        int status = ScreenUtils.getStatusHeight(context);
-        int top = DensityUtils.dp2px(context, 50);
-        moveTypeIcon.setVisibility(View.VISIBLE);
-        moveTypeIcon.setX(location[0]);
-        moveTypeIcon.setY(location[1] - status - top);
-        moveTypeIcon.setImageDrawable(typeIconImg.getDrawable());
-        ObjectAnimator moveX = ObjectAnimator.ofFloat(moveTypeIcon, "x", location[0], icon.getX());
-        ObjectAnimator moveY = ObjectAnimator.ofFloat(moveTypeIcon, "y", location[1] - status - top, icon.getY());
-        AnimatorSet animSet = new AnimatorSet();
-        animSet.setDuration(300);
-        animSet.setInterpolator(new LinearInterpolator());
-        animSet.playTogether(moveX, moveY);
-        animSet.start();
-        animSet.addListener(new Animator.AnimatorListener() {
-            @Override
-            public void onAnimationStart(Animator animation) {
-
-            }
-
-            @Override
-            public void onAnimationEnd(Animator animation) {
-                addAcountView.selectTypeNode(node);
-                moveTypeIcon.setVisibility(View.GONE);
-            }
-
-            @Override
-            public void onAnimationCancel(Animator animation) {
-
-            }
-
-            @Override
-            public void onAnimationRepeat(Animator animation) {
-
-            }
-        });
-    }
-
-    @Override
-    public void sortTypeNodes(Context context, List<AccountTypeNode> costTypeNodes, List<AccountTypeNode> incomeTypeNodes) {
-        AccountTypeStorage typeStorage = new AccountTypeStorage(context);
-        if (costTypeNodes != null) {
-            for (int i = 0; i < costTypeNodes.size() - 1; i++) {
-                AccountTypeNode typeNode = costTypeNodes.get(i);
-                if (typeNode != null && typeNode.getSort() != i) {
-                    typeNode.setSort(i);
-                    typeStorage.updateSort(typeNode);
-                }
-            }
-        }
-        if (incomeTypeNodes != null) {
-            for (int i = 0; i < incomeTypeNodes.size() - 1; i++) {
-                AccountTypeNode typeNode = incomeTypeNodes.get(i);
-                if (typeNode != null && typeNode.getSort() != i) {
-                    typeNode.setSort(i);
-                    typeStorage.updateSort(typeNode);
-                }
-            }
-        }
-    }*/
 }

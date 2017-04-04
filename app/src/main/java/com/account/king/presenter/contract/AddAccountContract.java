@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 
 import com.account.king.node.KingAccountNode;
@@ -31,6 +32,8 @@ public class AddAccountContract {
         public void jitterMoney(PropertyValuesHolder pvhRotate);
 
         public void showKeyBoard();
+
+        public void loadLocationSuccess(String location);
 
         void showType(String type);
     }
@@ -60,6 +63,10 @@ public class AddAccountContract {
         public void selectType(Activity context, KingAccountNode bookNode);
 
         public void clickWriterNote(Activity context, final KingAccountNode bookNode);
+
+        public void loadLocation(TextView locationView, String location);
+
+        public void getAccountLocation(TextView locationView, ImageView locationIcon);
 
         public void onItemClick(Context context, RecyclerView.ViewHolder vh, int type,
                                 List<KingAccountNode> typeNodes, ImageView moveTypeIcon, ImageView icon);
