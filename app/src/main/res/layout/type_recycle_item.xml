@@ -26,5 +26,11 @@
             android:background="@drawable/ic_done_blue_selector"
             />
     </RelativeLayout>
-
+    <View
+        android:id="@+id/item_dash_line"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/dash_line_hor"
+        android:layerType="software"/>
 </RelativeLayout>
