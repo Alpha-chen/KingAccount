@@ -21,15 +21,15 @@ import com.account.king.presenter.contract.presenter.AccountPresenter;
 import com.account.king.rxevent.RxBusEvent;
 import com.account.king.util.ActivityLib;
 import com.account.king.util.CalendarUtil;
+import com.account.king.util.LogUtil;
 import com.account.king.util.ToastUtil;
-import com.account.king.util.glide.RecyclerItemClickListener;
 
 import java.util.ArrayList;
 
 /***
  * @author King
  */
-public class AccountFragment extends BaseFragment implements View.OnClickListener, AccountContract.IView, RecyclerItemClickListener.OnItemClickListener {
+public class AccountFragment extends BaseFragment implements View.OnClickListener, AccountContract.IView, HomeRecyclerAdapter.OnItemClickListener {
 
     private View root;
     private AccountPresenter accountPresenter;
@@ -173,6 +173,7 @@ public class AccountFragment extends BaseFragment implements View.OnClickListene
     public void onItemClick(View view, int position) {
         // // TODO: 2017/3/14 进行界面跳转到详情界面
         ToastUtil.makeToast(activity, "你点击了" + position);
+        LogUtil.d(TAG, "onItemClick->position=" + position);
         Intent intent = new Intent(activity, DetailAccountActivity.class);
         intent.putExtra(ActivityLib.INTENT_PARAM, mAccountNodes.get(position));
         activity.startActivity(intent);

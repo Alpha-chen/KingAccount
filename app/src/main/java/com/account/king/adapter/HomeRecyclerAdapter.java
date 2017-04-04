@@ -3,6 +3,7 @@ package com.account.king.adapter;
 import android.content.Context;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.SparseBooleanArray;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +17,8 @@ import com.account.king.node.KingAccountNode;
 import com.account.king.util.ArithUtil;
 import com.account.king.util.CalendarUtil;
 import com.account.king.util.DensityUtils;
-import com.account.king.util.glide.RecyclerItemClickListener;
+import com.account.king.util.LogUtil;
+import com.account.king.util.glide.GlideUtil;
 
 import java.util.ArrayList;
 
@@ -25,14 +27,14 @@ import java.util.ArrayList;
  */
 public class HomeRecyclerAdapter extends RecyclerView.Adapter<HomeRecyclerAdapter.MyViewHolder> {
 
-
+    private String TAG = "HomeRecyclerAdapter";
     private Context context;
     private ArrayList<KingAccountNode> bookNodes;
     private SparseBooleanArray booleanArray = new SparseBooleanArray();
 
     private RelativeLayout.LayoutParams layoutParams;
     private int leftMargin = 60;
-    private RecyclerItemClickListener.OnItemClickListener mClickListener;
+    private OnItemClickListener mClickListener;
 
     public HomeRecyclerAdapter(Context context) {
         this.context = context;
@@ -48,7 +50,7 @@ public class HomeRecyclerAdapter extends RecyclerView.Adapter<HomeRecyclerAdapte
     }
 
 
-    public void setClickListener(RecyclerItemClickListener.OnItemClickListener clickListener) {
+    public void setClickListener(OnItemClickListener clickListener) {
         mClickListener = clickListener;
     }
 
@@ -71,32 +73,35 @@ public class HomeRecyclerAdapter extends RecyclerView.Adapter<HomeRecyclerAdapte
             holder.money.setTextColor(ContextCompat.getColor(context, R.color.int_come));
         }
         //类别
-       /* if (typeNodes != null) {
-            if (bookNode.getTypeNode() == null) {
-                String md5 = bookNode.getIdentifier();
-                for (AccountTypeNode typeNode : typeNodes) {
-                    if (typeNode.getMoneyType() == moneyType && typeNode.getIdentifier().equals(md5)) {
-                        bookNode.setTypeNode(typeNode);
-                        break;
-                    }
-                }
+        String[] arrays = null;
+        if (bookNode != null) {
+            if (KingAccountNode.MONEY_OUT == bookNode.getAccount_type()) {
+                arrays = context.getResources().getStringArray(R.array.account_outcome_type);
+            } else if (KingAccountNode.MONEY_IN == bookNode.getAccount_type()) {
+                arrays = context.getResources().getStringArray(R.array.account_income_type);
             }
-            if (bookNode.getTypeNode() != null) {
-                int typeIcon = bookNode.getTypeNode().getTypeIcon();
-                holder.typeIcon.setImageResource(ImgColorResArray.getResIcon(moneyType, typeIcon));
-                holder.typeName.setText(bookNode.getTypeNode().getTypeName());
-            }
-        }*/
-        holder.typeNote.setText(bookNode.getAccount_type() + " dasd");
+            holder.typeName.setVisibility(View.VISIBLE);
+            holder.typeName.setText(arrays[bookNode.getType()]);
+        }
+
         holder.otherLin.setVisibility(View.VISIBLE);
- /*       if (TextUtils.isEmpty(bookNode.getAttachment().getAttachment_path())) {
+        LogUtil.d(TAG, "onBindViewHolder->bookNode.getAttachment()=" + bookNode.getAttachment());
+        if (null == bookNode.getAttachment()) {
             holder.hasPhoto.setVisibility(View.GONE);
-            if (TextUtils.isEmpty(bookNode.getAttachment().getContent())) {
-                holder.otherLin.setVisibility(View.GONE);
-            }
         } else {
-            holder.hasPhoto.setVisibility(View.VISIBLE);
-        }*/
+            if (TextUtils.isEmpty(bookNode.getAttachment().getAttachment_path())) {
+                holder.hasPhoto.setVisibility(View.GONE);
+                if (TextUtils.isEmpty(bookNode.getAttachment().getContent())) {
+                    holder.typeNote.setVisibility(View.GONE);
+                }
+            } else {
+                holder.hasPhoto.setVisibility(View.VISIBLE);
+                GlideUtil.loadRound(context, bookNode.getAttachment().getAttachment_path(), holder.hasPhoto);
+                holder.typeNote.setVisibility(View.VISIBLE);
+                holder.typeNote.setText(bookNode.getAttachment().getContent());
+            }
+        }
+
         long timeMilis = bookNode.getYmd_hms();
         int date = CalendarUtil.timeMilis2Date(timeMilis);
  /*       if (booleanArray.get(position, false)) {
@@ -122,6 +127,13 @@ public class HomeRecyclerAdapter extends RecyclerView.Adapter<HomeRecyclerAdapte
         holder.home_item.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                LogUtil.d(TAG,"setOnClickListener1");
+            }
+        });
+        holder.home_item.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                LogUtil.d(TAG,"setOnClickListener");
                 mClickListener.onItemClick(holder.itemView, position);
             }
         });
@@ -135,7 +147,6 @@ public class HomeRecyclerAdapter extends RecyclerView.Adapter<HomeRecyclerAdapte
     static class MyViewHolder extends RecyclerView.ViewHolder {
 
         TextView typeName;
-        ImageView typeIcon;
         TextView money;
         TextView day;
         TextView month;
@@ -148,15 +159,19 @@ public class HomeRecyclerAdapter extends RecyclerView.Adapter<HomeRecyclerAdapte
         public MyViewHolder(View view) {
             super(view);
             typeName = (TextView) view.findViewById(R.id.item_type_name);
-            typeIcon = (ImageView) view.findViewById(R.id.item_type_icon);
             money = (TextView) view.findViewById(R.id.item_money);
             day = (TextView) view.findViewById(R.id.item_day);
             month = (TextView) view.findViewById(R.id.item_month);
             dashLine = view.findViewById(R.id.item_dash_line);
             hasPhoto = (ImageView) view.findViewById(R.id.item_has_photo);
             typeNote = (TextView) view.findViewById(R.id.item_type_note);
-            otherLin = (LinearLayout) view.findViewById(R.id.item_type_other);
+            otherLin = (LinearLayout) view.findViewById(R.id.account_data);
             home_item = (RelativeLayout) view.findViewById(R.id.home_item);
         }
+    }
+    public interface OnItemClickListener {
+        void onItemClick(View view, int position);
+
+        void onLongClick(View view, int position);
     }
 }
