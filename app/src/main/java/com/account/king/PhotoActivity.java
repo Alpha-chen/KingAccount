@@ -18,7 +18,6 @@ import com.account.king.util.glide.GlideUtil;
  */
 public class PhotoActivity extends BaseActivity implements View.OnClickListener {
 
-
     private ImageView icon;
     private String path;
     private boolean isDelete = true;//有删除按钮

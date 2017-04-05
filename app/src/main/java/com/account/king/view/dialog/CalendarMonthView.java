@@ -253,7 +253,7 @@ public class CalendarMonthView extends View {
     private void initDashData() {
         dashPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         dashPaint.setStyle(Paint.Style.STROKE);
-        dashPaint.setColor(getResources().getColor(R.color.color_bg));
+        dashPaint.setColor(getResources().getColor(R.color.my_color));
         dashPaint.setStrokeWidth(1);
         PathEffect effects = new DashPathEffect(
                 new float[]{DensityUtils.dp2px(context, 3), DensityUtils.dp2px(context, 2)}, 1);
@@ -351,7 +351,7 @@ public class CalendarMonthView extends View {
 
     private void drawCell_select(Canvas canvas, Rect rect, MonthCellDescriptor monthCellDescriptor) {
         if (monthCellDescriptor.isSelected()) {
-            mPaint.setColor(getResources().getColor(R.color.color_bg));
+            mPaint.setColor(getResources().getColor(R.color.my_color));
             mPaint.setStyle(Paint.Style.FILL);
             mPaint.setAntiAlias(true);
             canvas.drawCircle(rect.centerX(), rect.centerY(), circleRadius / 2F, mPaint);
@@ -374,7 +374,7 @@ public class CalendarMonthView extends View {
         //画今天
         if (monthCellDescriptor.isToday()) {
             mPaint.setStrokeWidth(strokeWidth);
-            mPaint.setColor(getResources().getColor(R.color.color_bg));
+            mPaint.setColor(getResources().getColor(R.color.my_color));
             mPaint.setStyle(Paint.Style.STROKE);
             mPaint.setAntiAlias(true);
             canvas.drawCircle(rect.centerX(), rect.centerY(), circleRadius / 2F, mPaint);

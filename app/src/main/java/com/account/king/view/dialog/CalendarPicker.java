@@ -40,7 +40,7 @@ public class CalendarPicker extends LinearLayout {
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.CalendarPicker, 0, 0);
         if (null != a) {
             model = a.getInteger(R.styleable.CalendarPicker_show_modle, 0);
-            week_color = a.getColor(R.styleable.CalendarPicker_week_color, getResources().getColor(R.color.color_bg));
+            week_color = a.getColor(R.styleable.CalendarPicker_week_color, getResources().getColor(R.color.my_color));
             week_bg = a.getColor(R.styleable.CalendarPicker_week_bg, -1);
             week_height = a.getDimension(R.styleable.CalendarPicker_week_height, DensityUtils.dp2px(context, 20));
             week_tv_testsize = a.getInteger(R.styleable.CalendarPicker_week_tv_textsize, 14);

@@ -37,7 +37,7 @@ public abstract class BaseActivity extends AppCompatActivity implements Action1<
         ActivityManager.getInstance().pushOneActivity(this);
         mSubscription = RxBus.getDefault().toObserverable(RxBusEvent.class).subscribe(this);
         StatusBarUtil.setTransparent(this);
-        StatusBarUtil.setColor(this, getResources().getColor(R.color.color_bg), 0);
+        StatusBarUtil.setColor(this, getResources().getColor(R.color.my_color), 0);
 
     }
 

@@ -4,14 +4,13 @@
     xmlns:autofit="http://schemas.android.com/apk/res-auto"
     android:id="@+id/activity_add_account"
     android:layout_width="match_parent"
-
     android:layout_height="match_parent">
 
     <RelativeLayout
         android:id="@+id/top_bar"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="@color/color_bg">
+        android:background="@color/my_color">
 
         <LinearLayout
             android:layout_width="wrap_content"

@@ -165,7 +165,7 @@
         android:layout_height="match_parent"
         android:layout_weight="1"
         android:text="ok"
-        android:textColor="@color/color_bg"
+        android:textColor="@color/my_color"
         android:textSize="20sp"
         android:visibility="gone"/>
 </LinearLayout>

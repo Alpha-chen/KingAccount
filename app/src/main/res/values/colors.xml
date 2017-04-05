@@ -5,6 +5,8 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
     <color name="my_color">#63b8ff</color>
+    <color name="my_color_70">#2063b8ff</color>
+    <color name="my_color_hint">#0a63b8ff</color>
     <color name="my_color_50">#6f63b8ff</color>
     <color name="dark_my_color">#9263B8FF</color>
 
@@ -26,8 +28,7 @@
     <color name="color4">#FF9DB7</color><!--粉色文字 color4-->
     <color name="color5">#FF8AA9</color><!--粉色文字 List item cost -->
     <color name="color6">#97D7EF</color><!-- List item income -->
-    <color name="color_bg">#63b8ff</color> <!--背景色-->
-    <color name="color_bg_20">#33FFADC4</color> <!--背景色-->
+    <color name="my_color_20">#33FFADC4</color> <!--背景色-->
     <color name="color_bg_press">#FF91B1</color>
     <color name="item_child_line">#F7F1F5</color>
 
@@ -36,7 +37,6 @@
     <color name="money_balance_press">#908fb7f8</color>
 
     <color name="home_dash_line">#F2E9EE</color>
-    <color name="pink_bg">#FFFAFC</color>
 
     <color name="progress_bg">#F4EEEE</color>
 

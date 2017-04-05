@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:lock="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/top"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/my_color">
+
+        <ImageView
+            android:id="@+id/title_left_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:src="@drawable/title_back"
+            android:visibility="visible"/>
+
+        <TextView
+            style="@style/title_text_style"
+            android:layout_centerInParent="true"
+            android:text="@string/lock_set"/>
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/top"
+        android:background="@color/my_color_hint">
+
+        <TextView
+            android:id="@+id/input_hint"
+            style="@style/centerHorizontal"
+            android:layout_width="match_parent"
+            android:layout_marginTop="15dp"
+            android:gravity="center"
+            android:text="@string/lock_input"
+            android:textColor="@color/color2"
+            android:textSize="13sp"/>
+
+        <com.account.king.view.Lock9View
+            android:id="@+id/lock_9_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/input_hint"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginTop="30dp"
+            lock:lock9_autoLink="true"
+            lock:lock9_enableVibrate="true"
+            lock:lock9_lineColor="@color/my_color"
+            lock:lock9_lineWidth="1dp"
+            lock:lock9_nodeOnSrc="@drawable/lock_select_bg"
+            lock:lock9_nodeSize="60dp"
+            lock:lock9_nodeSrc="@drawable/lock_normal_bg"/>
+
+    </RelativeLayout>
+
+</RelativeLayout>

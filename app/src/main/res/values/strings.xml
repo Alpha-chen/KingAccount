@@ -29,5 +29,19 @@
     <string name="sns_txt_location">点击添加位置</string>
     <string name="sns_location_failed">无法定位</string>
     <string name="sns_location_loading">获取位置中</string>
-
+    <string name="lock_forget">忘记密码</string>
+    <string name="lock_input">绘制解锁图案</string>
+    <string name="lock_input_2">再次绘制解锁图案</string>
+    <string name="lock_input_2_error">两次密码不同，请重新绘制</string>
+    <string name="lock_input_low_point">至少连接四个点</string>
+    <string name="lock_save_success">密码设置成功</string>
+    <string name="lock_input_3">请绘制解锁密码</string>
+    <string name="lock_login">忘记密码</string>
+    <string name="lock_input_error">连续5次解锁失败，请重新登录</string>
+    <string name="lock_input_hint">5次失败后，需要重新登录。</string>
+    <string name="lock_input_count">密码错误，还可以再输入%1$s次</string>
+    <string name="lock_reset">旧的密码锁已清除，是否重新设置？</string>
+    <string name="lock_reset2">5次解锁失败，旧的密码锁已清除，是否重新设置？</string>
+    <string name="mine_set">记账设置</string>
+    <string name="lock_set">密码锁设置</string>
 </resources>

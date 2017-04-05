@@ -19,9 +19,9 @@
 
     <style name="SwitchCompat" parent="ImageTranslucentTheme">
         <!-- colorPrimary is used for the default action bar background -->
-        <item name="colorPrimary">@color/color_bg</item>
+        <item name="colorPrimary">@color/my_color</item>
         <!-- colorPrimaryDark is used for the status bar -->
-        <item name="colorPrimaryDark">@color/color_bg</item>
+        <item name="colorPrimaryDark">@color/my_color</item>
         <!-- colorAccent is used as the default value for colorControlActivated,
              which is used to tint widgets -->
         <item name="colorAccent">@color/switch_compat</item>
@@ -105,7 +105,7 @@
         <item name="android:background">@drawable/round_bg_selector</item>
         <item name="android:gravity">center</item>
         <item name="android:layout_gravity">center_horizontal</item>
-        <item name="android:textColor">@color/color_bg</item>
+        <item name="android:textColor">@color/my_color</item>
         <item name="android:textSize">16sp</item>
     </style>
 
@@ -192,7 +192,7 @@
     <style name="title_bg_style">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">50dp</item>
-        <item name="android:background">@color/color_bg</item>
+        <item name="android:background">@color/my_color</item>
     </style>
 
     <style name="title_text_style">
