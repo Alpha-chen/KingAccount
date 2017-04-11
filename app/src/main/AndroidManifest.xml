@@ -56,6 +56,13 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan|stateHidden"/>
 
+        <receiver
+            android:name=".reciver.MAlarmReceiver"
+            android:process=":remote">
+            <intent-filter>
+                <action android:name="com.account.king.remind"/>
+            </intent-filter>
+        </receiver>
         <!-- multi image -->
         <activity
             android:name="pink.net.multiimageselector.GestureImageActivity"
@@ -86,6 +93,18 @@
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan|stateHidden"/>
+
+        <activity
+            android:name=".InputLockActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan|stateHidden"/>
+
+        <activity
+            android:name=".PreNotificationActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait"/>
 
     </application>
 

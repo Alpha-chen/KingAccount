@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:lock="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/my_color">
+
+    <TextView
+        android:id="@+id/input_hint"
+        style="@style/centerHorizontal"
+        android:layout_width="match_parent"
+        android:layout_marginTop="100dp"
+        android:gravity="center"
+        android:text="@string/lock_input_3"
+        android:textColor="@color/white"
+        android:textSize="13sp"/>
+
+    <net.ffrj.pinkwallet.view.Lock9View
+        android:id="@+id/lock_9_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/input_hint"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="25dp"
+        lock:lock9_autoLink="true"
+        lock:lock9_lineColor="@color/color_bg"
+        lock:lock9_lineWidth="1dp"
+        lock:lock9_nodeOnSrc="@drawable/lock_select_bg"
+        lock:lock9_nodeSize="60dp"
+        lock:lock9_nodeSrc="@drawable/lock_normal_bg"/>
+
+    <TextView
+        android:id="@+id/lock_login"
+        style="@style/centerHorizontal"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="35dp"
+        android:padding="15dp"
+        android:text="@string/lock_login"
+        android:textColor="@color/color4"
+        android:textSize="13sp"/>
+
+</RelativeLayout>

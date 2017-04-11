@@ -25,4 +25,14 @@
         <item>理财</item>
         <item>其他</item>
     </string-array>
+    <array name="repeat_time">
+        <item>每天</item>
+        <item>周一</item>
+        <item>周二</item>
+        <item>周三</item>
+        <item>周四</item>
+        <item>周五</item>
+        <item>周六</item>
+        <item>周日</item>
+    </array>
 </resources>

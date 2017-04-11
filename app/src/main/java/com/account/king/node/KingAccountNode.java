@@ -13,6 +13,11 @@ import java.io.Serializable;
  * on 2016/11/20.
  */
 
+// orm-lite  关系对象映射 android  是安卓上 SQLite数据库的框架,它支持我们直接操作对象来完成数据的存储(把数据存到数据库表中)
+// O: object 对象
+// R:Relation  关系 ->表结构
+// M:Mapping 映射
+
 @DatabaseTable(tableName = "king_account")
 public class KingAccountNode implements Serializable {
     /**
@@ -28,9 +33,16 @@ public class KingAccountNode implements Serializable {
     @DatabaseField(generatedId = true)
     private int id;
     public static String ID = "id";
+    /**
+     * 单价
+     */
+    // 列名
     @DatabaseField(columnName = "price")
     private double price;
     public static String PRICE = "price";
+    /**
+     * 数量
+     */
     @DatabaseField(columnName = "count")
     private double count;
     public static String COUNT = "count";
@@ -56,6 +68,9 @@ public class KingAccountNode implements Serializable {
     public static String ATTACHMENT = "attachment";
     private Attachment mAttachment;
     @DatabaseField(columnName = "extend")
+    /**
+     * 扩展字段, 记录额外的信息
+     */
     private String extend;
     public static String EXTEND = "extend";
 

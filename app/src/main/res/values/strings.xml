@@ -44,4 +44,14 @@
     <string name="lock_reset2">5次解锁失败，旧的密码锁已清除，是否重新设置？</string>
     <string name="mine_set">记账设置</string>
     <string name="lock_set">密码锁设置</string>
+    <string name="lock">密码锁</string>
+    <string name="remind_account">快来记账吧！</string>
+    <string name="remind_writer">记账提醒</string>
+    <string name="remind_date">提醒时间</string>
+    <string name="remind_date_value">19:00</string>
+    <string name="repeat_cycle">重复周期</string>
+    <string name="repeat_cycle_value">每天</string>
+
+    <string name="lock_edit">更改密码锁密码</string>
+
 </resources>

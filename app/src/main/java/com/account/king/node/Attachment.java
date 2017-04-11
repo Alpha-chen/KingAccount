@@ -12,8 +12,17 @@ public class Attachment implements Serializable {
      * attachment_path : https://ss0.bdstatic.com/5aV1bjqh_Q23odCf/static/superman/img/logo/logo_white_fe6da1ec.png
      */
 
+    /**
+     * 账单内容
+     */
     private String content;
+    /**
+     * 照片路径
+     */
     private String attachment_path;
+    /**
+     * 定位信息
+     */
     private String location ;
     public Attachment() {
     }
