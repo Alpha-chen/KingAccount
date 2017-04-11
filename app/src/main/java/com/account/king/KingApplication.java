@@ -5,6 +5,7 @@ import android.app.Application;
 import android.content.Context;
 import android.os.Build;
 
+import com.account.king.util.LogUtil;
 import com.account.king.util.SPUtils;
 
 /**
@@ -13,7 +14,6 @@ import com.account.king.util.SPUtils;
  */
 @TargetApi(Build.VERSION_CODES.GINGERBREAD)
 public class KingApplication extends Application {
-
     public static KingApplication mApplication;
     public static Context appContext;
     public static String accountId;//账本id
@@ -24,6 +24,8 @@ public class KingApplication extends Application {
         super.onCreate();
         mApplication = this;
         appContext = this;
+        LogUtil.d("KingApplication", "appContext->=" + appContext);
+        LogUtil.d("KingApplication", "mApplication->=" + mApplication);
         restoreData();
     }
 

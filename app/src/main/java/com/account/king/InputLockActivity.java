@@ -7,7 +7,6 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.account.king.util.ActivityLib;
@@ -104,7 +103,7 @@ public class InputLockActivity extends BaseActivity implements Lock9View.CallBac
         Intent data = new Intent(this, MainActivity.class);
         startActivity(data);
         LockUtil.resetLock(this, index);
-        KingApplication.restoreData();
+        KingApplication.mApplication.restoreData();
         ActivityManager.getInstance().finishAllActivity();
     }
 

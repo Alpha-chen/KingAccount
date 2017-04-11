@@ -25,7 +25,7 @@
         android:layout_marginRight="30dp"
         android:layout_marginTop="25dp"
         lock:lock9_autoLink="true"
-        lock:lock9_lineColor="@color/color_bg"
+        lock:lock9_lineColor="@color/my_color"
         lock:lock9_lineWidth="1dp"
         lock:lock9_nodeOnSrc="@drawable/lock_select_bg"
         lock:lock9_nodeSize="60dp"

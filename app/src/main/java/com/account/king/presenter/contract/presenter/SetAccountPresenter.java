@@ -11,8 +11,6 @@ import com.account.king.SetLockActivity;
 import com.account.king.node.AlarmNode;
 import com.account.king.presenter.contract.SetAccountContract;
 import com.account.king.reciver.MAlarmReceiver;
-import com.account.king.rxevent.RxBus;
-import com.account.king.rxevent.RxBusEvent;
 import com.account.king.util.AlarmUtil;
 import com.account.king.util.SPUtils;
 
@@ -127,17 +125,16 @@ public class SetAccountPresenter implements SetAccountContract.ISetAccountPresen
     public void switchLock(Activity context, boolean isChecked) {
         //关闭new图标
         SPUtils.put(context, "lock_new", true);
-        RxBus.getDefault().send(new RxBusEvent(RxBusEvent.NEW_IMG));
         if (isChecked) {
             String lock = SPUtils.getString(context, SPUtils.LOCK_);
             if (TextUtils.isEmpty(lock)) {
                 context.startActivity(new Intent(context, SetLockActivity.class));
             } else {
-                SPUtils.put(context, SPUtils.LOCK_OPEN_ , true);
+                SPUtils.put(context, SPUtils.LOCK_OPEN_, true);
                 setAccountView.openLockEdit();
             }
         } else {
-            SPUtils.remove(context, SPUtils.LOCK_OPEN_ );
+            SPUtils.remove(context, SPUtils.LOCK_OPEN_);
             setAccountView.closeLockEdit();
         }
         KingApplication.restoreLock();

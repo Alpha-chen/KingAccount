@@ -32,10 +32,7 @@ public class RxBusEvent {
     public static final int UPDATE_ACCOUNT_BOOK = SWITCH_ACCOUNT_BOOK + 1;//添加或更新账本
     public static final int LOCK_FAIL = UPDATE_ACCOUNT_BOOK + 1;//设置密码锁失败
     public static final int LOCK_SUCCESS = LOCK_FAIL + 1;//设置密码锁成功
-    public static final int NEW_IMG = LOCK_SUCCESS + 1;//new图标
-
-    public static final int MODIFY_PSW_SUCCESS = NEW_IMG + 1;//修改密码成功
-
+    public static final int MODIFY_PSW_SUCCESS = LOCK_SUCCESS + 1;//修改密码成功
     public static final int VERIFY_PSW_SUCCESS = MODIFY_PSW_SUCCESS + 1;//验证老密码成功
 
     public static final int REFRESH_ACCOUNT_LIST = VERIFY_PSW_SUCCESS + 1; // 刷新列表

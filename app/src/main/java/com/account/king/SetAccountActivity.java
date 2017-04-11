@@ -81,6 +81,7 @@ public class SetAccountActivity extends BaseActivity implements View.OnClickList
 
         remind_text = (TextView) findViewById(R.id.remind_text);
         repeat_text = (TextView) findViewById(R.id.repeat_text);
+        findViewById(R.id.title_left_image).setOnClickListener(this);
     }
 
     @Override
@@ -138,7 +139,6 @@ public class SetAccountActivity extends BaseActivity implements View.OnClickList
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-
             case R.id.remind_date:
                 presenter.showTimePicker(this, alarmNode.getHour(), alarmNode.getMinute());
                 break;
@@ -149,6 +149,9 @@ public class SetAccountActivity extends BaseActivity implements View.OnClickList
                 Intent data = new Intent(this, SetLockActivity.class);
                 data.putExtra(ActivityLib.START_TYPE, true);
                 startActivity(data);
+                break;
+            case R.id.title_left_image:
+                finish();
                 break;
         }
     }
@@ -247,9 +250,6 @@ public class SetAccountActivity extends BaseActivity implements View.OnClickList
                 break;
             case RxBusEvent.LOCK_SUCCESS:
                 openLockEdit();
-                break;
-            case RxBusEvent.NEW_IMG:
-                initNew();
                 break;
         }
         super.call(rxBusEvent);

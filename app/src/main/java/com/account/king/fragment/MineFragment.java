@@ -9,7 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.account.king.R;
-import com.account.king.SetLockActivity;
+import com.account.king.SetAccountActivity;
 
 /**
  * 我的界面
@@ -50,7 +50,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.mine_setting:
-                Intent intent = new Intent(activity, SetLockActivity.class);
+                Intent intent = new Intent(activity, SetAccountActivity.class);
                 activity.startActivity(intent);
                 break;
             default:
