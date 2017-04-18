@@ -19,11 +19,14 @@ public interface WhatConstants {
     interface What {
         int LOGO_TO_LOCK = 6001;
         int PRE_TO_LOCK = LOGO_TO_LOCK + 1;
+        int UPGRADE_VERSION_START = PRE_TO_LOCK + 1;
     }
 
     // 跳转到 类别选择
     interface ACCOUNT_TYPE {
         int SELECT_TYPE = 7001;
     }
+
+
 }
 

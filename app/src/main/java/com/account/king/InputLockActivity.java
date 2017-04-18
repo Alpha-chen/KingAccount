@@ -24,7 +24,6 @@ import com.account.king.view.dialog.ToastDialog;
  */
 public class InputLockActivity extends BaseActivity implements Lock9View.CallBack, View.OnClickListener {
 
-
     private String pwd;
     private TextView lockInput;
     private boolean isStartMain;
@@ -36,7 +35,6 @@ public class InputLockActivity extends BaseActivity implements Lock9View.CallBac
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         initView();
         initData();
     }

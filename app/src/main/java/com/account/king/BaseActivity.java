@@ -26,7 +26,7 @@ public abstract class BaseActivity extends AppCompatActivity implements Action1<
     public String TAG = "BaseActivity";
     public Subscription mSubscription;
     //背景式状态栏
-    private static final String imageTranStatusBar = "LogoActivity,InputLockActivity";
+    private static final String imageTranStatusBar = "WelcomeActivity,InputLockActivity";
     //由子类自定义
     private static final String customTranStatusBar = "CalendarActivity";
 

@@ -228,7 +228,6 @@ public class SetAccountActivity extends BaseActivity implements View.OnClickList
             RxBus.getDefault().send(new RxBusEvent(RxBusEvent.BUDGET_DAY_UPDATE));
         }
         if (!alarmNode.beCompare(oldAlarmNode)) {
-            //LogUtil.d("nnn","refresh alarmNode="+alarmNode.toString());
             if (switchRemind.isChecked()) {
                 SPUtils.put(this, SPUtils.REMIND_START, true);
                 presenter.openAlarm(this, alarmNode);
