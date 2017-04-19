@@ -10,7 +10,6 @@ import android.view.animation.TranslateAnimation;
 import android.widget.TextView;
 
 import com.account.king.util.ActivityLib;
-import com.account.king.util.ActivityManager;
 import com.account.king.util.LockUtil;
 import com.account.king.util.MD5;
 import com.account.king.util.SPUtils;
@@ -80,7 +79,7 @@ public class InputLockActivity extends BaseActivity implements Lock9View.CallBac
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.lock_login://重新登录同一个账号后提示密码锁清除
-                resetLock2Login(1);
+                resetLock2Login();
                 break;
         }
     }
@@ -91,18 +90,16 @@ public class InputLockActivity extends BaseActivity implements Lock9View.CallBac
         dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
             @Override
             public void onDismiss(DialogInterface dialog) {
-                resetLock2Login(2);
+                resetLock2Login();
             }
         });
         dialog.show();
     }
 
-    private void resetLock2Login(int index) {
-        Intent data = new Intent(this, MainActivity.class);
+    private void resetLock2Login() {
+        Intent data = new Intent(this, LockPasswordActivity.class);
+        data.putExtra(ActivityLib.INTENT_PARAM, 1);
         startActivity(data);
-        LockUtil.resetLock(this, index);
-        KingApplication.mApplication.restoreData();
-        ActivityManager.getInstance().finishAllActivity();
     }
 
     @Override
@@ -120,8 +117,8 @@ public class InputLockActivity extends BaseActivity implements Lock9View.CallBac
             lockError();
             return;
         }
-        lockInput.setTextColor(getResources().getColor(R.color.color4));
-        lockInput.setText(getString(R.string.lock_input_count, 5 - inputCount));
+        lockInput.setTextColor(getResources().getColor(R.color.my_color));
+        lockInput.setText(getString(R.string.lock_input_count, (5 - inputCount) + ""));
         //摇摆
         TranslateAnimation animation = new TranslateAnimation(-50, 50, 0, 0);
         animation.setDuration(100);

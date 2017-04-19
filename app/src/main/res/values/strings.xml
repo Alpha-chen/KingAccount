@@ -54,5 +54,9 @@
 
     <string name="lock_edit">更改密码锁密码</string>
     <string name="right_now_go">立即体验</string>
+    <string name="title_activity_lock_password">Sign in</string>
+
+    <string name="prompt_password">请输入预留的密码</string>
+    <string name="set_prompt_password">设置预留清除密码</string>
 
 </resources>

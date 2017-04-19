@@ -87,7 +87,8 @@
                     android:layout_height="27dp"
                     android:layout_alignParentLeft="true"
                     android:layout_marginLeft="26dp"
-                    android:text="@string/dialog_cancel"/>
+                    android:text="@string/dialog_cancel"
+                    android:textColor="@color/white"/>
 
             </RelativeLayout>
 

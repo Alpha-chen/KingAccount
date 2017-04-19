@@ -37,7 +37,7 @@
         android:layout_marginBottom="35dp"
         android:padding="15dp"
         android:text="@string/lock_login"
-        android:textColor="@color/color4"
+        android:textColor="@color/my_color"
         android:textSize="13sp"/>
 
 </RelativeLayout>

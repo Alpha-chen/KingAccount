@@ -36,6 +36,9 @@ public class SPUtils {
     public static final String LOCK_FORGET_LOGIN = "lock_forget_login_";//密码锁 忘记后 重新登录
     public static final String LOCK_BACK_APP = "lock_back_app";//密码锁home键退出
     public static final String LAUNCH = "launch";//
+
+    public static final String REMIND_LOCK_PASSWORD = "REMIND_LOCK_PASSWORD";
+
     /**
      * 保存数据的方法，我们需要拿到保存数据的具体类型，然后根据类型调用不同的保存方法
      *

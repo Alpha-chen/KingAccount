@@ -108,7 +108,7 @@ public class SetAccountPresenter implements SetAccountContract.ISetAccountPresen
         picker.setTextSize(20);
         picker.setCancelVisible(false);
         picker.setTopLineVisible(false);
-        picker.setSubmitTextColor(context.getResources().getColor(R.color.color5));
+        picker.setSubmitTextColor(context.getResources().getColor(R.color.my_color));
     }
 
     @Override

@@ -24,6 +24,7 @@ public class KingDialog extends Dialog implements View.OnClickListener {
         super(context, cancelable, cancelListener);
     }
 
+
     @Override
     public void onClick(View v) {
 
