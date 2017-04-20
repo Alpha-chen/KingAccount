@@ -45,8 +45,6 @@ public class AccountFragment extends BaseFragment implements View.OnClickListene
     private TextView home_money_cost;
     ArrayList<KingAccountNode> mAccountNodes = new ArrayList<>();
 
-    //月份消费详情
-//    private Map<Integer, MonthTotalNode> hashMap = new HashMap<>();
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

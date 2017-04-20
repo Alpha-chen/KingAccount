@@ -13,7 +13,6 @@ import android.widget.TextView;
 import com.account.king.node.AlarmNode;
 import com.account.king.presenter.contract.SetAccountContract;
 import com.account.king.presenter.contract.presenter.SetAccountPresenter;
-import com.account.king.rxevent.RxBus;
 import com.account.king.rxevent.RxBusEvent;
 import com.account.king.util.ActivityLib;
 import com.account.king.util.SPUtils;
@@ -223,10 +222,7 @@ public class SetAccountActivity extends BaseActivity implements View.OnClickList
     @Override
     public void finish() {
         super.finish();
-        if (oldBudgetDay != budgetDay) {
-            //LogUtil.d("nnn","refresh budget="+budgetDay);
-            RxBus.getDefault().send(new RxBusEvent(RxBusEvent.BUDGET_DAY_UPDATE));
-        }
+
         if (!alarmNode.beCompare(oldAlarmNode)) {
             if (switchRemind.isChecked()) {
                 SPUtils.put(this, SPUtils.REMIND_START, true);

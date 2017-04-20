@@ -9,7 +9,9 @@
         android:id="@+id/account_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:leftBackImg="true"/>
+        app:leftBackImg="true"
+        app:rightTextBg="@drawable/ic_chart_selector"
+        app:rightImg="@drawable/title_search_selector"/>
 
 
     <LinearLayout
@@ -62,17 +64,19 @@
             android:layout_weight="1"
             android:paddingLeft="10dp"
             android:paddingRight="10dp">
+
             <TextView
                 android:id="@+id/home_month_cost"
                 style="@style/home_money_text"
                 android:layout_centerHorizontal="true"
                 android:text="支出"/>
+
             <TextView
                 android:id="@+id/home_money_cost"
                 style="@style/home_month_text"
+                android:layout_below="@+id/home_month_cost"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="0dp"
-                android:layout_below="@+id/home_month_cost"
                 android:text="1300"/>
 
         </RelativeLayout>

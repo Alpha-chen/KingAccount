@@ -25,6 +25,7 @@
         <attr name="kingTitle" format="reference"/>
         <attr name="rightImg" format="reference"/>
         <attr name="rightText" format="reference"/>
+        <attr name="rightTextBg" format="reference"/>
     </declare-styleable>
     <declare-styleable name="AutofitTextView">
         <!-- Minimum size of the text. -->

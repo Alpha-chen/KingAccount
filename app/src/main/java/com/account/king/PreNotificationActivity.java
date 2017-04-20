@@ -31,7 +31,7 @@ public class PreNotificationActivity extends Activity {
             startActivity(intent);
             finish();
         } else {
-            startActivity(new Intent(this, MainActivity.class));
+            startActivity(new Intent(this, AddAccountActivity.class));
             finish();
         }
     }

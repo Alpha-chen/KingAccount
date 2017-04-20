@@ -10,8 +10,8 @@
         android:id="@+id/title_left_back_img"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
         android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
         android:src="@drawable/title_back_selector"
         />
 
@@ -51,12 +51,11 @@
         android:id="@+id/title_right_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
+        android:layout_alignBottom="@+id/title_lay"
         android:layout_marginRight="10dp"
-        android:layout_toLeftOf="@id/title_right_img"
-        android:text="右边"
+        android:layout_toLeftOf="@+id/title_right_img"
+        android:layout_toStartOf="@+id/title_right_img"
         android:textColor="@color/white"
-        android:textSize="@dimen/common_textSize"
-        />
+        android:textSize="@dimen/common_textSize"/>
 
 </RelativeLayout>

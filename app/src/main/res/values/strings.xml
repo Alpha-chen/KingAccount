@@ -58,5 +58,5 @@
 
     <string name="prompt_password">请输入预留的密码</string>
     <string name="set_prompt_password">设置预留清除密码</string>
-
+    <string name="search">搜索</string>
 </resources>

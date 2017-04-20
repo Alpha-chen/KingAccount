@@ -12,9 +12,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.account.king.R;
+import com.account.king.SearchActivity;
 import com.account.king.util.ActivityManager;
 import com.account.king.util.LogUtil;
-import com.account.king.util.ToastUtil;
 
 /**
  * 顶部的title
@@ -40,9 +40,11 @@ public class KingTitleView extends LinearLayout implements View.OnClickListener 
 
     private TextView rightText;
     private String rightTextStr;
+    private int rightTextBg;
 
     public KingTitleView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+        mContext = context;
         TypedArray array = context.obtainStyledAttributes(attrs, R.styleable.KingTitleView, defStyleAttr, 0);
         if (null != array) {
             titleLeftRes = array.getResourceId(R.styleable.KingTitleView_titleLeftImg, 0);
@@ -50,6 +52,7 @@ public class KingTitleView extends LinearLayout implements View.OnClickListener 
             rightViewRes = array.getResourceId(R.styleable.KingTitleView_rightImg, 0);
             rightTextStr = array.getString(R.styleable.KingTitleView_rightText);
             hideLeft = array.getBoolean(R.styleable.KingTitleView_leftBackImg, false);
+            rightTextBg = array.getResourceId(R.styleable.KingTitleView_rightTextBg, 0);
             array.recycle();
         }
     }
@@ -110,6 +113,12 @@ public class KingTitleView extends LinearLayout implements View.OnClickListener 
             rightText.setVisibility(VISIBLE);
             rightText.setText(rightTextStr);
         }
+        if (0 != rightTextBg) {
+            rightText.setVisibility(VISIBLE);
+            rightText.setBackgroundResource(rightTextBg);
+        } else {
+            rightText.setVisibility(GONE);
+        }
     }
 
 
@@ -152,11 +161,7 @@ public class KingTitleView extends LinearLayout implements View.OnClickListener 
             case R.id.title_right_text: // 右边文字的点击事件
                 break;
             case R.id.title_right_img: // 右边按钮的点击事件
-                if (TextUtils.isEmpty(rightViewAction)) {
-                    ToastUtil.makeToast(mContext, mContext.getResources().getString(R.string.no_action));
-                    break;
-                }
-                Intent intent = new Intent(rightViewAction);
+                Intent intent = new Intent(mContext, SearchActivity.class);
                 mContext.startActivity(intent);
                 break;
             default:

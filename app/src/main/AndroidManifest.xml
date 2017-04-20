@@ -124,6 +124,8 @@
             android:name=".LockPasswordActivity"
             android:label="@string/title_activity_lock_password">
         </activity>
+        <activity android:name=".SearchActivity">
+        </activity>
     </application>
 
 </manifest>
