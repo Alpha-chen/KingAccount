@@ -108,4 +108,19 @@ public class KingAccountStorage {
     public ArrayList<KingAccountNode> queryAll() {
         return bookDao.queryForAll();
     }
+
+    /**
+     * 查询时间内账单数据
+     *
+     * @param start
+     * @param end
+     * @param note      备注
+     * @return
+     */
+    public List<KingAccountNode> queryForTimeAndNoteType(int accountType, long start, long end, int type, String note) {
+
+        return bookDao.queryForIdAndNoteType(accountType,start,end,type,note);
+    }
+
+
 }

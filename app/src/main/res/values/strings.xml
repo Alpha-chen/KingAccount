@@ -59,4 +59,11 @@
     <string name="prompt_password">请输入预留的密码</string>
     <string name="set_prompt_password">设置预留清除密码</string>
     <string name="search">搜索</string>
+    <string name="search_start_date">起始时间</string>
+    <string name="search_end_date">截止时间</string>
+    <string name="search_content">内容</string>
+    <string name="search_content_hint">填写备注关键字</string>
+    <string name="search_type">类别</string>
+    <string name="search_select">查询</string>
+    <string name="search_select_date_tip">请输入正确的时间段</string>
 </resources>

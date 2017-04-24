@@ -23,7 +23,7 @@ import static android.content.ContentValues.TAG;
  */
 public class DBHelper extends OrmLiteSqliteOpenHelper {
 
-    private static final String TABLE_ACCOUNT="king_account";
+    public static final String TABLE_ACCOUNT="king_account";
     private static DBHelper dbHelper;
     private static String DB_NAME= "account_1.0.db";
     private static int DB_VERSION =1;

@@ -152,6 +152,10 @@ public class KingAccountNode implements Serializable {
         this.attachment = attachment;
     }
 
+    public String getAttachmentStr() {
+        return this.attachment;
+    }
+
     public long getYmd_hms() {
         return ymd_hms;
     }
