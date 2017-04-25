@@ -376,26 +376,8 @@ public class AddAccountActivity extends BaseActivity implements View.OnClickList
             costBtn.setTextColor(getResources().getColor(R.color.my_color));
             incomeBtn.setBackgroundDrawable(null);
             incomeBtn.setTextColor(getResources().getColor(R.color.white));
-//            dragTypeAdapter.setParams(isTypeEdit,costTypeNodes);
-//            moneyText.setTextColor(getResources().getColor(R.color.color5));
-//            if (isSelectTyp e) {
-//                selectFirst();
-//            }
         }
     }
-
-    //选中第一个类别
- /*   private void selectFirst() {
-        if (type == NodeUtil.MONEY_OUT) {
-            if (!ActivityLib.isEmpty(costTypeNodes)) {
-                selectTypeNode(costTypeNodes.get(0));
-            }
-        } else {
-            if (!ActivityLib.isEmpty(incomeTypeNodes)) {
-                selectTypeNode(incomeTypeNodes.get(0));
-            }
-        }
-    }*/
 
     public void selectIncomeType(boolean isSelectType) {
         LogUtil.d(TAG, "type=" + type);
@@ -405,11 +387,6 @@ public class AddAccountActivity extends BaseActivity implements View.OnClickList
             costBtn.setTextColor(getResources().getColor(R.color.white));
             incomeBtn.setBackgroundResource(R.drawable.add_count_type_select);
             incomeBtn.setTextColor(getResources().getColor(R.color.my_color));
-//            dragTypeAdapter.setParams(isTypeEdit,incomeTypeNodes);
-//            moneyText.setTextColor(getResources().getColor(R.color.color6));
-//            if (isSelectType) {
-//                selectFirst();
-//            }
         }
     }
 

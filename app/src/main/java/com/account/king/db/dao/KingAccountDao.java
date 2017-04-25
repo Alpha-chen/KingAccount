@@ -14,7 +14,6 @@ import com.j256.ormlite.stmt.Where;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -144,13 +143,13 @@ public class KingAccountDao {
             , String note) {
         try {
             Where<KingAccountNode, Integer> where = getOrderByFalse().where();
-            where.and().eq(KingAccountNode.ACCOUNT_TYPE, accountType);
+            where.eq(KingAccountNode.ACCOUNT_TYPE, accountType);
             where.and().between(KingAccountNode.YMD_HMS, start, end);
             if (!TextUtils.isEmpty(note)) {
                 where.and().like(KingAccountNode.ATTACHMENT, "%" + note + "%");
             }
             where.and().eq(KingAccountNode.TYPE, type);
-            return queryWhere(where, getTableBookType());
+            return queryWhere(where);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -161,18 +160,10 @@ public class KingAccountDao {
      * where 条件拼接  equal
      *
      * @param where
-     * @param map
      * @return
      */
-    private List<KingAccountNode> queryWhere(Where<KingAccountNode, Integer> where, Map<String, Object> map) {
+    private List<KingAccountNode> queryWhere(Where<KingAccountNode, Integer> where) {
         try {
-            Iterator iterator = map.entrySet().iterator();
-            while (iterator.hasNext()) {
-                Map.Entry entry = (Map.Entry) iterator.next();
-                String key = (String) entry.getKey();
-                Object val = entry.getValue();
-                where.and().eq(key, val);
-            }
             return where.query();
         } catch (SQLException e) {
             e.printStackTrace();

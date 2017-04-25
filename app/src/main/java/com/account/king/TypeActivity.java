@@ -26,6 +26,8 @@ public class TypeActivity extends BaseActivity implements View.OnClickListener, 
     private ImageView mType_back;
     private ImageView mType_save;
 
+    private int type = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,6 +57,8 @@ public class TypeActivity extends BaseActivity implements View.OnClickListener, 
     public void initIntent() {
         super.initIntent();
         mNode = (KingAccountNode) getIntent().getSerializableExtra(ActivityLib.INTENT_PARAM);
+        accountType = getIntent().getIntExtra(ActivityLib.INTENT_PARAM2, 0);
+        type = getIntent().getIntExtra(ActivityLib.INTENT_PARAM3, 0);
     }
 
     @Override
@@ -68,7 +72,11 @@ public class TypeActivity extends BaseActivity implements View.OnClickListener, 
         }
         mAdapter = new TypeRecycleAdapter(arrays, TypeActivity.this);
         mAdapter.setItemClickListener(this);
-        selectPosition = mNode.getType();
+        if (null == mNode) {
+            selectPosition = type;
+        } else {
+            selectPosition = mNode.getType();
+        }
         mAdapter.setSelectPosition(selectPosition);
         mRecyclerView.setAdapter(mAdapter);
     }

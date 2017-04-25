@@ -48,6 +48,10 @@ public class HomeRecyclerAdapter extends RecyclerView.Adapter<HomeRecyclerAdapte
         this.booleanArray = booleanArray;
         notifyDataSetChanged();
     }
+    public void setParams(ArrayList<KingAccountNode> bookNodes) {
+        this.bookNodes = bookNodes;
+        notifyDataSetChanged();
+    }
 
 
     public void setClickListener(OnItemClickListener clickListener) {

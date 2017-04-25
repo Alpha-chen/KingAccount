@@ -1,5 +1,7 @@
 package com.account.king.presenter.contract;
 
+import android.content.Context;
+
 import com.account.king.node.KingAccountNode;
 
 import java.util.ArrayList;
@@ -16,12 +18,13 @@ public class SearchContract {
         public void selectSucces(ArrayList<KingAccountNode> arrayList);
 
         public void selectFailure();
-
+        public void setDateText(long  date);
     }
 
     public interface IPresenter {
 
-        public void select(int accountType, int start, int end, int type, String content);
+        public void select(int accountType, long start, long end, int type, String content);
 
+        public void selectDate(Context context, long selectDate);
     }
 }
