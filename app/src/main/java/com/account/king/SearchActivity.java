@@ -77,7 +77,7 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
         findViewById(R.id.search_content_lay).setOnClickListener(this);
         mSearch_content = (EditText) findViewById(R.id.search_content);
         findViewById(R.id.search_button).setOnClickListener(this);
-
+        selectIncomeType();
     }
 
     @Override

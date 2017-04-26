@@ -66,4 +66,6 @@
     <string name="search_type">类别</string>
     <string name="search_select">查询</string>
     <string name="search_select_date_tip">请输入正确的时间段</string>
+    <string name="search_result_total_money">%1$s元</string>
+    <string name="add_account">添加记账</string>
 </resources>

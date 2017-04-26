@@ -14,8 +14,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,6 +28,7 @@ import com.account.king.util.ActivityLib;
 import com.account.king.util.CalendarUtil;
 import com.account.king.util.LogUtil;
 import com.account.king.util.ToastUtil;
+import com.account.king.util.TypeUtil;
 import com.account.king.view.KeyBoardView;
 import com.account.king.view.RoundCornerImageView;
 
@@ -39,9 +38,12 @@ import pink.net.multiimageselector.utils.ImageLoadUtil;
 import pink.net.multiimageselector.utils.ImageSelector;
 import pink.net.multiimageselector.utils.MultiSelectorUtils;
 
-import static com.account.king.R.id.add_account_note;
 
-
+/**
+ * 添加记账
+ *
+ * @author king
+ */
 public class AddAccountActivity extends BaseActivity implements View.OnClickListener
         , KeyBoardView.NumClickListener, IAddAcountView {
 
@@ -52,32 +54,14 @@ public class AddAccountActivity extends BaseActivity implements View.OnClickList
     protected int activityCloseEnterAnimation;
     protected int activityCloseExitAnimation;
     private TextView costBtn, incomeBtn;
-    private int type = KingAccountNode.MONEY_OUT;
+    private int accpuntType = KingAccountNode.MONEY_OUT;
 
-    private KeyBoardView keyBoardView;
 
-    private RelativeLayout mActivity_add_account;
-    private RelativeLayout mTop_bar;
-    private TextView mAdd_type_income_btn;
-    private TextView mAdd_type_cost_btn;
-    private RelativeLayout mTitle_left;
-    private ImageView mTitle_left_image;
     private ImageView mAdd_account_done;
-    private LinearLayout mAdd_account_lay;
-    private RelativeLayout mAccount_price_lay;
-    private ImageView mAccount_price_iv;
-    private TextView mAccount_price_tv;
     private EditText mAccount_price_input;
-    private RelativeLayout mAccount_count_lay;
     private ImageView mAccount_count_iv;
-    private TextView mAccount_count_tv;
     private EditText mAccount_count_input;
-    private RelativeLayout mAccount_type_lay;
-    private ImageView mAccount_type_iv;
-    private TextView mAccount_type_tv;
     private TextView mAccount_type_select_tv;
-    private ImageView mAccount_type_select;
-    private RelativeLayout mAdd_account_click_input;
     private Button mAdd_account_time;
     private TextView mAdd_account_note;
     private RoundCornerImageView mAdd_account_select;
@@ -95,8 +79,8 @@ public class AddAccountActivity extends BaseActivity implements View.OnClickList
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        initView();
         initIntent();
+        initView();
         initPresenter();
         initViewData();
     }
@@ -111,12 +95,12 @@ public class AddAccountActivity extends BaseActivity implements View.OnClickList
             oldAccountNode = new KingAccountNode();
 //            oldAccountNode.setMoney_type(NodeUtil.MONEY_OUT);
             oldAccountNode.setYmd_hms(CalendarUtil.getNowTimeMillis());
-            mAdd_account_time.setText(CalendarUtil.TimeStamp2Date(System.currentTimeMillis()));
+
         } else {
             isEdit = true;
         }
         accountNode = (KingAccountNode) oldAccountNode.copy();
-        type = accountNode.getAccount_type();
+        accpuntType = accountNode.getAccount_type();
     }
 
     @Override
@@ -146,9 +130,9 @@ public class AddAccountActivity extends BaseActivity implements View.OnClickList
                 if (checkCallPhonePermission != PackageManager.PERMISSION_GRANTED) {
                     ActivityCompat.requestPermissions(AddAccountActivity.this,
                             new String[]{Manifest.permission.ACCESS_LOCATION_EXTRA_COMMANDS
-                                    ,Manifest.permission.ACCESS_COARSE_LOCATION
-                                    ,Manifest.permission.ACCESS_FINE_LOCATION
-                            ,Manifest.permission.ACCESS_WIFI_STATE}, REQUEST_CODE_ASK_TYPE);
+                                    , Manifest.permission.ACCESS_COARSE_LOCATION
+                                    , Manifest.permission.ACCESS_FINE_LOCATION
+                                    , Manifest.permission.ACCESS_WIFI_STATE}, REQUEST_CODE_ASK_TYPE);
                     return;
                 }
             }
@@ -178,34 +162,20 @@ public class AddAccountActivity extends BaseActivity implements View.OnClickList
         incomeBtn = (TextView) findViewById(R.id.add_type_income_btn);
         costBtn.setOnClickListener(this);
         incomeBtn.setOnClickListener(this);
-        mActivity_add_account = (RelativeLayout) findViewById(R.id.activity_add_account);
-        mTop_bar = (RelativeLayout) findViewById(R.id.top_bar);
-        mTitle_left = (RelativeLayout) findViewById(R.id.title_left);
-        mTitle_left_image = (ImageView) findViewById(R.id.title_left_image);
         mAdd_account_done = (ImageView) findViewById(R.id.add_account_done);
         mAdd_account_done.setOnClickListener(this);
-        mAdd_account_lay = (LinearLayout) findViewById(R.id.add_account_lay);
-        mAccount_price_lay = (RelativeLayout) findViewById(R.id.account_price_lay);
-        mAccount_price_iv = (ImageView) findViewById(R.id.account_price_iv);
-        mAccount_price_tv = (TextView) findViewById(R.id.account_price_tv);
         mAccount_price_input = (EditText) findViewById(R.id.account_price_input);
         mAccount_price_input.setOnClickListener(this);
-        mAccount_count_lay = (RelativeLayout) findViewById(R.id.account_count_lay);
         mAccount_count_iv = (ImageView) findViewById(R.id.account_count_iv);
         mAccount_count_iv.setOnClickListener(this);
-        mAccount_count_tv = (TextView) findViewById(R.id.account_count_tv);
         mAccount_count_input = (EditText) findViewById(R.id.account_count_input);
         mAccount_count_input.setOnClickListener(this);
         mAccount_count_input.setSelection(1);
-        mAccount_type_lay = (RelativeLayout) findViewById(R.id.account_type_lay);
-        mAccount_type_iv = (ImageView) findViewById(R.id.account_type_iv);
-        mAccount_type_tv = (TextView) findViewById(R.id.account_type_tv);
         mAccount_type_select_tv = (TextView) findViewById(R.id.account_type_select_tv);
         mAccount_type_select_tv.setOnClickListener(this);
-        mAdd_account_click_input = (RelativeLayout) findViewById(R.id.add_account_click_input);
         mAdd_account_time = (Button) findViewById(R.id.add_account_time);
         mAdd_account_time.setOnClickListener(this);
-        mAdd_account_note = (TextView) findViewById(add_account_note);
+        mAdd_account_note = (TextView) findViewById(R.id.add_account_note);
         mAdd_account_note.setOnClickListener(this);
         mAdd_account_select = (RoundCornerImageView) findViewById(R.id.add_account_select);
         mAdd_account_select.setOnClickListener(this);
@@ -215,6 +185,9 @@ public class AddAccountActivity extends BaseActivity implements View.OnClickList
         add_account_location_detail = (TextView) findViewById(R.id.add_account_location_detail);
 //        keyBoardView = (KeyBoardView) findViewById(R.id.keyboard_view);
 //        keyBoardView.setNumClickListener(this);
+        mAdd_account_time.setText(CalendarUtil.TimeStamp2Date(System.currentTimeMillis()));
+        selectType();
+
     }
 
     @Override
@@ -250,10 +223,12 @@ public class AddAccountActivity extends BaseActivity implements View.OnClickList
                 finish();
                 break;
             case R.id.add_type_cost_btn:
-                selectCostType(true);
+                accpuntType = KingAccountNode.MONEY_OUT;
+                selectType();
                 break;
             case R.id.add_type_income_btn:
-                selectIncomeType(true);
+                accpuntType = KingAccountNode.MONEY_IN;
+                selectType();
                 break;
             case R.id.account_count_input: // 点击了数量
                 inputType = 1;
@@ -267,7 +242,7 @@ public class AddAccountActivity extends BaseActivity implements View.OnClickList
             case R.id.add_account_writer_note:
                 presenter.clickWriterNote(this, accountNode);
                 break;
-            case add_account_note:
+            case R.id.add_account_note:
                 presenter.clickWriterNote(this, accountNode);
                 break;
             case R.id.account_type_select_tv:
@@ -299,6 +274,7 @@ public class AddAccountActivity extends BaseActivity implements View.OnClickList
         }
     }
 
+
     public boolean getNode() {
         String price = mAccount_price_input.getText().toString().trim();
         String count = mAccount_count_input.getText().toString().trim();
@@ -309,6 +285,7 @@ public class AddAccountActivity extends BaseActivity implements View.OnClickList
         accountNode.setCount(Double.parseDouble(count));
         accountNode.setPrice(Double.parseDouble(price));
         accountNode.setAttachment(attachment);
+        accountNode.setAccount_type(accpuntType);
         return true;
     }
 
@@ -359,7 +336,7 @@ public class AddAccountActivity extends BaseActivity implements View.OnClickList
                     if (data != null) {
                         int typeCount = data.getIntExtra(ActivityLib.INTENT_PARAM, 0);
                         accountNode.setType(typeCount);
-                        presenter.loadType(type, typeCount);
+                        presenter.loadType(accpuntType, typeCount);
                     }
                     break;
                 default:
@@ -368,26 +345,30 @@ public class AddAccountActivity extends BaseActivity implements View.OnClickList
         }
     }
 
-    public void selectCostType(boolean isSelectType) {
-        LogUtil.d(TAG, "type=" + type);
-        if (type != KingAccountNode.MONEY_OUT || !isSelectType) {
-            type = KingAccountNode.MONEY_OUT;
-            costBtn.setBackgroundResource(R.drawable.add_count_type_select);
-            costBtn.setTextColor(getResources().getColor(R.color.my_color));
-            incomeBtn.setBackgroundDrawable(null);
+    public void selectType() {
+        LogUtil.d(TAG, "accpuntType=" + accpuntType);
+        if (accpuntType == KingAccountNode.MONEY_IN) {
+            incomeBtn.setBackgroundResource(R.drawable.search_type_left_bg_press);
             incomeBtn.setTextColor(getResources().getColor(R.color.white));
+            costBtn.setBackgroundResource(R.drawable.search_type_bg);
+            costBtn.setTextColor(getResources().getColor(R.color.my_color));
+        } else if (accpuntType == KingAccountNode.MONEY_OUT) {
+            costBtn.setBackgroundResource(R.drawable.search_type_bg_press);
+            costBtn.setTextColor(getResources().getColor(R.color.white));
+            incomeBtn.setBackgroundResource(R.drawable.search_type_left_bg);
+            incomeBtn.setTextColor(getResources().getColor(R.color.my_color));
         }
+        mAccount_type_select_tv.setText(TypeUtil.getType(this, accpuntType, 0));
+    }
+
+    @Override
+    public void selectCostType(boolean isSelectType) {
+
     }
 
     public void selectIncomeType(boolean isSelectType) {
-        LogUtil.d(TAG, "type=" + type);
-        if (type != KingAccountNode.MONEY_IN || !isSelectType) {
-            type = KingAccountNode.MONEY_IN;
-            costBtn.setBackgroundDrawable(null);
-            costBtn.setTextColor(getResources().getColor(R.color.white));
-            incomeBtn.setBackgroundResource(R.drawable.add_count_type_select);
-            incomeBtn.setTextColor(getResources().getColor(R.color.my_color));
-        }
+        LogUtil.d(TAG, "accpuntType=" + accpuntType);
+
     }
 
 

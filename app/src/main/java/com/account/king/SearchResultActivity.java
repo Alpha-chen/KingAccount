@@ -4,12 +4,16 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.TextView;
 
 import com.account.king.adapter.HomeRecyclerAdapter;
 import com.account.king.node.KingAccountNode;
 import com.account.king.presenter.contract.SearchContract;
 import com.account.king.presenter.contract.presenter.SearchPresenter;
 import com.account.king.util.ActivityLib;
+import com.account.king.util.ArithUtil;
+import com.account.king.util.CalendarUtil;
+import com.account.king.util.TypeUtil;
 
 import java.util.ArrayList;
 
@@ -27,6 +31,11 @@ public class SearchResultActivity extends BaseActivity implements HomeRecyclerAd
     private long end = 0;
     private int type = 0;
     private String content;
+    private TextView mSearch_result_date;
+    private TextView mAccount_type;
+    private TextView mSearch_result_type;
+    private TextView mSearch_result_total_money;
+    private double totalMoney = 0d;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +77,20 @@ public class SearchResultActivity extends BaseActivity implements HomeRecyclerAd
         mAdapter = new HomeRecyclerAdapter(this);
         mAdapter.setClickListener(this);
         account_list.setAdapter(mAdapter);
+        mSearch_result_date = (TextView) findViewById(R.id.search_result_date);
+        mSearch_result_type = (TextView) findViewById(R.id.search_result_type);
+        mSearch_result_total_money = (TextView) findViewById(R.id.search_result_total_money);
+        mAccount_type = (TextView) findViewById(R.id.account_type);
+        mSearch_result_date.setText(CalendarUtil.getStringMD(CalendarUtil.timeMilis2Date(start)) + "~"
+                + CalendarUtil.getStringMD(CalendarUtil.timeMilis2Date(end)));
+        if (accoutType == KingAccountNode.MONEY_IN) {
+            mAccount_type.setText(getResources().getString(R.string.type_income));
+            mSearch_result_total_money.setTextColor(R.color.int_come);
+        } else {
+            mAccount_type.setText(getResources().getString(R.string.type_cost));
+            mSearch_result_total_money.setTextColor(R.color.out_come);
+        }
+        mSearch_result_type.setText(TypeUtil.getType(this, accoutType, type));
     }
 
     @Override
@@ -88,6 +111,10 @@ public class SearchResultActivity extends BaseActivity implements HomeRecyclerAd
     @Override
     public void selectSucces(ArrayList<KingAccountNode> arrayList) {
         mAdapter.setParams(arrayList);
+        for (KingAccountNode node : arrayList) {
+            totalMoney = ArithUtil.mul(node.getCount(), node.getPrice(), 2) + totalMoney;
+        }
+        mSearch_result_total_money.setText(getString(R.string.search_result_total_money, totalMoney+""));
     }
 
     @Override
