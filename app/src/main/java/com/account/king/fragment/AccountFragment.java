@@ -103,7 +103,6 @@ public class AccountFragment extends BaseFragment implements View.OnClickListene
 
     @Override
     public void selectAccountSuccess(ArrayList<KingAccountNode> accountNodes) {
-        ToastUtil.makeToast(mContext, "account.Size()=" + accountNodes.size());
 //        bookNodes.addAll(nodes);
         mBooleanArray.clear();
         this.mAccountNodes = accountNodes;
@@ -140,12 +139,9 @@ public class AccountFragment extends BaseFragment implements View.OnClickListene
 
     }
 
-    public void clearMonthTotal(Context context) {
-    }
-
     @Override
     public void seletcAccountFailure() {
-        ToastUtil.makeToast(mContext, "查询失败");
+        ToastUtil.makeToast(mContext, "还没有记账哦~");
     }
 
     @Override
@@ -170,7 +166,6 @@ public class AccountFragment extends BaseFragment implements View.OnClickListene
     @Override
     public void onItemClick(View view, int position) {
         // // TODO: 2017/3/14 进行界面跳转到详情界面
-        ToastUtil.makeToast(activity, "你点击了" + position);
         LogUtil.d(TAG, "onItemClick->position=" + position);
         Intent intent = new Intent(activity, DetailAccountActivity.class);
         intent.putExtra(ActivityLib.INTENT_PARAM, mAccountNodes.get(position));

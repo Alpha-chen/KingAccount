@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.account.king.AboutActivity;
 import com.account.king.R;
 import com.account.king.SetAccountActivity;
 
@@ -44,6 +45,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
     public void initView() {
         super.initView();
         root.findViewById(R.id.mine_setting).setOnClickListener(this);
+        root.findViewById(R.id.about).setOnClickListener(this);
     }
 
     @Override
@@ -52,6 +54,10 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
             case R.id.mine_setting:
                 Intent intent = new Intent(activity, SetAccountActivity.class);
                 activity.startActivity(intent);
+                break;
+            case R.id.about:
+                Intent intent1 = new Intent(activity, AboutActivity.class);
+                activity.startActivity(intent1);
                 break;
             default:
                 break;

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_detail_account"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -31,145 +30,191 @@
             />
     </RelativeLayout>
 
-    <TextView
-        android:id="@+id/account_date"
-        android:layout_width="wrap_content"
+    <ScrollView
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/title"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="20dp"
-        android:text="09月18日"
-        android:textColor="@color/keyboard_normal"
-        android:textSize="12sp"/>
+        >
 
-    <TextView
-        android:id="@+id/account_time"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/title"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="20dp"
-        android:layout_toRightOf="@id/account_date"
-        android:text="09月18日"
-        android:textColor="@color/keyboard_normal"
-        android:textSize="12sp"/>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-    <RelativeLayout
-        android:id="@+id/detail_money"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/account_date"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        android:layout_marginTop="10dp">
+            <TextView
+                android:id="@+id/account_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="20dp"
+                android:text="09月18日"
+                android:textColor="@color/keyboard_normal"
+                android:textSize="12sp"/>
 
-        <TextView
-            android:id="@+id/money_type_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:text="@string/account_type"/>
+            <TextView
+                android:id="@+id/account_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="20dp"
+                android:layout_toRightOf="@id/account_date"
+                android:text="09月18日"
+                android:textColor="@color/keyboard_normal"
+                android:textSize="12sp"/>
 
-        <TextView
-            android:id="@+id/money_type"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="10dp"
-            android:layout_toRightOf="@id/money_type_tv"
-            android:text="@string/account_type"/>
+            <RelativeLayout
+                android:id="@+id/detail_money"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/account_date"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="10dp">
 
-        <TextView
-            android:id="@+id/moeny"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_toRightOf="@id/money_type"
-            android:gravity="end"
-            android:text="1999999999"
-            android:textSize="@dimen/common_textSize"/>
+                <TextView
+                    android:id="@+id/money_type_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="@string/account_type"/>
 
+                <TextView
+                    android:id="@+id/money_type"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:layout_toRightOf="@id/money_type_tv"
+                    android:text="@string/account_type"/>
 
-    </RelativeLayout>
-
-    <View
-        android:id="@+id/item_dash_line"
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:layout_below="@id/detail_money"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/dash_line_hor"
-        android:layerType="software"/>
-
-    <TextView
-        android:id="@+id/price_tv"
-        style="@style/detail_accunt_text_style"
-        android:layout_below="@id/item_dash_line"
-        android:text="@string/account_price"/>
-
-    <TextView
-        android:id="@+id/price"
-        style="@style/detail_accunt_text_detail_style"
-        android:layout_below="@id/item_dash_line"
-        android:layout_toRightOf="@id/price_tv"
-        android:text="199999999"/>
-
-    <TextView
-        android:id="@+id/number_tv"
-        style="@style/detail_accunt_text_style"
-        android:layout_below="@id/price_tv"
-        android:text="@string/account_count"/>
-
-    <TextView
-        android:id="@+id/number"
-        style="@style/detail_accunt_text_detail_style"
-        android:layout_below="@id/price_tv"
-        android:layout_toRightOf="@id/price_tv"
-        android:text="199999999"/>
-
-    <TextView
-        android:id="@+id/tip_tv"
-        style="@style/detail_accunt_text_style"
-        android:layout_below="@id/number_tv"
-        android:text="@string/note"/>
-
-    <TextView
-        android:id="@+id/tip"
-        style="@style/detail_accunt_text_detail_style"
-        android:layout_below="@id/number_tv"
-        android:layout_toRightOf="@id/price_tv"
-        android:text="199999999"/>
-
-    <ImageView
-        android:id="@+id/detail_account_pic"
-        android:layout_width="150dp"
-        android:layout_height="200dp"
-        android:layout_below="@id/tip"
-        android:layout_marginLeft="15dp"
-        android:layout_marginTop="20dp"
-        android:scaleType="fitXY"
-        android:src="@drawable/photo_example"/>
-
-    <View
-        android:id="@+id/item_dash_line1"
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:layout_below="@id/detail_account_pic"
-        android:layout_marginTop="30dp"
-        android:background="@drawable/dash_line_hor"
-        android:layerType="software"/>
+                <TextView
+                    android:id="@+id/moeny"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_toRightOf="@id/money_type"
+                    android:gravity="end"
+                    android:text="1999999999"
+                    android:textSize="@dimen/common_textSize"/>
 
 
-    <Button
-        android:id="@+id/detail_account_edit"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_below="@id/item_dash_line1"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
-        android:layout_marginTop="30dp"
-        android:background="@drawable/round_bg_selector"
-        android:text="@string/edit"
-        android:textColor="@color/white"
-        android:textSize="@dimen/common_textSize"/>
+            </RelativeLayout>
+
+            <View
+                android:id="@+id/item_dash_line"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_below="@id/detail_money"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/dash_line_hor"
+                android:layerType="software"/>
+
+            <TextView
+                android:id="@+id/price_tv"
+                style="@style/detail_accunt_text_style"
+                android:layout_below="@id/item_dash_line"
+                android:text="@string/account_price"/>
+
+            <TextView
+                android:id="@+id/price"
+                style="@style/detail_accunt_text_detail_style"
+                android:layout_below="@id/item_dash_line"
+                android:layout_toRightOf="@id/price_tv"
+                android:text="199999999"/>
+
+            <TextView
+                android:id="@+id/number_tv"
+                style="@style/detail_accunt_text_style"
+                android:layout_below="@id/price_tv"
+                android:text="@string/account_count"/>
+
+            <TextView
+                android:id="@+id/number"
+                style="@style/detail_accunt_text_detail_style"
+                android:layout_below="@id/price_tv"
+                android:layout_toRightOf="@id/price_tv"
+                android:text="199999999"/>
+
+            <TextView
+                android:id="@+id/tip_tv"
+                style="@style/detail_accunt_text_style"
+                android:layout_below="@id/number_tv"
+                android:text="@string/note"/>
+
+            <TextView
+                android:id="@+id/tip"
+                style="@style/detail_accunt_text_detail_style"
+                android:layout_below="@id/number_tv"
+                android:layout_toRightOf="@id/price_tv"
+                android:text="199999999"/>
+
+            <LinearLayout
+                android:id="@+id/location_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tip"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/add_account_location"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@id/add_account_time"
+                    android:background="@drawable/ic_place_blue"/>
+
+                <TextView
+                    android:id="@+id/add_account_location_detail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@id/add_account_location"
+                    android:ellipsize="end"
+                    android:ems="6"
+                    android:singleLine="true"
+                    android:text="@string/app_name"
+                    android:textColor="@color/my_color"
+                    android:textSize="12sp"
+                    />
+
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/detail_account_pic"
+                android:layout_width="150dp"
+                android:layout_height="200dp"
+                android:layout_below="@id/location_view"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="20dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/photo_example"/>
+
+
+            <View
+                android:id="@+id/item_dash_line1"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_below="@id/detail_account_pic"
+                android:layout_marginTop="30dp"
+                android:background="@drawable/dash_line_hor"
+                android:layerType="software"/>
+
+
+            <Button
+                android:id="@+id/detail_account_edit"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_below="@id/item_dash_line1"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:layout_marginTop="30dp"
+                android:background="@drawable/round_bg_selector"
+                android:text="@string/edit"
+                android:textColor="@color/white"
+                android:textSize="@dimen/common_textSize"/>
+        </RelativeLayout>
+
+    </ScrollView>
 </RelativeLayout>

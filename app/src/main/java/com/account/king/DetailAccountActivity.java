@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.account.king.constant.WhatConstants;
@@ -38,6 +39,8 @@ public class DetailAccountActivity extends BaseActivity implements View.OnClickL
     private KingAccountNode mAccountNode;
     private DetailAccountPresenter mPresenter;
 
+    private LinearLayout location_view;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,6 +67,8 @@ public class DetailAccountActivity extends BaseActivity implements View.OnClickL
         mDetail_account_pic.setOnClickListener(this);
         mDetail_delete = (TextView) findViewById(R.id.detail_delete);
         mDetail_delete.setOnClickListener(this);
+        location_view = (LinearLayout) findViewById(R.id.location_view);
+
     }
 
     @Override
@@ -85,7 +90,7 @@ public class DetailAccountActivity extends BaseActivity implements View.OnClickL
     @Override
     public void initViewData() {
         super.initViewData();
-        mAccount_date.setText(CalendarUtil.timeMilis2Date(mAccountNode.getYmd_hms()) + "");
+        mAccount_date.setText(CalendarUtil.getStringYMD(CalendarUtil.timeMilis2Date(mAccountNode.getYmd_hms())) + "");
         mAccount_time.setText(CalendarUtil.timeMilis2Time(mAccountNode.getYmd_hms()) + "");
         String[] typeArrays = null;
         if (mAccountNode.getAccount_type() == KingAccountNode.MONEY_OUT) {
@@ -102,10 +107,18 @@ public class DetailAccountActivity extends BaseActivity implements View.OnClickL
             attachment = mAccountNode.getAttachment();
             mTip.setText(attachment.getContent());
             if (!TextUtils.isEmpty(attachment.getAttachment_path())) {
-                mDetail_account_pic.setVisibility(View.GONE);
+                mDetail_account_pic.setVisibility(View.VISIBLE);
                 GlideUtil.loadCenterCrop(this, attachment.getAttachment_path(), mDetail_account_pic);
             } else {
                 mDetail_account_pic.setVisibility(View.GONE);
+            }
+
+            if (TextUtils.isEmpty(attachment.getLocation())) {
+                location_view.setVisibility(View.GONE);
+            } else {
+                location_view.setVisibility(View.VISIBLE);
+                TextView add_account_location_detail = (TextView) findViewById(R.id.add_account_location_detail);
+                add_account_location_detail.setText(attachment.getLocation());
             }
         } else {
             mDetail_account_pic.setVisibility(View.GONE);

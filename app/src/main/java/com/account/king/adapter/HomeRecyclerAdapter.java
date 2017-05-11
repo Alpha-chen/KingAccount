@@ -108,19 +108,7 @@ public class HomeRecyclerAdapter extends RecyclerView.Adapter<HomeRecyclerAdapte
 
         long timeMilis = bookNode.getYmd_hms();
         int date = CalendarUtil.timeMilis2Date(timeMilis);
- /*       if (booleanArray.get(position, false)) {
-            holder.day.setVisibility(View.VISIBLE);
-            holder.month.setVisibility(View.VISIBLE);
-            holder.day.setText(CalendarUtil.PadZero(CalendarUtil.getDay(date)));
-            holder.month.setText(CalendarUtil.getMonth(date) + "月");
-            layoutParams.leftMargin = 0;
-            holder.dashLine.setLayoutParams(layoutParams);
-        } else {
-            holder.day.setVisibility(View.GONE);
-            holder.month.setVisibility(View.GONE);
-            layoutParams.leftMargin = leftMargin;
-            holder.dashLine.setLayoutParams(layoutParams);
-        }*/
+
         holder.day.setVisibility(View.VISIBLE);
         holder.month.setVisibility(View.VISIBLE);
         holder.day.setText(CalendarUtil.PadZero(CalendarUtil.getDay(date)));
@@ -128,12 +116,7 @@ public class HomeRecyclerAdapter extends RecyclerView.Adapter<HomeRecyclerAdapte
         layoutParams.leftMargin = 0;
         holder.dashLine.setLayoutParams(layoutParams);
         holder.home_item.setTag(position);
-        holder.home_item.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                LogUtil.d(TAG,"setOnClickListener1");
-            }
-        });
+
         holder.home_item.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -171,6 +154,7 @@ public class HomeRecyclerAdapter extends RecyclerView.Adapter<HomeRecyclerAdapte
             typeNote = (TextView) view.findViewById(R.id.item_type_note);
             otherLin = (LinearLayout) view.findViewById(R.id.account_data);
             home_item = (RelativeLayout) view.findViewById(R.id.home_item);
+
         }
     }
     public interface OnItemClickListener {

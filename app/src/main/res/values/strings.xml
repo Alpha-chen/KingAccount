@@ -68,4 +68,13 @@
     <string name="search_select_date_tip">请输入正确的时间段</string>
     <string name="search_result_total_money">%1$s元</string>
     <string name="add_account">添加记账</string>
+    <string name="about">关于我</string>
+    <string name="developer">开发者:</string>
+    <string name="developer_">金鑫沂</string>
+    <string name="zhidao">指导老师:</string>
+    <string name="zhidao_">任两品</string>
+    <string name="contact">联系邮箱:</string>
+    <string name="contact_">1402450653@qq.com</string>
+    <string name="version">版本号:</string>
+    <string name="version_">1.0</string>
 </resources>

@@ -36,16 +36,6 @@ public class WelcomeActivity extends BaseActivity implements Handler.Callback, W
         return R.layout.activity_logo;
     }
 
-    @Override
-    public void initView() {
-        super.initView();
-    }
-
-    @Override
-    public void initRMethod() {
-        super.initRMethod();
-
-    }
 
     @Override
     public void initPresenter() {

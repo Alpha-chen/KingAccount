@@ -67,6 +67,7 @@
     <color name="out_come">#fa1e30</color>
     <color name="int_come">#FF19B71C</color>
     <color name="transparent_black_20">#33000000</color>
+    <color name="red">#ff0000</color>
     <!--社区写日记界面地理位置颜色显示-->
     <color name="sns_location_display">#61bfff</color>
     <color name="diary_photo_time">#AFAFAF</color>
