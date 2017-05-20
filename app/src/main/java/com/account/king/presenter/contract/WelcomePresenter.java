@@ -41,9 +41,11 @@ public class WelcomePresenter implements WelcomeContract.IPresenter, ViewPager.O
      */
     @Override
     public void showGuide(Handler handler) {
-        context.setContentView(R.layout.activity_show_guide);
-        imgResourceId = new int[]{R.mipmap.upgrade_version_guide1,
-                R.mipmap.upgrade_version_guide1};
+//        context.setContentView(R.layout.activity_show_guide);
+        //保存版本升级图显示之后的标志
+        SPUtils.put(context, AppUtils.getVersionName(context), true);
+        mView.startMainScreen();
+        imgResourceId = new int[]{R.mipmap.upgrade_version_guide1};
         upgradeVersionViewpager = (ViewPager) context.findViewById(R.id.upgrade_version_viewpager);
         upgradeVersionViewpager.setOnPageChangeListener(this);
         upgradeVersionLay = (LinearLayout) context.findViewById(R.id.upgrade_version_lay);
