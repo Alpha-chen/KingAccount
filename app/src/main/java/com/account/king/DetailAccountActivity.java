@@ -20,6 +20,7 @@ import com.account.king.util.ArithUtil;
 import com.account.king.util.CalendarUtil;
 import com.account.king.util.LogUtil;
 import com.account.king.util.ToastUtil;
+import com.account.king.util.TypeUtil;
 import com.account.king.util.glide.GlideUtil;
 
 import static com.account.king.rxevent.RxBusEvent.REFRESH_ACCOUNT_LIST;
@@ -92,13 +93,8 @@ public class DetailAccountActivity extends BaseActivity implements View.OnClickL
         super.initViewData();
         mAccount_date.setText(CalendarUtil.getStringYMD(CalendarUtil.timeMilis2Date(mAccountNode.getYmd_hms())) + "");
         mAccount_time.setText(CalendarUtil.timeMilis2Time(mAccountNode.getYmd_hms()) + "");
-        String[] typeArrays = null;
-        if (mAccountNode.getAccount_type() == KingAccountNode.MONEY_OUT) {
-            typeArrays = getResources().getStringArray(R.array.account_outcome_type);
-        } else {
-            typeArrays = getResources().getStringArray(R.array.account_income_type);
-        }
-        mMoney_type.setText(typeArrays[mAccountNode.getType()]);
+
+        mMoney_type.setText(TypeUtil.getType(this,mAccountNode.getAccount_type(),mAccountNode.getType()));
         mMoeny.setText(ArithUtil.mul(mAccountNode.getPrice(), mAccountNode.getCount(), 2) + "");
         mPrice.setText(mAccountNode.getPrice() + "");
         mNumber.setText(mAccountNode.getCount() + "");

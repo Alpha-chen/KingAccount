@@ -107,7 +107,7 @@ public class AccountFragment extends BaseFragment implements View.OnClickListene
         mBooleanArray.clear();
         this.mAccountNodes = accountNodes;
         handBookNodes(mContext, accountNodes);
-        mAdapter.setParams(accountNodes, mBooleanArray);
+        mAdapter.setParams(accountNodes);
     }
 
 
@@ -121,26 +121,33 @@ public class AccountFragment extends BaseFragment implements View.OnClickListene
         int newYear = 0;
         int newMonth = 0;
         int newDay = 0;
-        for (int i = 0; i < mList.size(); i++) {
-            KingAccountNode vo = mList.get(i);
-            long date = vo.getYmd_hms();
-            int date1 = CalendarUtil.timeMilis2Date(date);
-            int year = CalendarUtil.getYear(date1);
-            int month = CalendarUtil.getMonth(date1);
-            int day = CalendarUtil.getDay(date1);
-            //分隔每天数据
-            if (newYear != year || newMonth != month || newDay != day) {
-                mBooleanArray.put(i, true);
-                newYear = year;
-                newMonth = month;
-                newDay = day;
+        if (null != mList && mList.size() > 0) {
+            for (int i = 0; i < mList.size(); i++) {
+                KingAccountNode vo = mList.get(i);
+                long date = vo.getYmd_hms();
+                int date1 = CalendarUtil.timeMilis2Date(date);
+                int year = CalendarUtil.getYear(date1);
+                int month = CalendarUtil.getMonth(date1);
+                int day = CalendarUtil.getDay(date1);
+                //分隔每天数据
+                if (newYear != year || newMonth != month || newDay != day) {
+                    mBooleanArray.put(i, true);
+                    newYear = year;
+                    newMonth = month;
+                    newDay = day;
+                }
             }
+
         }
 
     }
 
     @Override
     public void seletcAccountFailure() {
+        mBooleanArray.clear();
+        this.mAccountNodes = null;
+        handBookNodes(mContext, mAccountNodes);
+        mAdapter.setParams(mAccountNodes);
         ToastUtil.makeToast(mContext, "还没有记账哦~");
     }
 

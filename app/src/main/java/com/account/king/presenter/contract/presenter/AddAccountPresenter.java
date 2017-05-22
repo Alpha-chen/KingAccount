@@ -30,6 +30,7 @@ import com.account.king.rxevent.RxBusEvent;
 import com.account.king.util.ActivityLib;
 import com.account.king.util.CalendarUtil;
 import com.account.king.util.PermissionUtil;
+import com.account.king.util.TypeUtil;
 import com.account.king.util.glide.GlideUtil;
 import com.account.king.view.dialog.CalendarDialog;
 import com.amap.api.location.AMapLocation;
@@ -72,13 +73,7 @@ public class AddAccountPresenter implements AddAccountContract.IAddAcountPresent
 
     @Override
     public void loadType(int accountType, int type) {
-        String[] arrays = null;
-        if (KingAccountNode.MONEY_IN == accountType) {
-            arrays = mContext.getResources().getStringArray(R.array.account_income_type);
-        } else if (KingAccountNode.MONEY_OUT == accountType) {
-            arrays = mContext.getResources().getStringArray(R.array.account_outcome_type);
-        }
-        addAcountView.showType(arrays[type]);
+        addAcountView.showType(TypeUtil.getType(mContext,accountType,type));
     }
 
     @Override

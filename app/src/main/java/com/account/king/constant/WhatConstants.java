@@ -25,6 +25,8 @@ public interface WhatConstants {
     // 跳转到 类别选择
     interface ACCOUNT_TYPE {
         int SELECT_TYPE = 7001;
+        int ADD_TYPE_SUCCESS = SELECT_TYPE+1;
+
     }
 
 

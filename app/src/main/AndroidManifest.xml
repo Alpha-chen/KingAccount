@@ -130,6 +130,12 @@
         </activity>
         <activity android:name=".AboutActivity">
         </activity>
+        <activity android:name=".AddTypeActivity">
+        </activity>
+        <activity android:name=".StaticsActivity">
+        </activity>
+        <activity android:name=".TypeStaticsActivity">
+        </activity>
     </application>
 
 </manifest>

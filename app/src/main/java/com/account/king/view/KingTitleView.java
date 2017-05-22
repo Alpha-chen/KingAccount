@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.account.king.R;
 import com.account.king.SearchActivity;
+import com.account.king.StaticsActivity;
 import com.account.king.util.ActivityManager;
 import com.account.king.util.LogUtil;
 
@@ -159,6 +160,8 @@ public class KingTitleView extends LinearLayout implements View.OnClickListener 
                 ActivityManager.getInstance().getLastActivity().finish();
                 break;
             case R.id.title_right_text: // 右边文字的点击事件
+                Intent intent1 = new Intent(mContext, StaticsActivity.class);
+                mContext.startActivity(intent1);
                 break;
             case R.id.title_right_img: // 右边按钮的点击事件
                 Intent intent = new Intent(mContext, SearchActivity.class);

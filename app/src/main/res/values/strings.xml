@@ -7,6 +7,7 @@
     <!--添加记账-->
     <string name="type_cost">支出</string>
     <string name="type_income">收入</string>
+    <string name="all">全部</string>
 
     <string name="no_action">未找到action</string>
 
@@ -77,4 +78,7 @@
     <string name="contact_">1402450653@qq.com</string>
     <string name="version">版本号:</string>
     <string name="version_">1.0</string>
+    <string name="add_type">添加类别</string>
+    <string name="statis">统计</string>
+    <string name="time">%1$d年%2$d月%3$d日</string>
 </resources>

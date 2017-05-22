@@ -38,6 +38,7 @@ public class AccountPresenter implements AccountContract.IPresenter {
             mView.selectAccountSuccess(mAccountNodes);
             showIncomeOutCome(mAccountNodes);
         } else {
+            showIncomeOutCome(mAccountNodes);
             mView.seletcAccountFailure();
         }
     }

@@ -7,6 +7,7 @@ import com.account.king.db.DBHelper;
 import com.account.king.node.Attachment;
 import com.account.king.node.KingAccountNode;
 import com.account.king.util.KingJson;
+import com.account.king.util.LogUtil;
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.stmt.QueryBuilder;
 import com.j256.ormlite.stmt.Where;
@@ -152,6 +153,37 @@ public class KingAccountDao {
             return queryWhere(where);
         } catch (SQLException e) {
             e.printStackTrace();
+        }
+        return null;
+    }
+
+    public List<KingAccountNode> queryForIdAndTime(int accountType, long start, long end) {
+        try {
+            Where<KingAccountNode, Integer> where = getOrderByFalse().where();
+            if (accountType == 1 || accountType == 0) {
+                where.eq(KingAccountNode.ACCOUNT_TYPE, accountType);
+                where.and().between(KingAccountNode.YMD_HMS, start, end);
+            } else {
+                where.between(KingAccountNode.YMD_HMS, start, end);
+            }
+            return queryWhere(where);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            LogUtil.d("11111111111111111", e.getMessage());
+        }
+        return null;
+    }
+
+    public List<KingAccountNode> queryForType(int accountType,long start, long end, int type) {
+        try {
+            Where<KingAccountNode, Integer> where = getOrderByFalse().where();
+            where.eq(KingAccountNode.ACCOUNT_TYPE, accountType);
+            where.and().eq(KingAccountNode.TYPE, type);
+            where.and().between(KingAccountNode.YMD_HMS, start, end);
+            return queryWhere(where);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            LogUtil.d("11111111111111111", e.getMessage());
         }
         return null;
     }

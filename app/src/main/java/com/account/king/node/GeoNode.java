@@ -9,7 +9,7 @@ import java.io.Serializable;
 
 
 /**
- * SNS 所需要的location类
+ * 所需要的location类
  * Created by king
  * on 2015/12/1.
  */

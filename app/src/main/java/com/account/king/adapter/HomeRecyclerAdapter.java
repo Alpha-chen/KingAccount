@@ -4,7 +4,6 @@ import android.content.Context;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
-import android.util.SparseBooleanArray;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -18,6 +17,7 @@ import com.account.king.util.ArithUtil;
 import com.account.king.util.CalendarUtil;
 import com.account.king.util.DensityUtils;
 import com.account.king.util.LogUtil;
+import com.account.king.util.TypeUtil;
 import com.account.king.util.glide.GlideUtil;
 
 import java.util.ArrayList;
@@ -30,7 +30,6 @@ public class HomeRecyclerAdapter extends RecyclerView.Adapter<HomeRecyclerAdapte
     private String TAG = "HomeRecyclerAdapter";
     private Context context;
     private ArrayList<KingAccountNode> bookNodes;
-    private SparseBooleanArray booleanArray = new SparseBooleanArray();
 
     private RelativeLayout.LayoutParams layoutParams;
     private int leftMargin = 60;
@@ -43,16 +42,14 @@ public class HomeRecyclerAdapter extends RecyclerView.Adapter<HomeRecyclerAdapte
         leftMargin = DensityUtils.dp2px(context, leftMargin);
     }
 
-    public void setParams(ArrayList<KingAccountNode> bookNodes, SparseBooleanArray booleanArray) {
-        this.bookNodes = bookNodes;
-        this.booleanArray = booleanArray;
-        notifyDataSetChanged();
-    }
     public void setParams(ArrayList<KingAccountNode> bookNodes) {
-        this.bookNodes = bookNodes;
+        if (null == bookNodes || bookNodes.size() == 0) {
+            this.bookNodes = new ArrayList<>();
+        }else {
+            this.bookNodes = bookNodes;
+        }
         notifyDataSetChanged();
     }
-
 
     public void setClickListener(OnItemClickListener clickListener) {
         mClickListener = clickListener;
@@ -67,6 +64,9 @@ public class HomeRecyclerAdapter extends RecyclerView.Adapter<HomeRecyclerAdapte
 
     @Override
     public void onBindViewHolder(final MyViewHolder holder, final int position) {
+        if (null == bookNodes || bookNodes.size() == 0) {
+            return;
+        }
         final KingAccountNode bookNode = bookNodes.get(position);
         int moneyType = bookNode.getAccount_type();
         if (moneyType == KingAccountNode.MONEY_OUT) {
@@ -79,13 +79,8 @@ public class HomeRecyclerAdapter extends RecyclerView.Adapter<HomeRecyclerAdapte
         //类别
         String[] arrays = null;
         if (bookNode != null) {
-            if (KingAccountNode.MONEY_OUT == bookNode.getAccount_type()) {
-                arrays = context.getResources().getStringArray(R.array.account_outcome_type);
-            } else if (KingAccountNode.MONEY_IN == bookNode.getAccount_type()) {
-                arrays = context.getResources().getStringArray(R.array.account_income_type);
-            }
             holder.typeName.setVisibility(View.VISIBLE);
-            holder.typeName.setText(arrays[bookNode.getType()]);
+            holder.typeName.setText(TypeUtil.getType(context, bookNode.getAccount_type(), bookNode.getType()));
         }
 
         holder.otherLin.setVisibility(View.VISIBLE);
@@ -120,7 +115,7 @@ public class HomeRecyclerAdapter extends RecyclerView.Adapter<HomeRecyclerAdapte
         holder.home_item.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                LogUtil.d(TAG,"setOnClickListener");
+                LogUtil.d(TAG, "setOnClickListener");
                 mClickListener.onItemClick(holder.itemView, position);
             }
         });
@@ -157,6 +152,7 @@ public class HomeRecyclerAdapter extends RecyclerView.Adapter<HomeRecyclerAdapte
 
         }
     }
+
     public interface OnItemClickListener {
         void onItemClick(View view, int position);
 

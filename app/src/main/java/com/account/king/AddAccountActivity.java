@@ -20,17 +20,22 @@ import android.widget.Toast;
 import com.account.king.constant.WhatConstants;
 import com.account.king.node.Attachment;
 import com.account.king.node.KingAccountNode;
+import com.account.king.node.TypeNode;
 import com.account.king.presenter.contract.AddAccountContract.IAddAcountView;
 import com.account.king.presenter.contract.presenter.AddAccountPresenter;
 import com.account.king.rxevent.RxBus;
 import com.account.king.rxevent.RxBusEvent;
 import com.account.king.util.ActivityLib;
 import com.account.king.util.CalendarUtil;
+import com.account.king.util.KingJson;
 import com.account.king.util.LogUtil;
+import com.account.king.util.SPUtils;
 import com.account.king.util.ToastUtil;
 import com.account.king.util.TypeUtil;
 import com.account.king.view.KeyBoardView;
 import com.account.king.view.RoundCornerImageView;
+
+import java.util.ArrayList;
 
 import pink.net.multiimageselector.MultiImageSelectorActivity;
 import pink.net.multiimageselector.bean.SelectedImages;
@@ -76,6 +81,8 @@ public class AddAccountActivity extends BaseActivity implements View.OnClickList
     private boolean isEdit = false;
     private Attachment attachment = new Attachment();
 
+    private ArrayList<TypeNode> inTypeNodes = new ArrayList<>();
+    private ArrayList<TypeNode> outTypeNodes = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -113,12 +120,38 @@ public class AddAccountActivity extends BaseActivity implements View.OnClickList
             mAccount_count_input.setText(accountNode.getCount() + "");
         }
         String[] arrays = null;
-        if (KingAccountNode.MONEY_OUT == accountNode.getAccount_type()) {
+
+        String typeOut = SPUtils.getString(this, SPUtils.MONEY_TYPE_OUT, "");
+        String typeIn = SPUtils.getString(this, SPUtils.MONEY_TYPE_IN, "");
+        if (TextUtils.isEmpty(typeOut)){
             arrays = getResources().getStringArray(R.array.account_outcome_type);
-        } else if (KingAccountNode.MONEY_IN == accountNode.getAccount_type()) {
-            arrays = getResources().getStringArray(R.array.account_income_type);
+            for (int i = 0; i < arrays.length; i++) {
+                TypeNode typeNode= new TypeNode();
+                typeNode.setId(i);
+                typeNode.setName(arrays[i]);
+                outTypeNodes.add(typeNode);
+            }
+            SPUtils.put(this,SPUtils.MONEY_TYPE_OUT, KingJson.toJSON(outTypeNodes));
+        }else {
+            outTypeNodes = (ArrayList<TypeNode>) KingJson.parseArray(typeOut,TypeNode.class);
         }
-        mAccount_type_select_tv.setText(arrays[accountNode.getType()]);
+        if (TextUtils.isEmpty(typeIn)){
+            arrays = getResources().getStringArray(R.array.account_income_type);
+            for (int i = 0; i < arrays.length; i++) {
+                TypeNode typeNode= new TypeNode();
+                typeNode.setId(i);
+                typeNode.setName(arrays[i]);
+                inTypeNodes.add(typeNode);
+            }
+            SPUtils.put(this,SPUtils.MONEY_TYPE_IN, KingJson.toJSON(inTypeNodes));
+        }else {
+            inTypeNodes = (ArrayList<TypeNode>) KingJson.parseArray(typeIn,TypeNode.class);
+        }
+        if (KingAccountNode.MONEY_OUT == accountNode.getAccount_type()) {
+            mAccount_type_select_tv.setText(outTypeNodes.get(accountNode.getType()).getName());
+        } else if (KingAccountNode.MONEY_IN == accountNode.getAccount_type()) {
+            mAccount_type_select_tv.setText(inTypeNodes.get(accountNode.getType()).getName());
+        }
         mAdd_account_time.setText(CalendarUtil.getStringMD(CalendarUtil.timeMilis2Date(accountNode.getYmd_hms())));
         if (null != accountNode.getAttachment()) {
             presenter.loadNote(AddAccountActivity.this, accountNode.getAttachment().getContent());
@@ -248,6 +281,8 @@ public class AddAccountActivity extends BaseActivity implements View.OnClickList
             case R.id.account_type_select_tv:
                 Intent intent = new Intent(AddAccountActivity.this, TypeActivity.class);
                 intent.putExtra(ActivityLib.INTENT_PARAM, accountNode);
+                intent.putExtra(ActivityLib.INTENT_PARAM2, accpuntType);
+                intent.putExtra(ActivityLib.INTENT_PARAM3, accountNode.getType());
                 startActivityForResult(intent, WhatConstants.ACCOUNT_TYPE.SELECT_TYPE);
                 break;
             case R.id.add_account_select:
@@ -359,6 +394,7 @@ public class AddAccountActivity extends BaseActivity implements View.OnClickList
             incomeBtn.setTextColor(getResources().getColor(R.color.my_color));
         }
         mAccount_type_select_tv.setText(TypeUtil.getType(this, accpuntType, 0));
+        accountNode.setAccount_type(accpuntType);
     }
 
     @Override

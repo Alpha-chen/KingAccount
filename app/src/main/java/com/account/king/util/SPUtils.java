@@ -39,6 +39,9 @@ public class SPUtils {
 
     public static final String REMIND_LOCK_PASSWORD = "REMIND_LOCK_PASSWORD";
 
+    public static final String MONEY_TYPE_OUT = "money_type_out";
+    public static final String MONEY_TYPE_IN = "money_type_in";
+
     /**
      * 保存数据的方法，我们需要拿到保存数据的具体类型，然后根据类型调用不同的保存方法
      *
@@ -49,8 +52,9 @@ public class SPUtils {
     public static void put(Context context, String key, Object object) {
         put(context, FILE_NAME, key, object);
     }
+
     public static void put(Context context, String storeFile, String key, Object object) {
-        if(null==object){
+        if (null == object) {
             return;
         }
         SharedPreferences sp = context.getSharedPreferences(storeFile,
@@ -72,61 +76,76 @@ public class SPUtils {
         }
         SharedPreferencesCompat.apply(editor);
     }
+
     /**
      * 得到保存数据的方法
      */
     public static int getInt(Context context, String key) {
         return getInt(context, FILE_NAME, key);
     }
+
     public static int getInt(Context context, String storeFile, String key) {
         SharedPreferences sp = context.getSharedPreferences(storeFile,
                 Context.MODE_PRIVATE);
         return sp.getInt(key, 0);
     }
+
     public static String getString(Context context, String key) {
-        return getString(context, FILE_NAME, key,"");
+        return getString(context, FILE_NAME, key, "");
     }
+
     public static String getString(Context context, String key, String value) {
-        return getString(context, FILE_NAME, key,value);
+        return getString(context, FILE_NAME, key, value);
     }
+
     public static String getString(String storeFile, String key, Context context) {
-        return getString(context,storeFile,key,"");
+        return getString(context, storeFile, key, "");
     }
+
     public static String getString(Context context, String storeFile, String key, String value) {
         SharedPreferences sp = context.getSharedPreferences(storeFile,
                 Context.MODE_PRIVATE);
         return sp.getString(key, value);
     }
+
     public static Boolean getBoolean(Context context, String key) {
         return getBoolean(context, FILE_NAME, key);
     }
+
     public static Boolean getBoolean(Context context, String key, boolean value) {
-        return getBoolean(context, FILE_NAME, key,value);
+        return getBoolean(context, FILE_NAME, key, value);
     }
+
     public static Boolean getBoolean(Context context, String storeFile, String key) {
-        return getBoolean(context,storeFile,key,false);
+        return getBoolean(context, storeFile, key, false);
     }
+
     public static Boolean getBoolean(Context context, String storeFile, String key, boolean value) {
         SharedPreferences sp = context.getSharedPreferences(storeFile,
                 Context.MODE_PRIVATE);
         return sp.getBoolean(key, value);
     }
+
     public static Float getFloat(Context context, String key) {
-       return getFloat(context, FILE_NAME, key);
+        return getFloat(context, FILE_NAME, key);
     }
+
     public static Float getFloat(Context context, String storeFile, String key) {
         SharedPreferences sp = context.getSharedPreferences(storeFile,
                 Context.MODE_PRIVATE);
         return sp.getFloat(key, 0);
     }
+
     public static Long getLong(Context context, String key) {
         return getLong(context, FILE_NAME, key);
     }
+
     public static Long getLong(Context context, String storeFile, String key) {
         SharedPreferences sp = context.getSharedPreferences(storeFile,
                 Context.MODE_PRIVATE);
         return sp.getLong(key, 0);
     }
+
     /**
      * 移除某个key值已经对应的值
      *
@@ -134,8 +153,9 @@ public class SPUtils {
      * @param key
      */
     public static void remove(Context context, String key) {
-        remove(context,FILE_NAME,key);
+        remove(context, FILE_NAME, key);
     }
+
     public static void remove(Context context, String storeFile, String key) {
         SharedPreferences sp = context.getSharedPreferences(storeFile,
                 Context.MODE_PRIVATE);
@@ -143,6 +163,7 @@ public class SPUtils {
         editor.remove(key);
         SharedPreferencesCompat.apply(editor);
     }
+
     /**
      * 清除所有数据
      *
@@ -151,6 +172,7 @@ public class SPUtils {
     public static void clear(Context context) {
         clear(context, FILE_NAME);
     }
+
     public static void clear(Context context, String storeFile) {
         SharedPreferences sp = context.getSharedPreferences(storeFile,
                 Context.MODE_PRIVATE);
@@ -158,6 +180,7 @@ public class SPUtils {
         editor.clear();
         SharedPreferencesCompat.apply(editor);
     }
+
     /**
      * 查询某个key是否已经存在
      *
@@ -166,13 +189,15 @@ public class SPUtils {
      * @return
      */
     public static boolean contains(Context context, String key) {
-        return contains(context,FILE_NAME,key);
+        return contains(context, FILE_NAME, key);
     }
+
     public static boolean contains(Context context, String storeFile, String key) {
         SharedPreferences sp = context.getSharedPreferences(storeFile,
                 Context.MODE_PRIVATE);
         return sp.contains(key);
     }
+
     /**
      * 返回所有的键值对
      *
@@ -182,11 +207,13 @@ public class SPUtils {
     public static Map<String, ?> getAll(Context context) {
         return getAll(context, FILE_NAME);
     }
+
     public static Map<String, ?> getAll(Context context, String storeFile) {
         SharedPreferences sp = context.getSharedPreferences(storeFile,
                 Context.MODE_PRIVATE);
         return sp.getAll();
     }
+
     /**
      * 创建一个解决SharedPreferencesCompat.apply方法的一个兼容类
      *

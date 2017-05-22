@@ -114,13 +114,18 @@ public class KingAccountStorage {
      *
      * @param start
      * @param end
-     * @param note      备注
+     * @param note  备注
      * @return
      */
     public List<KingAccountNode> queryForTimeAndNoteType(int accountType, long start, long end, int type, String note) {
-
-        return bookDao.queryForIdAndNoteType(accountType,start,end,type,note);
+        return bookDao.queryForIdAndNoteType(accountType, start, end, type, note);
     }
 
+    public List<KingAccountNode> queryForTime(int accountType, long start, long end) {
+        return bookDao.queryForIdAndTime(accountType, start, end);
+    }
+    public List<KingAccountNode> queryForType(int accountType, long start, long end,int type ) {
+        return bookDao.queryForType( accountType,start, end,type);
+    }
 
 }
