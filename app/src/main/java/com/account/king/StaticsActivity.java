@@ -15,6 +15,7 @@ import com.account.king.db.storage.KingAccountStorage;
 import com.account.king.node.KingAccountNode;
 import com.account.king.rxevent.RxBusEvent;
 import com.account.king.util.ActivityLib;
+import com.account.king.util.ArithUtil;
 import com.account.king.util.CalendarUtil;
 import com.account.king.util.LogUtil;
 import com.account.king.util.PermissionUtil;
@@ -40,6 +41,11 @@ public class StaticsActivity extends BaseActivity implements View.OnClickListene
     private long start = CalendarUtil.getNowTimeMillis() - 30 * 86400;
     private long end = CalendarUtil.getNowTimeMillis();
 
+    private TextView total_in;
+    private TextView total_out;
+    private double totalIn=0;
+    private double totalOut=0;
+    private double total=0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,6 +79,8 @@ public class StaticsActivity extends BaseActivity implements View.OnClickListene
         mRecyclerView.setLayoutManager(layoutManager);
         mRecyclerView.setAdapter(mAdapter);
         mAdapter.setClickListener(this);
+        total_in = (TextView) findViewById(R.id.total_in);
+        total_out = (TextView) findViewById(R.id.total_out);
     }
 
 
@@ -87,9 +95,40 @@ public class StaticsActivity extends BaseActivity implements View.OnClickListene
         mAccountNodes =
                 (ArrayList<KingAccountNode>) mAccountStorage.queryForTime(accouType, start, end);
         if (null != mAccountNodes && mAccountNodes.size() > 0) {
+            double totalMoney= 0;
+            double totalInMoney= 0;
+            double totalOutMoney= 0;
+            for (KingAccountNode node : mAccountNodes) {
+                if (accouType ==3){
+                    if (node.getAccount_type() ==KingAccountNode.MONEY_IN){
+                        totalInMoney =  ArithUtil.mul(node.getCount(), node.getPrice(), 2) + totalInMoney;
+                    }else {
+                        totalOutMoney =  ArithUtil.mul(node.getCount(), node.getPrice(), 2) + totalOutMoney;
+                    }
+                }
+                totalMoney = ArithUtil.mul(node.getCount(), node.getPrice(), 2) + totalMoney;
+            }
+            if (accouType==KingAccountNode.MONEY_IN){
+                totalIn = totalMoney;
+                total_in.setText("共收入:"+totalIn+"元");
+                total_in.setVisibility(View.VISIBLE);
+                total_out.setVisibility(View.GONE);
+            }else if (accouType==KingAccountNode.MONEY_OUT){
+                totalOut= totalMoney;
+                total_out.setText("共支出:"+totalOut+"元");
+                total_out.setVisibility(View.VISIBLE);
+                total_in.setVisibility(View.GONE);
+            }else {
+                total_in.setText("共收入:"+totalInMoney+"元");
+                total_out.setText("共支出:"+totalOutMoney+"元");
+                total_out.setVisibility(View.VISIBLE);
+                total_in.setVisibility(View.VISIBLE);
+            }
             mAdapter.setParams(mAccountNodes);
             mAdapter.notifyDataSetChanged();
         } else {
+            total_out.setVisibility(View.GONE);
+            total_in.setVisibility(View.GONE);
             mAdapter.setParams(null);
             mAdapter.notifyDataSetChanged();
         }

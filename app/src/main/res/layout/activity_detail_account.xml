@@ -125,6 +125,7 @@
                 android:id="@+id/number_tv"
                 style="@style/detail_accunt_text_style"
                 android:layout_below="@id/price_tv"
+                android:visibility="gone"
                 android:text="@string/account_count"/>
 
             <TextView
@@ -132,6 +133,7 @@
                 style="@style/detail_accunt_text_detail_style"
                 android:layout_below="@id/price_tv"
                 android:layout_toRightOf="@id/price_tv"
+                android:visibility="gone"
                 android:text="199999999"/>
 
             <TextView

@@ -15,6 +15,7 @@ import com.account.king.db.storage.KingAccountStorage;
 import com.account.king.node.KingAccountNode;
 import com.account.king.rxevent.RxBusEvent;
 import com.account.king.util.ActivityLib;
+import com.account.king.util.ArithUtil;
 import com.account.king.util.CalendarUtil;
 import com.account.king.util.LogUtil;
 import com.account.king.util.PermissionUtil;
@@ -23,8 +24,6 @@ import com.account.king.view.dialog.CalendarDialog;
 
 import java.util.ArrayList;
 
-import static com.account.king.R.id.endTime;
-import static com.account.king.R.id.startTime;
 
 public class TypeStaticsActivity extends BaseActivity implements HomeRecyclerAdapter.OnItemClickListener, View.OnClickListener {
 
@@ -43,6 +42,8 @@ public class TypeStaticsActivity extends BaseActivity implements HomeRecyclerAda
     private KingAccountNode node = new KingAccountNode();
     private TextView title;
 
+    private TextView total;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,8 +60,8 @@ public class TypeStaticsActivity extends BaseActivity implements HomeRecyclerAda
         mType_back = (ImageView) findViewById(R.id.type_back);
         mType_back.setOnClickListener(this);
         mTime = (LinearLayout) findViewById(R.id.time);
-        mStartTime = (TextView) findViewById(startTime);
-        mEndTime = (TextView) findViewById(endTime);
+        mStartTime = (TextView) findViewById(R.id.startTime);
+        mEndTime = (TextView) findViewById(R.id.endTime);
         mStaticsRecycleView = (android.support.v7.widget.RecyclerView) findViewById(R.id.staticsRecycleView);
         mAdapter = new HomeRecyclerAdapter(this);
         mStaticsRecycleView = (RecyclerView) findViewById(R.id.staticsRecycleView);
@@ -70,6 +71,7 @@ public class TypeStaticsActivity extends BaseActivity implements HomeRecyclerAda
         mAdapter.setClickListener(this);
         mStartTime.setOnClickListener(this);
         mEndTime.setOnClickListener(this);
+        total = (TextView) findViewById(R.id.total_in);
     }
 
     @Override
@@ -99,11 +101,18 @@ public class TypeStaticsActivity extends BaseActivity implements HomeRecyclerAda
 
     public void search() {
         mAccountNodes =
-                (ArrayList<KingAccountNode>) mAccountStorage.queryForType(node.getAccount_type(),start, end, type);
+                (ArrayList<KingAccountNode>) mAccountStorage.queryForType(node.getAccount_type(), start, end, type);
         if (null != mAccountNodes && mAccountNodes.size() > 0) {
+            double totalMoney = 0;
+            for (KingAccountNode node : mAccountNodes) {
+                totalMoney = ArithUtil.mul(node.getCount(), node.getPrice(), 2) + totalMoney;
+            }
+            total.setVisibility(View.VISIBLE);
+            total.setText("共" + (node.getAccount_type() == KingAccountNode.MONEY_IN ? " 收入 " : " 支出 ") + TypeUtil.getType(this, node.getAccount_type(), type) + " " + totalMoney + " 元");
             mAdapter.setParams(mAccountNodes);
             mAdapter.notifyDataSetChanged();
         } else {
+            total.setVisibility(View.GONE);
             mAdapter.setParams(null);
             mAdapter.notifyDataSetChanged();
         }
