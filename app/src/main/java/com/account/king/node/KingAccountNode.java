@@ -19,7 +19,7 @@ import java.io.Serializable;
 // M:Mapping 映射
 
 @DatabaseTable(tableName = "king_account")
-public class KingAccountNode implements Serializable {
+    public class KingAccountNode implements Serializable {
     /**
      * id : 0
      * price : 1.8

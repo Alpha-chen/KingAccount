@@ -24,6 +24,7 @@
     <LinearLayout
         android:id="@+id/search_result_detail"
         android:layout_width="wrap_content"
+        android:visibility="gone"
         android:layout_height="wrap_content"
         android:layout_below="@id/search_result_date"
         android:layout_centerHorizontal="true"

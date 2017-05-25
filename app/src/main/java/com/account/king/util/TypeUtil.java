@@ -16,27 +16,28 @@ import java.util.ArrayList;
 
 public class TypeUtil {
 
-    public static String getType(Context context,int accountType, int type) {
+    public static String getType(Context context, int accountType, int type) {
         String[] arrays = null;
         if (KingAccountNode.MONEY_OUT == accountType) {
-            String out = SPUtils.getString(context,SPUtils.MONEY_TYPE_OUT);
-            if (TextUtils.isEmpty(out)){
+            String out = SPUtils.getString(context, SPUtils.MONEY_TYPE_OUT);
+            if (TextUtils.isEmpty(out)) {
                 arrays = context.getResources().getStringArray(R.array.account_outcome_type);
                 return arrays[type];
-            }else {
+            } else {
                 ArrayList<TypeNode> typeNodes = new ArrayList<>();
-                typeNodes  = (ArrayList<TypeNode>) KingJson.parseArray(out,TypeNode.class);
-                return typeNodes.get(type).getName();
+                typeNodes = (ArrayList<TypeNode>) KingJson.parseArray(out, TypeNode.class);
+                return type >= typeNodes.size() ?  typeNodes.get(0).getName() :typeNodes.get(type).getName();
+
             }
         } else if (KingAccountNode.MONEY_IN == accountType) {
-            String in = SPUtils.getString(context,SPUtils.MONEY_TYPE_IN);
-            if (TextUtils.isEmpty(in)){
+            String in = SPUtils.getString(context, SPUtils.MONEY_TYPE_IN);
+            if (TextUtils.isEmpty(in)) {
                 arrays = context.getResources().getStringArray(R.array.account_income_type);
                 return arrays[type];
-            }else {
+            } else {
                 ArrayList<TypeNode> typeNodes = new ArrayList<>();
-                typeNodes  = (ArrayList<TypeNode>) KingJson.parseArray(in,TypeNode.class);
-                return typeNodes.get(type).getName();
+                typeNodes = (ArrayList<TypeNode>) KingJson.parseArray(in, TypeNode.class);
+                return type >= typeNodes.size() ?  typeNodes.get(0).getName() :typeNodes.get(type).getName();
             }
         }
         return arrays[type];

@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.account.king.adapter.HomeRecyclerAdapter;
@@ -37,6 +38,7 @@ public class SearchResultActivity extends BaseActivity implements HomeRecyclerAd
     private TextView mSearch_result_total_money;
     private double totalMoney = 0d;
 
+    private LinearLayout search_result_detail;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,6 +73,7 @@ public class SearchResultActivity extends BaseActivity implements HomeRecyclerAd
     @Override
     public void initView() {
         super.initView();
+        search_result_detail = (LinearLayout) findViewById(R.id.search_result_detail);
         account_list = (RecyclerView) findViewById(R.id.account_list);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         account_list.setLayoutManager(layoutManager);
@@ -114,11 +117,13 @@ public class SearchResultActivity extends BaseActivity implements HomeRecyclerAd
         for (KingAccountNode node : arrayList) {
             totalMoney = ArithUtil.mul(node.getCount(), node.getPrice(), 2) + totalMoney;
         }
+        mSearch_result_total_money.setVisibility(View.VISIBLE);
         mSearch_result_total_money.setText(getString(R.string.search_result_total_money, totalMoney+""));
     }
 
     @Override
     public void selectFailure() {
+        mSearch_result_total_money.setVisibility(View.GONE);
 
     }
 
